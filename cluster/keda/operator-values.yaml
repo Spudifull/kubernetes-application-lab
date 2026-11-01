@@ -1,0 +1,23 @@
+# Official KEDA chart/app 2.21.0; namespace-scoped laboratory installation.
+watchNamespace: kubernetes-application-lab
+rbac:
+  # Only built-in Deployment/StatefulSet scale targets; remove */scale and
+  # get-on-all-resources rules intended for arbitrary custom scale targets.
+  enabledCustomScaledRefKinds: false
+permissions:
+  operator:
+    restrict:
+      secret: true
+  metricServer:
+    restrict:
+      secret: true
+resources:
+  operator:
+    requests: {cpu: 100m, memory: 128Mi}
+    limits: {cpu: 500m, memory: 512Mi}
+  metricServer:
+    requests: {cpu: 100m, memory: 128Mi}
+    limits: {cpu: 500m, memory: 256Mi}
+  webhooks:
+    requests: {cpu: 50m, memory: 64Mi}
+    limits: {cpu: 250m, memory: 128Mi}

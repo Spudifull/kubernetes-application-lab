@@ -1,0 +1,48 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: lab-jobs-v1
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  topicName: lab.jobs.v1
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 86400000
+    retention.bytes: 134217728
+    segment.bytes: 16777216
+    min.insync.replicas: 1
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: lab-jobs-dlq-v1
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  topicName: lab.jobs.dlq.v1
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 172800000
+    retention.bytes: 134217728
+    segment.bytes: 16777216
+    min.insync.replicas: 1
+---
+# Smoke never injects diagnostic payloads into the future worker's job stream.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: lab-smoke-v1
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  topicName: lab.smoke.v1
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 3600000
+    retention.bytes: 16777216
+    segment.bytes: 1048576
+    min.insync.replicas: 1

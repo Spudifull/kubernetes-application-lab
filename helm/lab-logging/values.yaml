@@ -1,0 +1,11 @@
+# Fixed laboratory profile; no host mounts, external exposure or application changes.
+loki:
+  image: grafana/loki:3.7.9
+  resources:
+    requests: {cpu: 100m, memory: 512Mi}
+    limits: {cpu: 500m, memory: 1Gi}
+alloy:
+  image: grafana/alloy:v1.21.3
+  resources:
+    requests: {cpu: 50m, memory: 128Mi}
+    limits: {cpu: 300m, memory: 256Mi}

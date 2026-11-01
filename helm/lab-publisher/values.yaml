@@ -1,0 +1,22 @@
+# Local content-identity image; labctl supplies and verifies the full SHA-256 tag.
+image:
+  repository: kubernetes-application-lab-publisher
+  tag: ""
+  pullPolicy: Never
+# Replicas are deliberately fixed at one. A second replica is an explicit experiment.
+replicaCount: 1
+database:
+  configMapName: lab-postgres-config
+  secretName: lab-postgres-credentials
+kafka:
+  bootstrap: lab-kafka-kafka-bootstrap.kubernetes-application-lab-kafka.svc.cluster.local:9093
+  secretName: lab-publisher-kafka
+resources:
+  requests: {cpu: 50m, memory: 64Mi}
+  limits: {cpu: 500m, memory: 128Mi}
+
+# Optional diagnostics; Collector availability never participates in readiness.
+tracing:
+  enabled: false
+  endpoint: http://lab-otel-collector.kubernetes-application-lab-observability.svc.cluster.local:4318
+  sampleRatio: 0.1

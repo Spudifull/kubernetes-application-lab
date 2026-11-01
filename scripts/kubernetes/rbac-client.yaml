@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lab-rbac-client
+  namespace: kubernetes-application-lab-policy
+  labels:
+    app.kubernetes.io/name: lab-rbac-client
+    app.kubernetes.io/part-of: kubernetes-application-lab
+spec:
+  serviceAccountName: lab-rbac-reader
+  automountServiceAccountToken: false
+  restartPolicy: Never
+  activeDeadlineSeconds: 120
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: client
+      image: curlimages/curl:8.16.0
+      imagePullPolicy: IfNotPresent
+      command: ["sh", "-ec"]
+      args:
+        - |
+          credentials=/var/run/secrets/lab-api
+          token="$(cat "$credentials/token")"
+          api=https://kubernetes.default.svc
+          own_ns=kubernetes-application-lab-policy
+          other_ns=kubernetes-application-lab
+          probe() {
+            label="$1"
+            expected="$2"
+            method="$3"
+            url="$4"
+            shift 4
+            if status="$(curl --noproxy '*' --silent --show-error --connect-timeout 3 --max-time 10 \
+              --cacert "$credentials/ca.crt" -H "Authorization: Bearer $token" \
+              -X "$method" "$@" -o /dev/null -w '%{http_code}' "$url")"; then
+              printf 'probe=%s method=%s status=%s expected=%s\n' "$label" "$method" "$status" "$expected"
+            else
+              result="$?"
+              printf 'probe=%s transport_or_tls_error curl_exit=%s\n' "$label" "$result" >&2
+              exit 1
+            fi
+            if [ "$status" != "$expected" ]; then
+              printf 'probe=%s unexpected_http_status\n' "$label" >&2
+              exit 1
+            fi
+          }
+          date -u '+time=%Y-%m-%dT%H:%M:%SZ'
+          probe own_pod_read 200 GET "$api/api/v1/namespaces/$own_ns/pods/lab-rbac-client"
+          probe secret_read_denied 403 GET "$api/api/v1/namespaces/$own_ns/secrets"
+          probe deployment_change_denied 403 PATCH "$api/apis/apps/v1/namespaces/$own_ns/deployments/lab-api" \
+            -H 'Content-Type: application/merge-patch+json' --data '{}'
+          probe other_namespace_read_denied 403 GET "$api/api/v1/namespaces/$other_ns/pods"
+      volumeMounts:
+        - name: kube-api-credentials
+          mountPath: /var/run/secrets/lab-api
+          readOnly: true
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
+      resources:
+        requests: {cpu: 10m, memory: 16Mi}
+        limits: {cpu: 100m, memory: 64Mi}
+  volumes:
+    - name: kube-api-credentials
+      projected:
+        sources:
+          - serviceAccountToken:
+              path: token
+              expirationSeconds: 600
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt

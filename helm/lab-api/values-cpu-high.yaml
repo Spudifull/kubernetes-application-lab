@@ -1,0 +1,11 @@
+# One API replica keeps before/after cgroup snapshots attributable to one container.
+replicaCount: 1
+experiments:
+  enabled: true
+resources:
+  requests:
+    cpu: 100m
+    memory: 32Mi
+  limits:
+    cpu: 1000m
+    memory: 64Mi

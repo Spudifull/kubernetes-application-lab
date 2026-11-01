@@ -1,0 +1,30 @@
+# Local content-identity image; labctl supplies and verifies the full SHA-256 tag.
+image:
+  repository: kubernetes-application-lab-worker
+  tag: ""
+  pullPolicy: Never
+# Default is one fixed replica. Multi-replica and KEDA modes are opt-in labs.
+replicaCount: 1
+autoscaling:
+  enabled: false
+  # Freeze the scaler at one replica before returning ownership to Helm.
+  paused: false
+# Explicit laboratory fault, disabled for normal deploys and recovery.
+lab:
+  crashBeforeOffsetJobID: ""
+  dlqBootstrap: ""
+database:
+  configMapName: lab-postgres-config
+  secretName: lab-postgres-credentials
+kafka:
+  bootstrap: lab-kafka-kafka-bootstrap.kubernetes-application-lab-kafka.svc.cluster.local:9093
+  secretName: lab-worker-kafka
+resources:
+  requests: {cpu: 50m, memory: 64Mi}
+  limits: {cpu: 500m, memory: 128Mi}
+
+# Optional diagnostics; Collector availability never participates in readiness.
+tracing:
+  enabled: false
+  endpoint: http://lab-otel-collector.kubernetes-application-lab-observability.svc.cluster.local:4318
+  sampleRatio: 0.1

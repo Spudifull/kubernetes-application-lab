@@ -1,0 +1,223 @@
+{
+  "rule_files": [
+    "../files/rules.json"
+  ],
+  "evaluation_interval": "30s",
+  "tests": [
+    {
+      "name": "fresh pending becomes firing only after for",
+      "interval": "30s",
+      "input_series": [
+        {
+          "series": "lab_outbox_pending_events{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "lab_outbox_oldest_pending_age_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "90+0x8"
+        },
+        {
+          "series": "lab_outbox_stats_up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "lab_outbox_stats_last_success_timestamp_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "0+30x8"
+        },
+        {
+          "series": "up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "30s",
+          "alertname": "OutboxBacklogGrowing",
+          "exp_alerts": []
+        },
+        {
+          "eval_time": "1m",
+          "alertname": "OutboxBacklogGrowing",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "kubernetes-application-lab",
+                "severity": "warning",
+                "component": "publisher",
+                "lab_alerting": "true"
+              },
+              "exp_annotations": {
+                "summary": "Fresh outbox backlog exceeds the laboratory threshold",
+                "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+                "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stale sampler is not backlog proof",
+      "interval": "30s",
+      "input_series": [
+        {
+          "series": "lab_outbox_pending_events{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "lab_outbox_oldest_pending_age_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "90+0x8"
+        },
+        {
+          "series": "lab_outbox_stats_up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "lab_outbox_stats_last_success_timestamp_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "0+0x8"
+        },
+        {
+          "series": "up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "2m",
+          "alertname": "OutboxBacklogGrowing",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "empty queue does not fire",
+      "interval": "30s",
+      "input_series": [
+        {
+          "series": "lab_outbox_pending_events{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "0+0x8"
+        },
+        {
+          "series": "lab_outbox_oldest_pending_age_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "90+0x8"
+        },
+        {
+          "series": "lab_outbox_stats_up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "lab_outbox_stats_last_success_timestamp_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "0+30x8"
+        },
+        {
+          "series": "up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\",instance=\"publisher-one\"}",
+          "values": "1+0x8"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "2m",
+          "alertname": "OutboxBacklogGrowing",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "known lag fires",
+      "interval": "30s",
+      "input_series": [
+        {
+          "series": "up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"0\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"1\"}",
+          "values": "0+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"2\"}",
+          "values": "0+0x8"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "1m",
+          "alertname": "KafkaConsumerLagHigh",
+          "exp_alerts": [
+            {
+              "exp_labels": {
+                "namespace": "kubernetes-application-lab",
+                "severity": "warning",
+                "component": "kafka",
+                "lab_alerting": "true"
+              },
+              "exp_annotations": {
+                "summary": "Known consumer lag persists",
+                "description": "Check all three partition offsets, exporter health and group members. Restore consumer progress and confirm committed offsets equal log end; missing or negative lag is unknown.",
+                "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "negative lag is unknown",
+      "interval": "30s",
+      "input_series": [
+        {
+          "series": "up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"0\"}",
+          "values": "-1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"1\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"2\"}",
+          "values": "1+0x8"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "1m",
+          "alertname": "KafkaConsumerLagHigh",
+          "exp_alerts": []
+        }
+      ]
+    },
+    {
+      "name": "missing partition is unknown",
+      "interval": "30s",
+      "input_series": [
+        {
+          "series": "up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"0\"}",
+          "values": "1+0x8"
+        },
+        {
+          "series": "kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\",partition=\"1\"}",
+          "values": "0+0x8"
+        }
+      ],
+      "alert_rule_test": [
+        {
+          "eval_time": "1m",
+          "alertname": "KafkaConsumerLagHigh",
+          "exp_alerts": []
+        }
+      ]
+    }
+  ]
+}

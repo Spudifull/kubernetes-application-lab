@@ -1,0 +1,2 @@
+# Only the monitoring client protocol changes; the API workload is unchanged.
+apiScrapeFailure: true

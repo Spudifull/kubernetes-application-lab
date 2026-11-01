@@ -1,0 +1,83 @@
+{{- if or (ne .Release.Namespace "kubernetes-application-lab-observability") (ne .Values.image.repository "kubernetes-application-lab-alert-receiver") }}
+{{- fail "alerting requires the fixed laboratory namespace and image repository" }}
+{{- end }}
+{{- if not (regexMatch "^[a-f0-9]{64}$" .Values.image.tag) }}
+{{- fail "alerting requires the recorded content-identity image tag" }}
+{{- end }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lab-alert-receiver
+  namespace: {{ .Release.Namespace }}
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab-alert-receiver
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  selector: {app.kubernetes.io/name: lab-alert-receiver}
+  ports: [{name: http, port: 8085, targetPort: http}]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-alert-receiver
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  strategy: {type: Recreate}
+  selector:
+    matchLabels: {app.kubernetes.io/name: lab-alert-receiver}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: lab-alert-receiver}
+    spec:
+      serviceAccountName: lab-alert-receiver
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 15
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: receiver
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Never
+          ports: [{name: http, containerPort: 8085}]
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+          startupProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 15
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lab-alert-receiver
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchLabels: {app.kubernetes.io/name: lab-alert-receiver}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {alertmanager: lab-monitoring-alertmanager}
+      ports: [{port: 8085, protocol: TCP}]
+  egress: []

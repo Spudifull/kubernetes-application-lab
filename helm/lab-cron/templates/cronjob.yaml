@@ -1,0 +1,82 @@
+{{- if .Values.enabled }}
+{{- if gt (len .Release.Name) 52 }}
+{{- fail "CronJob release name must not exceed 52 characters" }}
+{{- end }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "lab-cron.labels" . | nindent 4 }}
+spec:
+  schedule: {{ required "schedule is required" .Values.schedule | quote }}
+  timeZone: {{ .Values.timeZone | quote }}
+  suspend: {{ .Values.suspend }}
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 30
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "lab-cron.labels" . | nindent 8 }}
+    spec:
+      backoffLimit: {{ .Values.job.backoffLimit }}
+      activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
+      ttlSecondsAfterFinished: 3600
+      template:
+        metadata:
+          labels:
+            {{- include "lab-cron.labels" . | nindent 12 }}
+        spec:
+          serviceAccountName: {{ .Release.Name }}
+          automountServiceAccountToken: true
+          restartPolicy: Never
+          terminationGracePeriodSeconds: 10
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            seccompProfile: {type: RuntimeDefault}
+          containers:
+            - name: enqueue
+              image: {{ printf "%s:%s" .Values.image.repository (required "image.tag is required" .Values.image.tag) | quote }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              args: [enqueue-scheduled]
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: {drop: [ALL]}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+              env:
+                - name: LAB_CRON_NAME
+                  value: {{ .Release.Name | quote }}
+                - name: LAB_NAMESPACE
+                  valueFrom:
+                    fieldRef: {fieldPath: metadata.namespace}
+                - name: LAB_JOB_NAME
+                  valueFrom:
+                    fieldRef: {fieldPath: "metadata.labels['batch.kubernetes.io/job-name']"}
+                - {name: LAB_CRON_SCHEDULED_AT, value: ""}
+                - {name: LAB_CRON_HOLD_SECONDS, value: {{ .Values.lab.holdSeconds | quote }}}
+                - name: LAB_DB_HOST
+                  valueFrom:
+                    configMapKeyRef: {name: {{ .Values.database.configMapName | quote }}, key: LAB_DB_HOST}
+                - name: LAB_DB_PORT
+                  {{- if .Values.lab.databasePort }}
+                  value: {{ .Values.lab.databasePort | quote }}
+                  {{- else }}
+                  valueFrom:
+                    configMapKeyRef: {name: {{ .Values.database.configMapName | quote }}, key: LAB_DB_PORT}
+                  {{- end }}
+                - name: LAB_DB_NAME
+                  valueFrom:
+                    configMapKeyRef: {name: {{ .Values.database.configMapName | quote }}, key: POSTGRES_DB}
+                - name: LAB_DB_USER
+                  valueFrom:
+                    secretKeyRef: {name: {{ .Values.database.secretName | quote }}, key: username}
+                - name: LAB_DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef: {name: {{ .Values.database.secretName | quote }}, key: password}
+{{- end }}

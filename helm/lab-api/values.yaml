@@ -1,0 +1,37 @@
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+
+experiments:
+  enabled: false
+
+jobs:
+  enabled: false
+
+gatewayRoute:
+  enabled: false
+
+database:
+  enabled: false
+  configMapName: lab-postgres-config
+  secretName: lab-postgres-credentials
+
+image:
+  repository: kubernetes-application-lab-api
+  tag: "0.1.0"
+  pullPolicy: Never
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 250m
+    memory: 64Mi
+
+# Optional diagnostics; Collector availability never participates in readiness.
+tracing:
+  enabled: false
+  endpoint: http://lab-otel-collector.kubernetes-application-lab-observability.svc.cluster.local:4318
+  sampleRatio: 0.1

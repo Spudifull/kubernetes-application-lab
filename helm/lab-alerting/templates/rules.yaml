@@ -1,0 +1,8 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: lab-application-alerts
+  namespace: {{ .Release.Namespace }}
+  labels: {release: lab-monitoring}
+spec:
+{{ .Files.Get "files/rules.json" | fromJson | toYaml | indent 2 }}

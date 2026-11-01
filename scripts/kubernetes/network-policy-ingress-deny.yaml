@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lab-policy-ingress-deny
+  namespace: kubernetes-application-lab-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: lab-api
+      app.kubernetes.io/instance: lab-api
+  policyTypes: [Ingress]

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lab-api-hpa-cpu-load
+  namespace: kubernetes-application-lab
+  labels:
+    app.kubernetes.io/name: lab-hpa-client
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 360
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: client
+      image: kubernetes-application-lab-client:local
+      imagePullPolicy: Never
+      args:
+        - -mode=cpu-load
+        - -url=http://lab-api.kubernetes-application-lab.svc/cpu?units=50
+        - -duration=300s
+        - -interval=100ms
+        - -request-timeout=10s
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 32Mi

@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+{{- if and .Values.jobs.enabled (not .Values.database.enabled) }}
+{{- fail "jobs.enabled requires database.enabled" }}
+{{- end }}
+kind: Deployment
+metadata:
+  name: {{ include "lab-api.fullname" . }}
+  labels:
+    {{- include "lab-api.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  revisionHistoryLimit: 3
+  {{- with .Values.strategy }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .rollingUpdate.maxUnavailable }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "lab-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "lab-api.labels" . | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 20
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: api
+          image: {{ printf "%s:%s" (required "image.repository is required" .Values.image.repository) (required "image.tag is required" .Values.image.tag) | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: LAB_TRACING_ENABLED
+              value: {{ .Values.tracing.enabled | quote }}
+            - name: LAB_TRACING_ENDPOINT
+              value: {{ .Values.tracing.endpoint | quote }}
+            - name: LAB_TRACING_SAMPLE_RATIO
+              value: {{ .Values.tracing.sampleRatio | quote }}
+            - name: LAB_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          {{- if .Values.experiments.enabled }}
+            - name: LAB_ENABLE_EXPERIMENTS
+              value: "true"
+          {{- end }}
+          {{- if .Values.database.enabled }}
+            - name: LAB_DB_ENABLED
+              value: "true"
+            - name: LAB_DB_HOST
+              valueFrom:
+                configMapKeyRef: {name: {{ .Values.database.configMapName | quote }}, key: LAB_DB_HOST}
+            - name: LAB_DB_PORT
+              valueFrom:
+                configMapKeyRef: {name: {{ .Values.database.configMapName | quote }}, key: LAB_DB_PORT}
+            - name: LAB_DB_NAME
+              valueFrom:
+                configMapKeyRef: {name: {{ .Values.database.configMapName | quote }}, key: POSTGRES_DB}
+            - name: LAB_DB_USER
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.database.secretName | quote }}, key: username}
+            - name: LAB_DB_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.database.secretName | quote }}, key: password}
+          {{- end }}
+          {{- if .Values.jobs.enabled }}
+            - name: LAB_JOBS_ENABLED
+              value: "true"
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          lifecycle:
+            preStop:
+              httpGet:
+                path: /_prestop
+                port: http
+          startupProbe:
+            httpGet:
+              path: /livez
+              port: http
+            periodSeconds: 1
+            timeoutSeconds: 1
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 1
+            failureThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

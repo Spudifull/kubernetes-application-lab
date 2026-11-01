@@ -1,0 +1,3 @@
+applicationNamespace: kubernetes-application-lab
+# Deliberately use HTTPS against the HTTP API port for the scrape failure lab.
+apiScrapeFailure: false

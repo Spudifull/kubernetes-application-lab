@@ -1,0 +1,74 @@
+# If you prefer the allow list template instead of the deny list, see community template:
+# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
+#
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# env file
+.env
+
+# Local IDE metadata
+.idea/
+
+# Python bytecode caches
+__pycache__/
+*.py[cod]
+
+# Local tool caches
+.cache/
+.skill-sync-work/
+.local-image-ref
+.local-gateway-certs/
+.local-db/
+.local-kafka/
+.local-observability/
+
+# Optional locally installed public skills
+.agents/skills/
+
+# Local environment, credentials and certificates
+.env.*
+!.env.example
+!.env.sample
+.kube/
+/kubeconfig
+/kubeconfig.*
+/*.kubeconfig
+*.key
+/id_rsa
+/id_ed25519
+/.local-certs/
+/.local-auth/
+/.docker/config.json
+/.netrc
+/_netrc
+/.git-credentials
+/auth.json
+
+# Private audit and generated verification output
+/.publication-audit/
+/*-audit/
+/publication-audit.md
+/publication-manifest.json
+/*-gitleaks.json
+/scanner-triage.json
+/coverage/
+/test-results/
+/bin/

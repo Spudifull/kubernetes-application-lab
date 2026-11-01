@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: lab-monitoring
+  namespace: {{ .Release.Namespace }}
+  labels:
+    release: lab-monitoring
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: lab-observability
+spec:
+  groups:
+    - name: lab-monitoring-infrastructure
+      rules:
+        - record: lab:api_targets_up:sum
+          expr: sum(up{namespace="{{ .Values.applicationNamespace }}",service="lab-api"})
+        - alert: LabAPIMetricsUnavailable
+          expr: sum(up{namespace="{{ .Values.applicationNamespace }}",service="lab-api"}) < 1 or absent(up{namespace="{{ .Values.applicationNamespace }}",service="lab-api"})
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: API metrics cannot be scraped; application availability needs a separate probe.
+            description: Inspect ServiceMonitor selection, Service endpoints and /metrics. Recovery requires an UP target and fresh lab_build_info samples.
+            runbook_url: https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/observability-lab.md

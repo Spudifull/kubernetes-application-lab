@@ -1,0 +1,21 @@
+enabled: false
+suspend: true
+schedule: "* * * * *"
+timeZone: Etc/UTC
+job:
+  activeDeadlineSeconds: 90
+  backoffLimit: 2
+# Explicit fault controls; only CronJob Pods are affected.
+lab:
+  holdSeconds: 0
+  databasePort: ""
+image:
+  repository: kubernetes-application-lab-api
+  tag: ""
+  pullPolicy: Never
+database:
+  configMapName: lab-postgres-config
+  secretName: lab-postgres-credentials
+resources:
+  requests: {cpu: 25m, memory: 32Mi}
+  limits: {cpu: 250m, memory: 64Mi}

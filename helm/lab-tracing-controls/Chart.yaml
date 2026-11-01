@@ -1,0 +1,5 @@
+apiVersion: v2
+name: lab-tracing-controls
+description: Laboratory network boundaries for the separately owned Collector and Tempo charts
+type: application
+version: 0.1.0

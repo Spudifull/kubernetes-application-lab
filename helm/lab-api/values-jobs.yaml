@@ -1,0 +1,9 @@
+# Opt-in; no Kafka connection or client key is present in API.
+replicaCount: 1
+database:
+  enabled: true
+jobs:
+  enabled: true
+resources:
+  requests: {cpu: 50m, memory: 64Mi}
+  limits: {cpu: 500m, memory: 128Mi}

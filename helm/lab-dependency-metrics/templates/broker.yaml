@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lab-kafka-jmx-metrics
+  namespace: kubernetes-application-lab-kafka
+data:
+  metrics.yaml: |
+    lowercaseOutputName: true
+    rules:
+      - pattern: 'kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+), version=(.+)><>Count'
+        name: lab_kafka_broker_requests_total
+        type: COUNTER
+        labels: {request: "$1", version: "$2"}
+      # Bound cardinality: no client IDs, payloads or raw error messages.
+      - pattern: 'kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(.+)><>Count'
+        name: lab_kafka_broker_requests_total
+        type: COUNTER
+        labels: {request: "$1", version: "all"}
+      - pattern: 'kafka.network<type=RequestMetrics, name=ErrorsPerSec, request=(.+), error=(.+)><>Count'
+        name: lab_kafka_broker_errors_total
+        type: COUNTER
+        labels: {request: "$1", error: "$2"}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: lab-kafka-jmx
+  namespace: {{ .Release.Namespace }}
+  labels: {release: lab-monitoring}
+spec:
+  namespaceSelector:
+    matchNames: [kubernetes-application-lab-kafka]
+  selector:
+    matchLabels: {strimzi.io/name: lab-kafka-kafka}
+  podMetricsEndpoints:
+    - port: tcp-prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
+      relabelings:
+        - {targetLabel: job, replacement: lab-kafka-jmx}
+  sampleLimit: 3000
+  targetLimit: 2
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lab-postgres-metrics-ingress
+  namespace: kubernetes-application-lab
+spec:
+  podSelector:
+    matchLabels: {app.kubernetes.io/name: lab-postgres, app.kubernetes.io/instance: lab-postgres}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kubernetes-application-lab-observability}
+          podSelector:
+            matchLabels: {app.kubernetes.io/name: lab-postgres-exporter, app.kubernetes.io/instance: lab-dependency-metrics}
+      ports: [{protocol: TCP, port: 5432}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lab-kafka-metrics-ingress
+  namespace: kubernetes-application-lab-kafka
+spec:
+  podSelector:
+    matchLabels: {strimzi.io/name: lab-kafka-kafka}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kubernetes-application-lab-observability}
+          podSelector:
+            matchLabels: {prometheus: lab-monitoring-prometheus}
+      ports: [{protocol: TCP, port: 9404}]
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kubernetes-application-lab-observability}
+          podSelector:
+            matchLabels: {app.kubernetes.io/name: lab-kafka-exporter, app.kubernetes.io/instance: lab-dependency-metrics}
+      ports: [{protocol: TCP, port: 9093}]

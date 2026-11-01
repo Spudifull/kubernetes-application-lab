@@ -1,0 +1,38 @@
+# Negative admission example. Never create this Pod; use server-side dry-run only.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lab-pss-hostpid
+  namespace: kubernetes-application-lab-policy
+  labels:
+    app.kubernetes.io/name: lab-pss-hostpid
+    app.kubernetes.io/part-of: kubernetes-application-lab
+spec:
+  hostPID: true
+  restartPolicy: Never
+  activeDeadlineSeconds: 60
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: client
+      image: curlimages/curl:8.16.0
+      imagePullPolicy: IfNotPresent
+      command: [curl]
+      args: [--version]
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: [ALL]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi

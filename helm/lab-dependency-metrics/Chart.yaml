@@ -1,0 +1,6 @@
+apiVersion: v2
+name: lab-dependency-metrics
+description: Bounded read-only PostgreSQL and Kafka telemetry for the main laboratory
+type: application
+version: 0.1.0
+appVersion: "1"

@@ -1,0 +1,20 @@
+# Only for the dedicated, single-node kind-kubernetes-application-lab cluster.
+# kind's kubelet serving certificate is not validated by this lab Metrics Server.
+# Do not copy this exception to a production cluster.
+args:
+  - --kubelet-insecure-tls
+
+# Keep API server -> Metrics Server TLS verification enabled. The upstream chart
+# generates the serving certificate and APIService CA bundle for this release.
+apiService:
+  insecureSkipTLSVerify: false
+tls:
+  type: helm
+
+# Memory is bounded for the small lab node; no CPU limit is imposed here.
+resources:
+  requests:
+    cpu: 100m
+    memory: 200Mi
+  limits:
+    memory: 300Mi

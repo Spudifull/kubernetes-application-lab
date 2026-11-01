@@ -1,0 +1,27 @@
+{{- range $component := list "publisher" "worker" }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: lab-{{ $component }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    release: lab-monitoring
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/name: lab-observability
+spec:
+  namespaceSelector:
+    matchNames: [{{ $.Values.applicationNamespace | quote }}]
+  jobLabel: app.kubernetes.io/name
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lab-{{ $component }}
+      app.kubernetes.io/instance: lab-{{ $component }}
+  podMetricsEndpoints:
+    - port: health
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 5s
+  sampleLimit: 2000
+  targetLimit: 8
+{{- end }}

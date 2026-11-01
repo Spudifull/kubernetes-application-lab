@@ -1,0 +1,15 @@
+image:
+  repository: postgres
+  tag: 16.14-bookworm
+  pullPolicy: IfNotPresent
+secretName: lab-postgres-credentials
+databaseName: lab
+storageClassName: standard
+storageSize: 1Gi
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

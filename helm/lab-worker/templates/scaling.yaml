@@ -1,0 +1,59 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: {{ .Release.Name }}-kafka-lag
+  labels:
+    {{- include "lab-worker.labels" . | nindent 4 }}
+spec:
+  secretTargetRef:
+    - {parameter: ca, name: lab-keda-kafka, key: ca.crt}
+    - {parameter: cert, name: lab-keda-kafka, key: user.crt}
+    - {parameter: key, name: lab-keda-kafka, key: user.key}
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "lab-worker.labels" . | nindent 4 }}
+  {{- if .Values.autoscaling.paused }}
+  annotations:
+    autoscaling.keda.sh/paused-replicas: "1"
+  {{- end }}
+spec:
+  scaleTargetRef:
+    name: {{ .Release.Name }}
+  pollingInterval: 10
+  minReplicaCount: 1
+  maxReplicaCount: 3
+  advanced:
+    horizontalPodAutoscalerConfig:
+      name: lab-worker-kafka-lag
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 60
+          policies:
+            - {type: Pods, value: 1, periodSeconds: 30}
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - {type: Pods, value: 2, periodSeconds: 15}
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: {{ .Values.kafka.bootstrap | quote }}
+        consumerGroup: lab-workers
+        topic: lab.jobs.v1
+        lagThreshold: "3"
+        activationLagThreshold: "0"
+        offsetResetPolicy: earliest
+        allowIdleConsumers: "false"
+        # Kafka 4 removed several obsolete protocol request versions.
+        version: "4.0.0"
+        tls: enable
+        sasl: none
+        unsafeSsl: "false"
+      authenticationRef:
+        name: {{ .Release.Name }}-kafka-lag
+{{- end }}

@@ -1,0 +1,1561 @@
+version: "3"
+
+vars:
+  CLUSTER_NAME: kubernetes-application-lab
+  NAMESPACE: kubernetes-application-lab
+  IMAGE_REPOSITORY: kubernetes-application-lab-api
+  IMAGE_REF_FILE: .local-image-ref
+  VERSION: 0.1.0
+  KIND_NODE_IMAGE: kindest/node:v1.34.0@sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a
+  METRICS_SERVER_CHART_REPO: https://kubernetes-sigs.github.io/metrics-server/
+  METRICS_SERVER_CHART_VERSION: 3.14.0
+  NETWORK_CLUSTER_NAME: kubernetes-application-lab-net
+  POLICY_NAMESPACE: kubernetes-application-lab-policy
+  NAMESPACE_MANIFEST: k8s/namespace.yaml
+  CILIUM_CHART_REPO: https://helm.cilium.io/
+  CILIUM_CHART_VERSION: 1.20.3
+  ENVOY_GATEWAY_CHART: oci://docker.io/envoyproxy/gateway-helm
+  ENVOY_GATEWAY_VERSION: v1.9.2
+  REVISION:
+    sh: go run ./cmd/labctl revision
+  BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
+
+tasks:
+  alert-receiver-build:
+    desc: Build and record the internal diagnostic receiver image; no cluster changes.
+    cmds:
+      - docker build --file docker/alert-receiver.Dockerfile --tag kubernetes-application-lab-alert-receiver:build --build-arg REVISION={{.REVISION}} .
+      - go run ./cmd/labctl alert-receiver-image-record
+
+  alerting-helm-lint:
+    cmds:
+      - helm lint helm/lab-alerting --namespace kubernetes-application-lab-observability --set-string image.tag=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+  alerting-rules-test:
+    desc: Test canonical rules with local promtool or a bounded read-only Docker fallback.
+    cmds:
+      - go run ./cmd/labctl alerting-rules-test
+
+  alerting-render:
+    cmds:
+      - go run ./cmd/labctl observability --action alerts-render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  alerting-install:
+    cmds:
+      - go run ./cmd/labctl observability --action alerts-install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  alerting-status:
+    vars:
+      KEY: '{{.KEY | default "OutboxBacklogGrowing"}}'
+    cmds:
+      - go run ./cmd/labctl observability --action alerts-status --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  alerting-watch:
+    vars:
+      KEY: '{{.KEY | default "OutboxBacklogGrowing"}}'
+    desc: Observe a named alert cycle for eight minutes (DLQ twelve); follow its injection and recovery procedure.
+    cmds:
+      - go run ./cmd/labctl observability --action alerts-watch --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  api-alert-stop:
+    desc: Temporarily scale the existing fixed API Deployment from one to zero; reject HPA/KEDA ownership.
+    cmds:
+      - go run ./cmd/labctl observability --action api-alert-stop --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  api-alert-start:
+    desc: Return the paused API Deployment from zero to one, preserving its image and profile.
+    cmds:
+      - go run ./cmd/labctl observability --action api-alert-start --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  api-alert-check:
+    desc: Save an actual Service proxy /version result; KEY=healthy or unavailable.
+    vars:
+      KEY: '{{.KEY | default "healthy"}}'
+    cmds:
+      - go run ./cmd/labctl observability --action api-alert-check --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-publisher-restore:
+    desc: Restore the recorded bootstrap before Helm and retain the diagnostic tracing profile.
+    cmds:
+      - go run ./cmd/labctl publisher --action restore-tracing --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  logging-helm-lint:
+    cmds:
+      - helm lint helm/lab-logging --namespace kubernetes-application-lab-observability
+
+  logging-render:
+    desc: Render Loki, API-based Alloy collection, namespace RBAC and policies without installing.
+    cmds:
+      - go run ./cmd/labctl observability --action logging-render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  logging-install:
+    desc: Install logging after capacity, ownership and server dry-run checks; retain Loki PVC on failure.
+    cmds:
+      - go run ./cmd/labctl observability --action logging-install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  logging-status:
+    cmds:
+      - go run ./cmd/labctl observability --action logging-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  logging-query:
+    vars:
+      KEY: '{{default "" .KEY}}'
+    desc: Read up to 500 log lines for a job UUID (default saved job) within 30 minutes.
+    cmds:
+      - go run ./cmd/labctl observability --action logging-query --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  logging-verify:
+    vars:
+      KEY: '{{default "" .KEY}}'
+    desc: Require API, publisher and worker events with matching job/event/trace identity.
+    cmds:
+      - go run ./cmd/labctl observability --action logging-verify --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  logging-retry-verify:
+    vars:
+      KEY: '{{default "" .KEY}}'
+    desc: Require successful job correlation and two distinct controlled retry log events.
+    cmds:
+      - go run ./cmd/labctl observability --action logging-retry-verify --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-render:
+    desc: Render pinned Collector, Tempo and tracing network policies without installing.
+    cmds:
+      - go run ./cmd/labctl observability --action tracing-render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-install:
+    desc: Install only tracing releases after capacity, ownership and server dry-run checks; retain Tempo PVC.
+    cmds:
+      - go run ./cmd/labctl observability --action tracing-install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-status:
+    cmds:
+      - go run ./cmd/labctl observability --action tracing-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  collector-stop:
+    desc: Temporarily stop the fixed main-lab Collector; restore with collector-start, keep application profiles unchanged.
+    cmds:
+      - kubectl --context kind-kubernetes-application-lab scale deployment/lab-otel-collector --namespace kubernetes-application-lab-observability --current-replicas=1 --replicas=0
+      - kubectl --context kind-kubernetes-application-lab wait --for=delete pod --namespace kubernetes-application-lab-observability -l app.kubernetes.io/instance=lab-otel-collector --timeout=120s
+
+  collector-start:
+    desc: Restore the fixed main-lab Collector to one replica without reinstalling releases or changing storage.
+    cmds:
+      - kubectl --context kind-kubernetes-application-lab scale deployment/lab-otel-collector --namespace kubernetes-application-lab-observability --replicas=1
+      - kubectl --context kind-kubernetes-application-lab rollout status deployment/lab-otel-collector --namespace kubernetes-application-lab-observability --timeout=180s
+
+  tracing-probe:
+    desc: Send one diagnostic OTLP span and verify it in Tempo through two loopback forwards; not an application trace.
+    cmds:
+      - go run ./cmd/labctl observability --action tracing-probe --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tempo-forward:
+    cmds:
+      - go run ./cmd/labctl observability --action forward-tempo --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  collector-forward:
+    cmds:
+      - go run ./cmd/labctl observability --action forward-collector --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  dependency-metrics-helm-lint:
+    desc: Validate the isolated dependency telemetry chart without changing workloads.
+    cmds:
+      - helm lint helm/lab-dependency-metrics --namespace kubernetes-application-lab-observability
+
+  dependency-metrics-render:
+    desc: Render read-only dependency exporters and monitors for review.
+    cmds:
+      - go run ./cmd/labctl observability --action dependencies-render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  dependency-metrics-prepare:
+    desc: Explicitly prepare a dedicated SQL monitoring role and a Kafka mTLS metadata identity; credentials are not printed.
+    cmds:
+      - go run ./cmd/labctl observability --action dependencies-prepare --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  dependency-metrics-install:
+    desc: Install bounded exporters and enable JMX; this may roll the single Kafka broker/controller.
+    cmds:
+      - go run ./cmd/labctl observability --action dependencies-install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  dependency-metrics-verify:
+    desc: Require actual dependency targets and samples, with three valid partition lag series.
+    cmds:
+      - go run ./cmd/labctl observability --action dependencies-verify --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  dependency-metrics-acl-test:
+    desc: Check Kafka monitoring ACL denials with empty records and invalid partition -1; requires broker TLS port-forward on 19094.
+    cmds:
+      - go run ./cmd/labctl observability --action dependencies-acl-check --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-preflight:
+    desc: Save cluster, Helm, storage and resource evidence without changing workloads.
+    cmds:
+      - go run ./cmd/labctl observability --action preflight --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-render:
+    desc: Save pinned monitoring stack and application monitors for review.
+    cmds:
+      - go run ./cmd/labctl observability --action render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-install:
+    desc: Check ownership and capacity, then install the separate monitoring releases.
+    cmds:
+      - go run ./cmd/labctl observability --action install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-status:
+    desc: Save monitoring state, Helm revisions, images, imageIDs and events.
+    cmds:
+      - go run ./cmd/labctl observability --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-helm-lint:
+    desc: Validate the local monitoring resources chart; this does not prove scraping.
+    cmds:
+      - helm lint helm/lab-observability
+      - helm lint helm/lab-observability -f helm/lab-observability/values-scrape-failure.yaml
+
+  observability-scrape-render:
+    desc: Render only the deliberately broken scrape profile without changing resources.
+    cmds:
+      - go run ./cmd/labctl observability --action scrape-render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-scrape-fail:
+    desc: Break API metrics scraping only (HTTPS against HTTP); application traffic is unchanged.
+    cmds:
+      - go run ./cmd/labctl observability --action scrape-fail --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  observability-scrape-restore:
+    desc: Restore HTTP scraping through the existing application monitoring Helm release.
+    cmds:
+      - go run ./cmd/labctl observability --action scrape-restore --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  prometheus-targets:
+    desc: Save actual discovery and require an API target and all selected targets UP.
+    cmds:
+      - go run ./cmd/labctl observability --action targets --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  prometheus-query:
+    desc: Query actual Prometheus samples using the bounded keys documented in observability-lab.md.
+    cmds:
+      - go run ./cmd/labctl observability --action query --key {{.QUERY | default "up"}} --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  application-metrics-verify:
+    desc: Require healthy application targets and a fresh successful outbox sample, then save counters.
+    cmds:
+      - go run ./cmd/labctl observability --action application-metrics-verify --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  grafana-status:
+    desc: Check Grafana HTTP API health via the internal Service proxy.
+    cmds:
+      - go run ./cmd/labctl observability --action grafana-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  prometheus-forward:
+    desc: Forward Prometheus to loopback port 19090 for at most 12 minutes.
+    cmds:
+      - go run ./cmd/labctl observability --action forward-prometheus --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  grafana-forward:
+    desc: Forward Grafana to loopback port 13000 for at most 12 minutes.
+    cmds:
+      - go run ./cmd/labctl observability --action forward-grafana --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  alertmanager-forward:
+    desc: Forward Alertmanager to loopback port 19093 for at most 12 minutes.
+    cmds:
+      - go run ./cmd/labctl observability --action forward-alertmanager --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  test:
+    desc: Run the Go unit tests.
+    cmds:
+      - go test ./...
+
+  image-build:
+    desc: Build and record a local image tagged by its content identity.
+    cmds:
+      - >-
+        docker build --file docker/api.Dockerfile --tag {{.IMAGE_REPOSITORY}}:build
+        --build-arg VERSION={{.VERSION}}
+        --build-arg REVISION={{.REVISION}}
+        --build-arg BUILD_DATE={{.BUILD_DATE}} .
+      - go run ./cmd/labctl image-record
+
+  cluster-up:
+    desc: Create the single-node kind cluster if it does not exist.
+    status:
+      - kubectl cluster-info --context kind-{{.CLUSTER_NAME}}
+    cmds:
+      - >-
+        kind create cluster --name {{.CLUSTER_NAME}}
+        --image {{.KIND_NODE_IMAGE}}
+        --config cluster/kind/config.yaml
+
+  cluster-down:
+    desc: Delete the local kind cluster.
+    cmds:
+      - kind delete cluster --name {{.CLUSTER_NAME}}
+
+  network-cluster-up:
+    desc: Create the separate single-node kind cluster without kindnet; never alter the original cluster.
+    status:
+      - kubectl cluster-info --context kind-{{.NETWORK_CLUSTER_NAME}}
+    cmds:
+      - >-
+        kind create cluster --name {{.NETWORK_CLUSTER_NAME}}
+        --image {{.KIND_NODE_IMAGE}}
+        --config cluster/kind/network-config.yaml
+
+  network-cni-render:
+    desc: Render the pinned Cilium chart without installing it.
+    cmds:
+      - >-
+        helm template cilium cilium
+        --repo {{.CILIUM_CHART_REPO}}
+        --version {{.CILIUM_CHART_VERSION}}
+        --namespace kube-system
+        --set ipam.mode=kubernetes
+        --set image.pullPolicy=IfNotPresent
+        --set operator.replicas=1
+
+  network-cni-install:
+    desc: Install pinned Cilium only into the separate network cluster.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - >-
+        helm upgrade --install cilium cilium
+        --repo {{.CILIUM_CHART_REPO}}
+        --version {{.CILIUM_CHART_VERSION}}
+        --namespace kube-system
+        --kube-context kind-{{.NETWORK_CLUSTER_NAME}}
+        --set ipam.mode=kubernetes
+        --set image.pullPolicy=IfNotPresent
+        --set operator.replicas=1
+        --wait --timeout 300s
+
+  network-cni-status:
+    desc: Inspect the dedicated cluster, Cilium, CoreDNS and API availability.
+    cmds:
+      - docker exec {{.NETWORK_CLUSTER_NAME}}-control-plane uname -r
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get nodes -o wide
+      - helm status cilium --namespace kube-system --kube-context kind-{{.NETWORK_CLUSTER_NAME}}
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get daemonset/cilium deployment/cilium-operator deployment/coredns --namespace kube-system -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get pods --namespace kube-system -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get --raw /readyz
+
+  network-deploy:
+    desc: Deploy the recorded API image only into the dedicated network cluster.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - task: deploy-config
+        vars: {CLUSTER_NAME: kubernetes-application-lab-net, HELM_VALUES: ""}
+
+  network-smoke:
+    desc: Check Service DNS and HTTP from a temporary Pod in the network cluster.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - task: smoke-in-cluster
+        vars: {CLUSTER_NAME: kubernetes-application-lab-net}
+
+  network-diagnostics-validate:
+    desc: Validate the bounded diagnostic resources against the network cluster API without creating them.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-diagnostics-targets.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-diagnostics-client.yaml
+
+  network-diagnostics-start:
+    desc: Create bounded negative-test resources and a client only in the network cluster.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply -f scripts/kubernetes/network-diagnostics-targets.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Running pod/lab-network-unready --namespace {{.NAMESPACE}} --timeout 60s
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} create -f scripts/kubernetes/network-diagnostics-client.yaml
+
+  network-diagnostics-wait:
+    desc: Wait at most 100 seconds for the bounded diagnostic client; use status on failure.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Succeeded pod/lab-network-client --namespace {{.NAMESPACE}} --timeout 100s
+
+  network-diagnostics-status:
+    desc: Read diagnostic client output and target state without deleting evidence.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get deployment,pod,service --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-api -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-network-headless -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get pod lab-network-client lab-network-unready --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get service lab-network-headless lab-network-empty lab-network-unready --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-network-empty -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-network-unready -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} logs pod/lab-network-client --namespace {{.NAMESPACE}} --timestamps
+
+  network-diagnostics-cleanup:
+    desc: Remove only the dedicated diagnostic client, Pod and Services after saving evidence.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/network-diagnostics-client.yaml --ignore-not-found=true --wait=true
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/network-diagnostics-targets.yaml --ignore-not-found=true --wait=true
+
+  network-policy-deploy:
+    desc: Install the same API chart into an isolated policy namespace in the network cluster.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - task: deploy-config
+        vars: {CLUSTER_NAME: kubernetes-application-lab-net, NAMESPACE: kubernetes-application-lab-policy, NAMESPACE_MANIFEST: k8s/network-policy-namespace.yaml, HELM_VALUES: ""}
+
+  network-policy-validate:
+    desc: Server-validate clients and all five policies in the isolated namespace.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-policy-clients.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-policy-ingress-deny.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-policy-ingress-allow.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-policy-egress-deny.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-policy-dns-allow.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/network-policy-api-allow.yaml
+
+  network-policy-clients-start:
+    desc: Create three bounded, labelled clients for the isolated policy scenario.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} create -f scripts/kubernetes/network-policy-clients.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} wait --for=condition=Ready pod/lab-policy-allowed pod/lab-policy-blocked pod/lab-policy-egress --namespace {{.POLICY_NAMESPACE}} --timeout 90s
+
+  network-policy-test:
+    desc: Observe baseline, ingress deny/allow, then egress deny/DNS/API allow; preserve state on failure.
+    cmds:
+      - go run ./cmd/labctl network-policy-test --context kind-{{.NETWORK_CLUSTER_NAME}} --namespace {{.POLICY_NAMESPACE}}
+
+  network-policy-status:
+    desc: Preserve API, clients, labels, EndpointSlice, policies and recent events.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get deployment,pod,service --namespace {{.POLICY_NAMESPACE}} -o wide --show-labels
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get endpointslice --namespace {{.POLICY_NAMESPACE}} -l kubernetes.io/service-name=lab-api -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get networkpolicy --namespace {{.POLICY_NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get events --namespace {{.POLICY_NAMESPACE}} --sort-by=.lastTimestamp
+
+  network-policy-cleanup:
+    desc: Remove only policy experiment clients and policies after saving evidence; keep both API releases.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/network-policy-clients.yaml --ignore-not-found=true --wait=true
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/network-policy-ingress-deny.yaml -f scripts/kubernetes/network-policy-ingress-allow.yaml -f scripts/kubernetes/network-policy-egress-deny.yaml -f scripts/kubernetes/network-policy-dns-allow.yaml -f scripts/kubernetes/network-policy-api-allow.yaml --ignore-not-found=true --wait=true
+
+  gateway-controller-install:
+    desc: Install pinned Envoy Gateway and its Gateway API CRDs only in the network cluster.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - go run ./cmd/labctl gateway-preflight --context kind-{{.NETWORK_CLUSTER_NAME}}
+      - >-
+        helm upgrade --install lab-envoy-gateway {{.ENVOY_GATEWAY_CHART}}
+        --version {{.ENVOY_GATEWAY_VERSION}}
+        --namespace envoy-gateway-system --create-namespace
+        --kube-context kind-{{.NETWORK_CLUSTER_NAME}}
+        --wait --timeout 300s
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} wait --for=condition=Available deployment/envoy-gateway --namespace envoy-gateway-system --timeout 300s
+
+  gateway-infra-validate:
+    desc: Server-validate the GatewayClass, private Envoy Service configuration and Gateway.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/gateway-infra.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/gateway-https.yaml
+
+  gateway-infra-start:
+    desc: Create only laboratory Gateway infrastructure; the API chart owns its HTTPRoute.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get node {{.NETWORK_CLUSTER_NAME}}-control-plane
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply -f scripts/kubernetes/gateway-infra.yaml
+
+  gateway-route-render:
+    desc: Render the optional application HTTPRoute without changing the release.
+    cmds:
+      - helm template lab-api ./helm/lab-api --namespace {{.NAMESPACE}} --set gatewayRoute.enabled=true
+
+  gateway-route-enable:
+    desc: Add the HTTPRoute to the existing API Helm release without rebuilding its image.
+    cmds:
+      - helm status lab-api --namespace {{.NAMESPACE}} --kube-context kind-{{.NETWORK_CLUSTER_NAME}}
+      - >-
+        helm upgrade lab-api ./helm/lab-api
+        --namespace {{.NAMESPACE}} --kube-context kind-{{.NETWORK_CLUSTER_NAME}}
+        --reuse-values --set gatewayRoute.enabled=true
+        --wait --timeout 180s
+
+  gateway-cert-create:
+    desc: Generate a short-lived test CA and hostname certificate outside Git; refuse to overwrite existing keys.
+    cmds:
+      - go run ./cmd/labctl gateway-cert-create --context kind-{{.NETWORK_CLUSTER_NAME}}
+
+  gateway-tls-secret-create:
+    desc: Explicitly create the lab TLS Secret from locally ignored certificate files.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} create secret tls lab-gateway-tls --namespace {{.NAMESPACE}} --cert=.local-gateway-certs/tls.crt --key=.local-gateway-certs/tls.key
+
+  gateway-https-enable:
+    desc: Add the HTTPS listener only after the TLS Secret exists.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get secret lab-gateway-tls --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply -f scripts/kubernetes/gateway-https.yaml
+
+  gateway-status:
+    desc: Inspect controller, Gateway conditions, HTTPRoute references and private data-plane Service.
+    cmds:
+      - helm status lab-envoy-gateway --namespace envoy-gateway-system --kube-context kind-{{.NETWORK_CLUSTER_NAME}}
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get gatewayclass lab-envoy -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get gateway lab-gateway --namespace {{.NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get httproute lab-api --namespace {{.NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get service --namespace envoy-gateway-system -l gateway.envoyproxy.io/owning-gateway-name=lab-gateway,gateway.envoyproxy.io/owning-gateway-namespace={{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get deployment,pod --namespace envoy-gateway-system -o wide
+
+  gateway-forward:
+    desc: Keep a separate terminal open with localhost-only HTTP and HTTPS forwards.
+    cmds:
+      - go run ./cmd/labctl gateway-forward --context kind-{{.NETWORK_CLUSTER_NAME}}
+
+  gateway-http-test:
+    desc: Test host, exact path, backend response and X-Lab-Pod over the local HTTP forward.
+    cmds:
+      - go run ./cmd/labctl gateway-probe --context kind-{{.NETWORK_CLUSTER_NAME}} --mode http
+
+  gateway-tls-test:
+    desc: Test HTTPS with CA validation and expected rejection without the laboratory CA.
+    cmds:
+      - go run ./cmd/labctl gateway-probe --context kind-{{.NETWORK_CLUSTER_NAME}} --mode tls
+
+  gateway-negative-start:
+    desc: Create only the missing-backend and missing-listener diagnostic HTTPRoutes.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/gateway-negative-routes.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply -f scripts/kubernetes/gateway-negative-routes.yaml
+
+  gateway-negative-test:
+    desc: Check Gateway API conditions and actual responses for both diagnostic HTTPRoutes.
+    cmds:
+      - go run ./cmd/labctl gateway-probe --context kind-{{.NETWORK_CLUSTER_NAME}} --mode negative
+
+  gateway-negative-status:
+    desc: Keep controller and route diagnostics before deleting negative-test resources.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get httproute lab-missing-backend lab-missing-listener --namespace {{.NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} logs deployment/envoy-gateway --namespace envoy-gateway-system --since=10m --timestamps
+
+  gateway-negative-cleanup:
+    desc: Remove only diagnostic HTTPRoutes, preserving the Gateway and application route.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/gateway-negative-routes.yaml --ignore-not-found=true --wait=true
+
+  rbac-validate:
+    desc: Server-validate the dedicated ServiceAccount and namespace-scoped RBAC without creating them.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get namespace {{.POLICY_NAMESPACE}}
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/rbac-reader.yaml
+
+  rbac-start:
+    desc: Create only the lab RBAC identity and bounded client in the restricted policy namespace.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get deployment lab-api --namespace {{.POLICY_NAMESPACE}}
+      - task: rbac-validate
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply -f scripts/kubernetes/rbac-reader.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} apply --dry-run=server --validate=true -f scripts/kubernetes/rbac-client.yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} create -f scripts/kubernetes/rbac-client.yaml
+
+  rbac-test:
+    desc: Check impersonated permissions and real Kubernetes API responses from the restricted client.
+    cmds:
+      - go run ./cmd/labctl rbac-test --context kind-{{.NETWORK_CLUSTER_NAME}} --namespace {{.POLICY_NAMESPACE}}
+
+  rbac-status:
+    desc: Preserve RBAC resources, client state, logs and events before cleanup or troubleshooting.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get serviceaccount lab-rbac-reader --namespace {{.POLICY_NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get role lab-rbac-reader --namespace {{.POLICY_NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get rolebinding lab-rbac-reader --namespace {{.POLICY_NAMESPACE}} -o yaml
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get pod lab-rbac-client --namespace {{.POLICY_NAMESPACE}} -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} logs pod/lab-rbac-client --namespace {{.POLICY_NAMESPACE}} --timestamps
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get events --namespace {{.POLICY_NAMESPACE}} --sort-by=.lastTimestamp
+
+  rbac-cleanup:
+    desc: Remove only the temporary RBAC client after recording results; keep the scoped identity for reruns.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/rbac-client.yaml --ignore-not-found=true --wait=true
+
+  pod-security-test:
+    desc: Check restricted admission with a hostPID server dry-run and a bounded compliant Pod.
+    cmds:
+      - go run ./cmd/labctl pod-security-test --context kind-{{.NETWORK_CLUSTER_NAME}} --namespace {{.POLICY_NAMESPACE}}
+
+  pod-security-status:
+    desc: Preserve namespace enforcement, API and compliant Pod state, and recent admission events.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get namespace {{.POLICY_NAMESPACE}} --show-labels
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get deployment lab-api --namespace {{.POLICY_NAMESPACE}} -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get pod lab-pss-allowed --namespace {{.POLICY_NAMESPACE}} --ignore-not-found=true -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get pod lab-pss-hostpid --namespace {{.POLICY_NAMESPACE}} --ignore-not-found=true -o wide
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} get events --namespace {{.POLICY_NAMESPACE}} --sort-by=.lastTimestamp
+
+  pod-security-cleanup:
+    desc: Remove only the compliant diagnostic Pod after saving evidence.
+    cmds:
+      - kubectl --context kind-{{.NETWORK_CLUSTER_NAME}} delete -f scripts/kubernetes/pod-security-allowed.yaml --ignore-not-found=true --wait=true
+
+  metrics-server-render:
+    desc: Render the pinned upstream Metrics Server chart with the kind-only values; do not install.
+    cmds:
+      - >-
+        helm template metrics-server metrics-server
+        --repo {{.METRICS_SERVER_CHART_REPO}}
+        --version {{.METRICS_SERVER_CHART_VERSION}}
+        --namespace kube-system
+        -f cluster/kind/metrics-server-values.yaml
+
+  metrics-server-install:
+    desc: Install the pinned Metrics Server release only into this lab's kind cluster.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get node {{.CLUSTER_NAME}}-control-plane
+      - >-
+        helm upgrade --install metrics-server metrics-server
+        --repo {{.METRICS_SERVER_CHART_REPO}}
+        --version {{.METRICS_SERVER_CHART_VERSION}}
+        --namespace kube-system
+        --kube-context kind-{{.CLUSTER_NAME}}
+        -f cluster/kind/metrics-server-values.yaml
+        --wait --timeout 180s
+
+  metrics-server-status:
+    desc: Inspect the release, Deployment, aggregated API and recent logs without changing them.
+    cmds:
+      - helm status metrics-server --namespace kube-system --kube-context kind-{{.CLUSTER_NAME}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} get deployment metrics-server --namespace kube-system -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} describe apiservice v1beta1.metrics.k8s.io
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs deployment/metrics-server --namespace kube-system --tail=100 --timestamps
+
+  metrics-server-verify:
+    desc: Check the Metrics API and actual node and application Pod samples; requires installed Metrics Server.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} rollout status deployment/metrics-server --namespace kube-system --timeout 120s
+      - kubectl --context kind-{{.CLUSTER_NAME}} get --raw /apis/metrics.k8s.io/v1beta1/nodes
+      - kubectl --context kind-{{.CLUSTER_NAME}} get --raw /apis/metrics.k8s.io/v1beta1/namespaces/{{.NAMESPACE}}/pods
+      - kubectl --context kind-{{.CLUSTER_NAME}} top nodes
+      - kubectl --context kind-{{.CLUSTER_NAME}} top pods --namespace {{.NAMESPACE}} --containers -l app.kubernetes.io/name=lab-api,app.kubernetes.io/instance=lab-api
+
+  helm-lint:
+    desc: Check the Helm chart structure and templates.
+    cmds:
+      - helm lint helm/lab-api
+
+  jobs-helm-lint:
+    desc: Lint the opt-in jobs API and publisher charts without installation.
+    cmds:
+      - helm lint helm/lab-api -f helm/lab-api/values-jobs.yaml
+      - helm lint helm/lab-publisher --set-string image.tag=static-review
+
+  jobs-helm-render:
+    desc: Render jobs API and publisher for static review; does not install them.
+    cmds:
+      - helm template lab-api helm/lab-api -f helm/lab-api/values-jobs.yaml
+      - helm template lab-publisher helm/lab-publisher --set-string image.tag=static-review
+
+  jobs-api-deploy:
+    desc: Deploy the recorded API image with the opt-in jobs and database profile.
+    cmds:
+      - go run ./cmd/labctl deploy-image --action jobs --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-helm-lint:
+    desc: Lint the worker chart without installation.
+    cmds:
+      - helm lint helm/lab-worker --set-string image.tag=static-review
+      - helm lint helm/lab-worker --set-string image.tag=static-review --set-string lab.crashBeforeOffsetJobID=00000000-0000-4000-8000-000000000002
+
+  worker-helm-render:
+    desc: Render the restricted worker Deployment without a Service.
+    cmds:
+      - helm template lab-worker helm/lab-worker --set-string image.tag=static-review
+      - helm template lab-worker helm/lab-worker --set-string image.tag=static-review --set-string lab.crashBeforeOffsetJobID=00000000-0000-4000-8000-000000000002
+
+  worker-build:
+    desc: Build and record a separate content-identity worker image.
+    cmds:
+      - >-
+        docker build --file docker/worker.Dockerfile --tag kubernetes-application-lab-worker:build
+        --build-arg VERSION={{.VERSION}} --build-arg REVISION={{.REVISION}} --build-arg BUILD_DATE={{.BUILD_DATE}} .
+      - go run ./cmd/labctl worker-image-record
+
+  worker-secret-create:
+    desc: Copy only worker mTLS identity keys into the application namespace without printing or overwriting them.
+    cmds:
+      - go run ./cmd/labctl worker-secret-create --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-deploy:
+    desc: Deploy one worker replica using the verified recorded image.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-deploy-two:
+    desc: Set two worker replicas through Helm for the group assignment experiment.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy-two --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-deploy-crash:
+    desc: Start one worker with an abrupt pre-offset crash for the saved job; requires zero worker Pods, does not wait for readiness.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy-crash --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-stop:
+    desc: Set worker replicas to zero through Helm and wait for their Pods to stop; retain data and offsets.
+    cmds:
+      - go run ./cmd/labctl worker --action stop --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-status:
+    cmds:
+      - go run ./cmd/labctl worker --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-group-status:
+    desc: Inspect group members, assignments, committed offsets and lag from a retained read-only diagnostic Pod.
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action group-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-replay:
+    desc: Republish an already-published event using publisher credentials to test duplicate handling; optional KEY is a job UUID.
+    vars:
+      KEY: '{{.KEY | default ""}}'
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action replay --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-batch:
+    desc: Enqueue twelve distinct jobs and wait up to 90s for expected results through the local API port-forward.
+    cmds:
+      - go run ./cmd/labctl worker-batch --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-long-job:
+    desc: Enqueue an eight-second job through the local API port-forward for a controlled worker SIGTERM experiment.
+    cmds:
+      - go run ./cmd/labctl jobs-probe --action enqueue --duration 8s --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-diagnostics-cleanup:
+    desc: Delete only worker diagnostic Pods after saving evidence; never delete worker data, offsets or topics.
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action cleanup --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-sql-integration-test:
+    desc: Run the opt-in worker-effect integration test on an isolated lab_jobs_test_* PostgreSQL database.
+    cmds:
+      - go test -tags integration -count=1 -race ./internal/jobs -run '^TestPostgresWorker' -v
+
+  worker-retry-success:
+    desc: Configure two controlled failures for the saved unprocessed job; requires stopped worker.
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action retry-success --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-retry-exhaust:
+    desc: Configure three controlled failures for the saved unprocessed job; requires stopped worker.
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action retry-exhaust --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-reliability-status:
+    desc: Inspect persisted controlled failures and DLQ receipts without original payloads.
+    cmds:
+      - go run ./cmd/labctl worker-reliability-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-dlq-secret-create:
+    desc: Copy a separate read-only DLQ identity for diagnostic Pods; no credentials printed.
+    cmds:
+      - go run ./cmd/labctl worker-dlq-secret-create --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-dlq-read:
+    desc: Read the acknowledged DLQ record for the saved job; optional KEY=latest-invalid reads the newest invalid-source receipt.
+    vars:
+      KEY: '{{.KEY | default ""}}'
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action dlq-read --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-poison:
+    desc: Publish one bounded diagnostic invalid record; MODE=invalid-json, unknown-version, unknown-type, missing-job or oversized.
+    vars:
+      MODE: '{{.MODE | default "invalid-json"}}'
+    cmds:
+      - go run ./cmd/labctl worker-diagnostic --action poison --key '{{.MODE}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  worker-dlq-unreachable:
+    desc: Deploy worker with a closed address only for the separate DLQ producer; normal source consumption remains configured.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy-dlq-unreachable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-build:
+    desc: Build and record a separate content-identity publisher image.
+    cmds:
+      - >-
+        docker build --file docker/publisher.Dockerfile --tag kubernetes-application-lab-publisher:build
+        --build-arg VERSION={{.VERSION}} --build-arg REVISION={{.REVISION}} --build-arg BUILD_DATE={{.BUILD_DATE}} .
+      - go run ./cmd/labctl publisher-image-record
+
+  publisher-secret-create:
+    desc: Copy only required publisher TLS keys to the application namespace; never print or overwrite credentials.
+    cmds:
+      - go run ./cmd/labctl publisher-secret-create --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-deploy:
+    desc: Deploy the verified recorded publisher image as a separate Helm release.
+    cmds:
+      - go run ./cmd/labctl publisher --action deploy --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-status:
+    cmds:
+      - go run ./cmd/labctl publisher --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-stop:
+    desc: Pause publishing by scaling only lab-publisher to zero; retain all durable state.
+    cmds:
+      - go run ./cmd/labctl publisher --action stop --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-start:
+    desc: Restore lab-publisher to one replica after the pause experiment.
+    cmds:
+      - go run ./cmd/labctl publisher --action start --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-unreachable-start:
+    desc: Stop the old publisher, then use a closed loopback bootstrap endpoint; does not stop the broker.
+    cmds:
+      - go run ./cmd/labctl publisher --action unreachable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  publisher-unreachable-restore:
+    desc: Restore the release bootstrap through kubectl-set before Helm apply, then wait for readiness.
+    cmds:
+      - go run ./cmd/labctl publisher --action restore --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  jobs-sql-integration-test:
+    desc: Run opt-in SQL tests against an isolated lab_jobs_test_* database configured through LAB_DB_*.
+    cmds:
+      - go test -tags integration -count=1 -race ./internal/jobs -run '^TestPostgresOutbox$' -v
+
+  job-enqueue:
+    desc: Enqueue one job through local API port-forward; optionally provide KEY.
+    vars:
+      KEY: '{{.KEY | default ""}}'
+    cmds:
+      - go run ./cmd/labctl jobs-probe --action enqueue --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  jobs-concurrent-test:
+    desc: Send eight simultaneous real HTTP requests with one key and check a different-content conflict.
+    cmds:
+      - go run ./cmd/labctl jobs-probe --action concurrent --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  job-status:
+    desc: Read the saved job locator or an explicit job UUID in KEY.
+    vars:
+      KEY: '{{.KEY | default ""}}'
+    cmds:
+      - go run ./cmd/labctl jobs-probe --action get --key '{{.KEY}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  outbox-status:
+    desc: Read bounded PostgreSQL job/outbox diagnostics without payloads or credentials.
+    cmds:
+      - go run ./cmd/labctl outbox-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-preflight:
+    desc: Collect read-only capacity, storage and workload evidence before Kafka installation; never approve capacity automatically.
+    cmds:
+      - go run ./cmd/labctl kafka-preflight --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-strimzi-render:
+    desc: Render the pinned Strimzi operator with namespace-scoped watching and pinned images.
+    cmds:
+      - go run ./cmd/labctl kafka-strimzi --action render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-strimzi-install:
+    desc: Install Strimzi separately in the main cluster after resource review; never delete namespaces or data.
+    cmds:
+      - go run ./cmd/labctl kafka-strimzi --action install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-strimzi-status:
+    desc: Inspect the Strimzi operator and recent logs without reading Secret contents.
+    cmds:
+      - go run ./cmd/labctl kafka-strimzi --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-bootstrap:
+    desc: Validate and apply Kafka KRaft, topics and mTLS users, then wait for Ready.
+    cmds:
+      - go run ./cmd/labctl kafka-bootstrap --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-status:
+    desc: Capture Kafka/node pool/topic/user status, broker UID/imageID, PVCs, Services and events.
+    cmds:
+      - go run ./cmd/labctl kafka-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-topics-status:
+    desc: Capture topic partition/replication/retention configuration alongside Kafka state.
+    cmds:
+      - task: kafka-status
+
+  kafka-probe-build:
+    desc: Build and record the bounded Go mTLS Kafka probe image by content identity.
+    cmds:
+      - docker build --file docker/kafka-probe.Dockerfile --tag kubernetes-application-lab-kafka-probe:build .
+      - go run ./cmd/labctl kafka-probe-image-record
+
+  kafka-smoke:
+    desc: Publish and consume one acknowledged record on a dedicated smoke topic; retain the diagnostic Pod.
+    cmds:
+      - go run ./cmd/labctl kafka-smoke --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-smoke-write:
+    desc: Publish a retention marker and retain its exact offset locally for a later read.
+    cmds:
+      - go run ./cmd/labctl kafka-smoke --action write --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-smoke-read:
+    desc: Read the saved smoke marker at its exact acknowledged offset; never publish a replacement marker.
+    cmds:
+      - go run ./cmd/labctl kafka-smoke --action read --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-broker-restart:
+    desc: Replace only the single broker Pod; compare node ID, PVC UID and PV without deleting storage.
+    cmds:
+      - go run ./cmd/labctl kafka-broker-restart --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-broker-outage-start:
+    desc: Save recovery identities, stop the single Cluster Operator and remove only the broker Pod; retain CRs, PVCs, topics and offsets.
+    cmds:
+      - go run ./cmd/labctl kafka-broker-outage --action start --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-broker-outage-status:
+    desc: Inspect operator/broker Pod absence, retained storage and bootstrap endpoints without contacting Kafka.
+    cmds:
+      - go run ./cmd/labctl kafka-broker-outage --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-broker-outage-restore:
+    desc: Restore the saved operator replica count, wait for a Ready broker and compare resource/PVC/PV/node identities; retain an archived recovery snapshot.
+    cmds:
+      - go run ./cmd/labctl kafka-broker-outage --action restore --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  kafka-smoke-cleanup:
+    desc: Delete only labeled diagnostic Kafka smoke Pods after recording evidence; retain topics, PVCs and Secrets.
+    cmds:
+      - go run ./cmd/labctl kafka-smoke-cleanup --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-helm-lint:
+    desc: Validate the separate PostgreSQL chart and opt-in API profile.
+    cmds:
+      - helm lint helm/lab-postgres
+      - helm lint helm/lab-api -f helm/lab-api/values-db.yaml
+
+  db-helm-render:
+    desc: Render the PostgreSQL chart and opt-in API profile without installing.
+    cmds:
+      - helm template lab-postgres helm/lab-postgres --namespace {{.NAMESPACE}}
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}} -f helm/lab-api/values-db.yaml
+
+  db-preflight:
+    desc: Check the explicit kind StorageClass and its reclaim policy.
+    cmds:
+      - go run ./cmd/labctl db-preflight --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-secret-create:
+    desc: Generate ignored local credentials and create a Kubernetes Secret without printing them.
+    cmds:
+      - go run ./cmd/labctl db-secret-create --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-deploy:
+    desc: Install the independent PostgreSQL Helm release; never delete PVCs.
+    cmds:
+      - go run ./cmd/labctl db-deploy --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-status:
+    desc: Inspect PostgreSQL StatefulSet, Pod, PVC and events without exposing Secret values.
+    cmds:
+      - go run ./cmd/labctl db-status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-migrate:
+    desc: Start a bounded migration Job using the recorded API image.
+    cmds:
+      - go run ./cmd/labctl db-migrate --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-migrate-fail:
+    desc: Start an intentionally failing transactional migration Job and preserve its logs.
+    cmds:
+      - go run ./cmd/labctl db-migrate --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action fail
+
+  db-migrate-status:
+    desc: List migration Jobs and their Pods; use the printed Job name to inspect logs.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get job,pod --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-db-migration -o wide
+
+  db-api-deploy:
+    desc: Deploy the opt-in API database profile after successful migration.
+    cmds:
+      - task: deploy-config
+        vars: {HELM_VALUES: "-f helm/lab-api/values-db.yaml", DEPLOY_PROFILE: db}
+
+  db-record-put:
+    desc: Store a bounded control record via the API; set KEY and VALUE.
+    cmds:
+      - go run ./cmd/labctl db-record --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action put --key {{.KEY}} --value {{.VALUE}}
+
+  db-record-get:
+    desc: Read the control record via the API; set KEY.
+    cmds:
+      - go run ./cmd/labctl db-record --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action get --key {{.KEY}}
+
+  db-pod-restart:
+    desc: Delete only the PostgreSQL Pod and wait for StatefulSet replacement; PVC remains.
+    cmds:
+      - go run ./cmd/labctl db-pod-restart --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-failure-start:
+    desc: Scale PostgreSQL to zero without deleting its PVC; restore explicitly afterward.
+    cmds:
+      - go run ./cmd/labctl db-failure --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action start
+
+  db-failure-restore:
+    desc: Restore the PostgreSQL StatefulSet to one Pod after dependency failure test.
+    cmds:
+      - go run ./cmd/labctl db-failure --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action restore
+
+  db-backup:
+    desc: Stream pg_dump custom archive outside the database Pod to ignored local storage.
+    cmds:
+      - go run ./cmd/labctl db-backup --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-restore:
+    desc: Restore backup into isolated lab_restore database and verify KEY.
+    cmds:
+      - go run ./cmd/labctl db-restore --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --key {{.KEY}}
+
+  db-restore-cleanup:
+    desc: Explicitly drop only the isolated restored database; primary DB and PVC remain.
+    cmds:
+      - go run ./cmd/labctl db-restore-cleanup --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  db-bad-credentials-start:
+    desc: Create an isolated API release with deliberately wrong Secret; working Secret is untouched.
+    cmds:
+      - go run ./cmd/labctl db-bad-credentials --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action start
+
+  db-bad-credentials-status:
+    desc: Inspect isolated API Pod readiness and sanitized authentication diagnostics.
+    cmds:
+      - go run ./cmd/labctl db-bad-credentials --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action status
+
+  db-bad-credentials-cleanup:
+    desc: Remove only the isolated API release and its wrong Secret after evidence capture.
+    cmds:
+      - go run ./cmd/labctl db-bad-credentials --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action cleanup
+
+  helm-lint-rollout:
+    desc: Check the two-replica rollout profile.
+    cmds:
+      - helm lint helm/lab-api -f helm/lab-api/values-rollout.yaml
+
+  helm-lint-cpu-high:
+    desc: Check the high CPU-limit experiment profile.
+    cmds:
+      - helm lint helm/lab-api -f helm/lab-api/values-cpu-high.yaml
+
+  helm-lint-cpu-low:
+    desc: Check the low CPU-limit experiment profile.
+    cmds:
+      - helm lint helm/lab-api -f helm/lab-api/values-cpu-low.yaml
+
+  helm-lint-hpa:
+    desc: Check the CPU autoscaling experiment profile.
+    cmds:
+      - helm lint helm/lab-api -f helm/lab-api/values-hpa.yaml
+
+  helm-render:
+    desc: Render the default Deployment and Service without installing them.
+    cmds:
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}}
+
+  helm-render-rollout:
+    desc: Render the two-replica rollout profile.
+    cmds:
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}} -f helm/lab-api/values-rollout.yaml
+
+  helm-render-cpu-high:
+    desc: Render the high CPU-limit experiment profile.
+    cmds:
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}} -f helm/lab-api/values-cpu-high.yaml
+
+  helm-render-cpu-low:
+    desc: Render the low CPU-limit experiment profile.
+    cmds:
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}} -f helm/lab-api/values-cpu-low.yaml
+
+  helm-render-hpa:
+    desc: Render the HPA and Deployment without a fixed replica count.
+    cmds:
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}} -f helm/lab-api/values-hpa.yaml
+
+  helm-status:
+    desc: Show the installed Helm release status.
+    cmds:
+      - helm status lab-api --namespace {{.NAMESPACE}} --kube-context kind-{{.CLUSTER_NAME}}
+
+  helm-history:
+    desc: Show the Helm release revision history.
+    cmds:
+      - helm history lab-api --namespace {{.NAMESPACE}} --kube-context kind-{{.CLUSTER_NAME}}
+
+  deploy:
+    desc: Prepare the namespace and install or upgrade the Helm release with the recorded image.
+    cmds:
+      - task: deploy-config
+        vars: {HELM_VALUES: ""}
+
+  deploy-rollout:
+    desc: Install or upgrade the two-replica rollout profile with the recorded image.
+    cmds:
+      - task: deploy-config
+        vars: {HELM_VALUES: "-f helm/lab-api/values-rollout.yaml", DEPLOY_PROFILE: rollout}
+
+  deploy-cpu-high:
+    desc: Deploy one experimental API replica with a 1000m CPU limit.
+    cmds:
+      - task: deploy-config
+        vars: {HELM_VALUES: "-f helm/lab-api/values-cpu-high.yaml", DEPLOY_PROFILE: cpu-high}
+
+  deploy-cpu-low:
+    desc: Deploy one experimental API replica with a 100m CPU limit.
+    cmds:
+      - task: deploy-config
+        vars: {HELM_VALUES: "-f helm/lab-api/values-cpu-low.yaml", DEPLOY_PROFILE: cpu-low}
+
+  deploy-hpa:
+    desc: Enable HPA ownership and wait for two initially ready API replicas.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} top nodes
+      - task: deploy-config
+        vars: {HELM_VALUES: "-f helm/lab-api/values-hpa.yaml", DEPLOY_PROFILE: hpa}
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.readyReplicas}'=2 deployment/lab-api --namespace {{.NAMESPACE}} --timeout 180s
+
+  keda-preflight:
+    desc: Inspect node budgets and existing scaling or External Metrics ownership.
+    cmds:
+      - go run ./cmd/labctl keda --action preflight --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-render:
+    desc: Render pinned official KEDA chart to an ignored local file for review.
+    cmds:
+      - go run ./cmd/labctl keda --action render --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-install:
+    desc: Install the reviewed official KEDA 2.21.0 chart in the application namespace.
+    cmds:
+      - go run ./cmd/labctl keda --action install --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-identity-create:
+    desc: Create a dedicated Describe-only Kafka identity for lag observation.
+    cmds:
+      - go run ./cmd/labctl keda --action identity --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-secret-create:
+    desc: Copy only CA and KEDA client certificate keys without printing credentials.
+    cmds:
+      - go run ./cmd/labctl keda --action secret --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-status:
+    desc: Inspect KEDA, HPA, External Metrics and worker replica state.
+    cmds:
+      - go run ./cmd/labctl keda --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-enable:
+    desc: Let KEDA control one to three worker replicas by consumer lag.
+    cmds:
+      - go run ./cmd/labctl keda --action enable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-disable:
+    desc: Pause scaling, return to one replica, remove HPA and restore fixed Helm ownership.
+    cmds:
+      - go run ./cmd/labctl keda --action disable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-load:
+    desc: Enqueue thirty eight-second jobs and wait up to five minutes for results.
+    cmds:
+      - go run ./cmd/labctl keda --action load --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-observe:
+    desc: Capture deployment and HPA snapshots every five seconds for five minutes.
+    cmds:
+      - go run ./cmd/labctl keda --action observe --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-check:
+    desc: Read exact saved batch SQL counts and current PostgreSQL connection usage.
+    cmds:
+      - go run ./cmd/labctl keda --action check --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-profile-normal:
+    desc: Select the normal CronJob profile only while suspended and inactive.
+    cmds:
+      - go run ./cmd/labctl cron --action profile --key normal --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-profile-forbid:
+    desc: Select the forbid CronJob profile only while suspended and inactive.
+    cmds:
+      - go run ./cmd/labctl cron --action profile --key forbid --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-profile-deadline:
+    desc: Select the deadline CronJob profile only while suspended and inactive.
+    cmds:
+      - go run ./cmd/labctl cron --action profile --key deadline --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-profile-db-failure:
+    desc: Select the db-failure CronJob profile only while suspended and inactive.
+    cmds:
+      - go run ./cmd/labctl cron --action profile --key db-failure --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  keda-worker-helm-lint:
+    desc: Validate enabled and paused worker scaling templates without installation.
+    cmds:
+      - helm lint helm/lab-worker --set-string image.tag=static-review --set autoscaling.enabled=true
+      - helm lint helm/lab-worker --set-string image.tag=static-review --set autoscaling.enabled=true --set autoscaling.paused=true
+
+  cron-helm-lint:
+    desc: Validate the opt-in CronJob chart, including its enabled template.
+    cmds:
+      - helm lint helm/lab-cron
+      - helm lint helm/lab-cron --set enabled=true --set-string image.tag=static-review
+      - helm lint helm/lab-cron --set enabled=true --set-string image.tag=static-review -f helm/lab-cron/values-forbid.yaml
+      - helm lint helm/lab-cron --set enabled=true --set-string image.tag=static-review -f helm/lab-cron/values-deadline.yaml
+      - helm lint helm/lab-cron --set enabled=true --set-string image.tag=static-review -f helm/lab-cron/values-db-failure.yaml
+
+  cron-deploy:
+    desc: Deploy a suspended CronJob using the recorded API image.
+    cmds:
+      - go run ./cmd/labctl cron --action deploy --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-resume:
+    desc: Enable scheduled creation of outbox jobs.
+    cmds:
+      - go run ./cmd/labctl cron --action resume --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-suspend:
+    desc: Stop future scheduled Jobs without stopping active Jobs.
+    cmds:
+      - go run ./cmd/labctl cron --action suspend --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-status:
+    desc: Inspect CronJob and its Jobs and Pods.
+    cmds:
+      - go run ./cmd/labctl cron --action status --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-run-status:
+    desc: Count SQL jobs, outbox and effects for one exact scheduled timestamp.
+    requires:
+      vars: [SCHEDULED_AT]
+    cmds:
+      - go run ./cmd/labctl cron --action run-status --key '{{.SCHEDULED_AT}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-run:
+    desc: Replay a logical run with explicit SCHEDULED_AT in RFC3339.
+    requires:
+      vars: [SCHEDULED_AT]
+    cmds:
+      - go run ./cmd/labctl cron --action run --key '{{.SCHEDULED_AT}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  cron-cleanup:
+    desc: Suspend scheduling and delete only CronJob lab Jobs after saving logs.
+    cmds:
+      - go run ./cmd/labctl cron --action cleanup --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  deploy-config:
+    internal: true
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} apply --dry-run=server --validate=true -f {{.NAMESPACE_MANIFEST}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} apply -f {{.NAMESPACE_MANIFEST}}
+      - helm lint helm/lab-api {{.HELM_VALUES}}
+      - go run ./cmd/labctl deploy-image --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action={{.DEPLOY_PROFILE | default ""}}
+      - helm status lab-api --namespace {{.NAMESPACE}} --kube-context kind-{{.CLUSTER_NAME}}
+
+  rollout-client-build:
+    desc: Build and load the bounded HTTP client image into the lab kind cluster.
+    cmds:
+      - docker build --file docker/client.Dockerfile --tag kubernetes-application-lab-client:local .
+      - kind load docker-image kubernetes-application-lab-client:local --name {{.CLUSTER_NAME}}
+
+  resources-cpu-start:
+    desc: Start a bounded 90-second CPU load; retain the client Pod for evidence.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} create -f scripts/kubernetes/cpu-load.yaml
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Running pod/lab-api-cpu-load --namespace {{.NAMESPACE}} --timeout 60s
+
+  resources-cpu-wait:
+    desc: Wait for the bounded CPU client to succeed; inspect status if it fails.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Succeeded pod/lab-api-cpu-load --namespace {{.NAMESPACE}} --timeout 120s
+
+  resources-cpu-status:
+    desc: Show the preserved CPU client status and request timings.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pod lab-api-cpu-load --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs pod/lab-api-cpu-load --namespace {{.NAMESPACE}}
+
+  resources-cpu-cgroup:
+    desc: Read the API container's cgroup CPU quota and throttling counters.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get --raw /api/v1/namespaces/{{.NAMESPACE}}/services/http:lab-api:80/proxy/cpu-stat
+
+  resources-cpu-cleanup:
+    desc: Remove the CPU client Pod only after saving its logs.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-cpu-load --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+
+  resources-oom-start:
+    desc: Start an isolated, bounded memory experiment Pod; retain it for evidence.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} create -f scripts/kubernetes/oom-pod.yaml
+
+  resources-oom-validate:
+    desc: Validate the isolated memory Pod against the lab API server without creating it.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} create --dry-run=server --validate=true -f scripts/kubernetes/oom-pod.yaml
+
+  resources-oom-wait:
+    desc: Wait for the isolated Pod to fail; inspect its termination reason separately.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Failed pod/lab-api-oom --namespace {{.NAMESPACE}} --timeout 90s
+
+  resources-oom-status:
+    desc: Preserve exact container termination, limits, events and logs before cleanup.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pod lab-api-oom --namespace {{.NAMESPACE}} -o json
+      - kubectl --context kind-{{.CLUSTER_NAME}} describe pod lab-api-oom --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs pod/lab-api-oom --namespace {{.NAMESPACE}}
+
+  resources-oom-cleanup:
+    desc: Remove only the isolated Pod after saving its status and logs.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-oom --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+
+  scheduling-validate:
+    desc: Validate a bounded Pod requesting more CPU than the sole lab node can allocate.
+    cmds:
+      - go run ./cmd/labctl scheduling --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action validate
+
+  scheduling-start:
+    desc: Create only the isolated unschedulable Pod after checking the lab context and node.
+    cmds:
+      - go run ./cmd/labctl scheduling --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action start
+
+  scheduling-wait:
+    desc: Wait for the experiment Pod to report that it cannot be scheduled.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=condition=PodScheduled=False pod/lab-api-unschedulable --namespace {{.NAMESPACE}} --timeout 60s
+
+  scheduling-status:
+    desc: Preserve the node capacity, Pod request and scheduler reason before cleanup.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get nodes -o json
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pod lab-api-unschedulable --namespace {{.NAMESPACE}} -o json
+      - kubectl --context kind-{{.CLUSTER_NAME}} describe pod lab-api-unschedulable --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} get events --namespace {{.NAMESPACE}} --field-selector involvedObject.kind=Pod,involvedObject.name=lab-api-unschedulable -o json
+
+  scheduling-cleanup:
+    desc: Remove only the preserved experiment Pod after recording its events.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-unschedulable --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+
+  hpa-load-validate:
+    desc: Validate the bounded HPA CPU client Pod against the lab API server without creating it.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} create --dry-run=server --validate=true -f scripts/kubernetes/hpa-cpu-load.yaml
+
+  hpa-load-start:
+    desc: Start bounded five-minute CPU load; preserve the client Pod for evidence.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} create -f scripts/kubernetes/hpa-cpu-load.yaml
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Running pod/lab-api-hpa-cpu-load --namespace {{.NAMESPACE}} --timeout 60s
+
+  hpa-load-wait:
+    desc: Wait for the bounded CPU client to succeed; inspect its logs if it fails.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Succeeded pod/lab-api-hpa-cpu-load --namespace {{.NAMESPACE}} --timeout 330s
+
+  hpa-load-status:
+    desc: Show the preserved HPA CPU client status and request events.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pod lab-api-hpa-cpu-load --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs pod/lab-api-hpa-cpu-load --namespace {{.NAMESPACE}} --timestamps
+
+  hpa-load-cleanup:
+    desc: Remove the HPA CPU client only after its logs have been saved.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-hpa-cpu-load --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+
+  hpa-status:
+    desc: Inspect HPA recommendations, Deployment, Pods, metrics and Service endpoints.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get hpa lab-api --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} describe hpa lab-api --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} get deployment lab-api --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pods --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-api,app.kubernetes.io/instance=lab-api -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} top pods --namespace {{.NAMESPACE}} --containers -l app.kubernetes.io/name=lab-api,app.kubernetes.io/instance=lab-api
+      - kubectl --context kind-{{.CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-api -o wide
+
+  hpa-observe:
+    desc: Sample timestamped HPA, Deployment and Pod state for eleven minutes.
+    cmds:
+      - go run ./cmd/labctl observe-hpa --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  rollout-load-start:
+    desc: Start a three-minute in-cluster load run; keep its Pod for evidence.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} create -f scripts/kubernetes/rollout-load.yaml
+      - kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Running pod/lab-api-rollout-load --namespace {{.NAMESPACE}} --timeout 60s
+
+  rollout-load:
+    desc: Follow load events and the final summary from the in-cluster client.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs -f pod/lab-api-rollout-load --namespace {{.NAMESPACE}}
+
+  rollout-load-status:
+    desc: Show load-client phase and recorded events without removing the Pod.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pod lab-api-rollout-load --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs pod/lab-api-rollout-load --namespace {{.NAMESPACE}}
+
+  rollout-observe:
+    desc: Sample timestamped Pod and EndpointSlice states during a rollout; capture stdout for evidence.
+    cmds:
+      - go run ./cmd/labctl observe-rollout --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  rollout-probes-start:
+    desc: Start direct readiness observers for the two current API Pods before upgrading.
+    cmds:
+      - go run ./cmd/labctl rollout-probes --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  rollout-probes-status:
+    desc: Read the direct readiness observers and their preserved logs.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get pods --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-rollout-probe
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-rollout-probe --all-containers=true --tail=-1 --prefix=true --max-log-requests=20
+
+  rollout-probes-cleanup:
+    desc: Remove direct readiness observers only after saving their logs.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pods --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-rollout-probe --ignore-not-found=true --wait=true
+
+  rollout-load-cleanup:
+    desc: Explicitly remove the recorded load-client Pod after saving its output.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-rollout-load --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+
+  inflight-work:
+    desc: Confirm work_started in API logs before deleting that Pod and reading its client response.
+    cmds:
+      - go run ./cmd/labctl inflight-work --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  rollout-status:
+    desc: Inspect release, controller, replicas, Pods and Service endpoints.
+    cmds:
+      - task: helm-status
+      - kubectl --context kind-{{.CLUSTER_NAME}} get deployment,replicaset,pod --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-api,app.kubernetes.io/instance=lab-api -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-api -o wide
+
+  rollout-events:
+    desc: Preserve timestamped Kubernetes events before cleanup or rollback.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get events --namespace {{.NAMESPACE}} -o json
+
+  rollout-fail:
+    desc: Deliberately upgrade to a missing local image; this task is expected to fail.
+    cmds:
+      - helm upgrade lab-api helm/lab-api --namespace {{.NAMESPACE}} --kube-context kind-{{.CLUSTER_NAME}} -f helm/lab-api/values-rollout.yaml --set-string image.repository={{.IMAGE_REPOSITORY}} --set-string image.tag=missing-m3-{{now | date "20060102150405.000000000"}} --wait --timeout 45s
+
+  rollout-rollback:
+    desc: Roll back to an explicitly selected working Helm revision (ROLLBACK_REVISION=N).
+    cmds:
+      - go run ./cmd/labctl rollback --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}} --action={{.ROLLBACK_REVISION | default ""}}
+      - task: rollout-status
+
+  undeploy:
+    desc: Uninstall the Helm release while keeping the namespace and cluster.
+    cmds:
+      - helm uninstall lab-api --namespace {{.NAMESPACE}} --kube-context kind-{{.CLUSTER_NAME}}
+
+  status:
+    desc: Show the workload, Service, and selected endpoints.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} get deployment,pod,service --namespace {{.NAMESPACE}} -o wide
+      - kubectl --context kind-{{.CLUSTER_NAME}} describe deployment lab-api --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-api -o wide
+
+  smoke:
+    desc: Request the application from a temporary in-cluster client through Service DNS.
+    cmds:
+      - task: smoke-in-cluster
+
+  smoke-in-cluster:
+    desc: Verify Kubernetes DNS, ClusterIP Service, EndpointSlice, and the application response.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-smoke --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+      - defer: kubectl --context kind-{{.CLUSTER_NAME}} delete pod lab-api-smoke --namespace {{.NAMESPACE}} --ignore-not-found=true --wait=true
+      - kubectl --context kind-{{.CLUSTER_NAME}} create -f scripts/kubernetes/smoke-client.yaml
+      - >-
+        kubectl --context kind-{{.CLUSTER_NAME}} wait --for=jsonpath='{.status.phase}'=Succeeded
+        pod/lab-api-smoke --namespace {{.NAMESPACE}} --timeout 90s
+      - kubectl --context kind-{{.CLUSTER_NAME}} logs pod/lab-api-smoke --namespace {{.NAMESPACE}}
+      - kubectl --context kind-{{.CLUSTER_NAME}} get endpointslice --namespace {{.NAMESPACE}} -l kubernetes.io/service-name=lab-api -o wide
+
+  smoke-api-proxy:
+    desc: Diagnose application access through the Kubernetes API Service proxy.
+    cmds:
+      - >-
+        kubectl --context kind-{{.CLUSTER_NAME}} get --raw
+        /api/v1/namespaces/{{.NAMESPACE}}/services/http:lab-api:80/proxy/version
+
+  verify-recovery:
+    desc: Delete the only Pod, wait for its replacement, and check the Service again.
+    cmds:
+      - kubectl --context kind-{{.CLUSTER_NAME}} delete pod --namespace {{.NAMESPACE}} -l app.kubernetes.io/name=lab-api,app.kubernetes.io/instance=lab-api --wait=true
+      - kubectl --context kind-{{.CLUSTER_NAME}} rollout status deployment/lab-api --namespace {{.NAMESPACE}} --timeout 90s
+      - task: smoke
+
+  tracing-api-deploy:
+    desc: Deploy the recorded image with an explicit application tracing experiment profile.
+    cmds:
+      - go run ./cmd/labctl deploy-image --action jobs-tracing --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-api-unavailable:
+    desc: Deploy the recorded image with an explicit application tracing experiment profile.
+    cmds:
+      - go run ./cmd/labctl deploy-image --action jobs-tracing-unavailable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-publisher-deploy:
+    desc: Deploy the recorded image with an explicit application tracing experiment profile.
+    cmds:
+      - go run ./cmd/labctl publisher --action deploy-tracing --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-publisher-unavailable:
+    desc: Deploy the recorded image with an explicit application tracing experiment profile.
+    cmds:
+      - go run ./cmd/labctl publisher --action deploy-tracing-unavailable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-worker-deploy:
+    desc: Deploy the recorded image with an explicit application tracing experiment profile.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy-tracing --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-worker-crash:
+    desc: Arm the existing pre-offset crash for the saved job with tracing enabled; requires stopped worker, does not wait for readiness.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy-crash-tracing --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  tracing-worker-unavailable:
+    desc: Deploy the recorded image with an explicit application tracing experiment profile.
+    cmds:
+      - go run ./cmd/labctl worker --action deploy-tracing-unavailable --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  application-tracing-helm-check:
+    desc: Lint and render the three diagnostic profiles without changing cluster resources.
+    cmds:
+      - helm lint helm/lab-api -f helm/lab-api/values-jobs.yaml -f cluster/observability/application-tracing-values.yaml --set-string image.tag=static-review
+      - helm template lab-api helm/lab-api --namespace {{.NAMESPACE}} -f helm/lab-api/values-jobs.yaml -f cluster/observability/application-tracing-values.yaml --set-string image.tag=static-review
+      - helm lint helm/lab-publisher -f cluster/observability/application-tracing-values.yaml --set-string image.tag=static-review
+      - helm template lab-publisher helm/lab-publisher --namespace {{.NAMESPACE}} -f cluster/observability/application-tracing-values.yaml --set-string image.tag=static-review
+      - helm lint helm/lab-worker -f cluster/observability/application-tracing-values.yaml --set-string image.tag=static-review
+      - helm template lab-worker helm/lab-worker --namespace {{.NAMESPACE}} -f cluster/observability/application-tracing-values.yaml --set-string image.tag=static-review
+
+  application-trace-read:
+    desc: Read the saved enqueue trace from Tempo and verify its service, SQL and messaging parent chain.
+    vars:
+      TRACE_ID: '{{.TRACE_ID | default ""}}'
+    cmds:
+      - go run ./cmd/labctl observability --action application-trace-read --key '{{.TRACE_ID}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}
+
+  application-trace-inspect:
+    desc: Save actual Tempo spans and missing parent IDs without asserting an ordinary success chain; useful for crash and DLQ.
+    vars:
+      TRACE_ID: '{{.TRACE_ID | default ""}}'
+    cmds:
+      - go run ./cmd/labctl observability --action application-trace-inspect --key '{{.TRACE_ID}}' --context kind-{{.CLUSTER_NAME}} --namespace {{.NAMESPACE}}

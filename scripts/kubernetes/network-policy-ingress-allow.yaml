@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lab-policy-ingress-allow
+  namespace: kubernetes-application-lab-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: lab-api
+      app.kubernetes.io/instance: lab-api
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              lab-policy-role: ingress-allowed
+        - podSelector:
+            matchLabels:
+              lab-policy-role: egress-client
+      ports:
+        - protocol: TCP
+          port: 8080

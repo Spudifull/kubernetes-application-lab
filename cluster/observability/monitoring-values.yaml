@@ -1,0 +1,232 @@
+# Pinned by cmd/labctl/observability.go. Local kind profile, not a production sizing.
+fullnameOverride: lab-monitoring
+defaultRules:
+  create: false
+nodeExporter:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+windowsMonitoring:
+  enabled: false
+prometheusOperator:
+  namespaces:
+    releaseNamespace: true
+  admissionWebhooks:
+    enabled: true
+    deployment:
+      enabled: false
+    patch:
+      resources:
+        requests: {cpu: 10m, memory: 16Mi}
+        limits: {cpu: 100m, memory: 32Mi}
+  resources:
+    requests: {cpu: 50m, memory: 64Mi}
+    limits: {cpu: 300m, memory: 128Mi}
+  prometheusConfigReloader:
+    enableProbe: true
+    resources:
+      requests: {cpu: 10m, memory: 16Mi}
+      limits: {cpu: 100m, memory: 48Mi}
+prometheus:
+  ingress:
+    enabled: false
+  service:
+    type: ClusterIP
+  prometheusSpec:
+    replicas: 1
+    shards: 1
+    retention: 6h
+    retentionSize: 512MB
+    scrapeInterval: 30s
+    scrapeTimeout: 10s
+    evaluationInterval: 30s
+    enableAdminAPI: false
+    walCompression: true
+    resources:
+      requests: {cpu: 100m, memory: 256Mi}
+      limits: {cpu: 700m, memory: 512Mi}
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: standard
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests:
+              storage: 2Gi
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelector:
+      matchLabels: {release: lab-monitoring}
+    podMonitorSelector:
+      matchLabels: {release: lab-monitoring}
+    ruleSelector:
+      matchLabels: {release: lab-monitoring}
+    serviceMonitorNamespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: kubernetes-application-lab-observability
+    podMonitorNamespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: kubernetes-application-lab-observability
+    ruleNamespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: kubernetes-application-lab-observability
+alertmanager:
+  ingress:
+    enabled: false
+  service:
+    type: ClusterIP
+  config:
+    global:
+      resolve_timeout: 2m
+    route:
+      receiver: local-null
+      # Replace the upstream Watchdog child route referencing receiver "null".
+      routes:
+        - receiver: lab-webhook
+          matchers: ['lab_alerting="true"']
+      group_by: [alertname, namespace]
+      group_wait: 10s
+      group_interval: 30s
+      repeat_interval: 1h
+    receivers:
+      - name: local-null
+      - name: lab-webhook
+        webhook_configs:
+          - url: http://lab-alert-receiver.kubernetes-application-lab-observability.svc.cluster.local:8085/alerts
+            send_resolved: true
+            max_alerts: 20
+  alertmanagerSpec:
+    replicas: 1
+    retention: 6h
+    resources:
+      requests: {cpu: 25m, memory: 32Mi}
+      limits: {cpu: 200m, memory: 64Mi}
+    storage:
+      emptyDir:
+        sizeLimit: 128Mi
+grafana:
+  deploymentStrategy:
+    type: Recreate
+  image:
+    tag: 13.2.4-distroless
+  admin:
+    existingSecret: lab-grafana-admin
+    userKey: admin-user
+    passwordKey: admin-password
+  ingress:
+    enabled: false
+  service:
+    type: ClusterIP
+  persistence:
+    enabled: false
+  initChownData:
+    enabled: false
+  testFramework:
+    enabled: false
+  defaultDashboardsEnabled: false
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: lab
+          orgId: 1
+          folder: Kubernetes Application Lab
+          type: file
+          disableDeletion: false
+          editable: false
+          updateIntervalSeconds: 15
+          options:
+            path: /var/lib/grafana/dashboards/lab
+  # Dashboard JSON is read from Git by labctl and supplied as native chart values.
+  # No sidecar or Kubernetes token is needed; the chart still creates its
+  # download-dashboards init container even for native JSON provisioning.
+  resources:
+    # Two dashboards: 628-712Mi in 21 samples over 10 minutes at limit 768Mi.
+    # Cover sampled memory in requests; retain 312Mi above the sampled maximum.
+    # This reserves headroom; it does not diagnose or fix possible memory growth.
+    requests: {cpu: 50m, memory: 768Mi}
+    limits: {cpu: 300m, memory: 1Gi}
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 472
+    runAsGroup: 472
+    fsGroup: 472
+    seccompProfile: {type: RuntimeDefault}
+  rbac:
+    create: false
+  automountServiceAccountToken: false
+  sidecar:
+    dashboards:
+      enabled: false
+    datasources:
+      enabled: false
+  # Native provisioning avoids two Python Kubernetes watchers in this small lab.
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Loki
+          uid: loki
+          type: loki
+          access: proxy
+          url: http://lab-loki.kubernetes-application-lab-observability.svc.cluster.local:3100
+          editable: false
+          jsonData:
+            maxLines: 500
+            derivedFields:
+              - name: TraceID
+                datasourceUid: tempo
+                matcherRegex: '"trace_id":"([0-9a-f]{32})"'
+                url: '$${__value.raw}'
+        - name: Tempo
+          uid: tempo
+          type: tempo
+          access: proxy
+          url: http://lab-tempo.kubernetes-application-lab-observability.svc.cluster.local:3200
+          editable: false
+          jsonData:
+            httpMethod: GET
+            nodeGraph: {enabled: false}
+        - name: Prometheus
+          uid: prometheus
+          type: prometheus
+          access: proxy
+          url: http://lab-monitoring-prometheus.kubernetes-application-lab-observability.svc:9090
+          isDefault: true
+          editable: false
+          jsonData:
+            httpMethod: POST
+            timeInterval: 30s
+        - name: Alertmanager
+          uid: alertmanager
+          type: alertmanager
+          access: proxy
+          url: http://lab-monitoring-alertmanager.kubernetes-application-lab-observability.svc:9093
+          editable: false
+          jsonData:
+            implementation: prometheus
+            handleGrafanaManagedAlerts: false
+  grafana.ini:
+    auth.anonymous:
+      enabled: false
+    users:
+      allow_sign_up: false
+    analytics:
+      reporting_enabled: false
+      check_for_updates: false
+kube-state-metrics:
+  namespaces: kubernetes-application-lab,kubernetes-application-lab-kafka,kubernetes-application-lab-observability
+  collectors: [cronjobs, deployments, jobs, namespaces, pods, statefulsets, horizontalpodautoscalers, persistentvolumeclaims]
+  resources:
+    requests: {cpu: 25m, memory: 48Mi}
+    limits: {cpu: 200m, memory: 64Mi}

@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lab-policy-egress-deny
+  namespace: kubernetes-application-lab-policy
+spec:
+  podSelector:
+    matchLabels:
+      lab-policy-role: egress-client
+  policyTypes: [Egress]

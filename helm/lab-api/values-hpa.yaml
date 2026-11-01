@@ -1,0 +1,26 @@
+# The HPA owns Deployment.spec.replicas in this experimental profile.
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 60
+  # Shorter than the Kubernetes default 300s for a bounded local experiment.
+  scaleDownStabilizationWindowSeconds: 120
+
+strategy:
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+experiments:
+  enabled: true
+
+# 100m is the utilization denominator; 1000m is only the CPU quota.
+# Reuse the measured high-limit CPU profile to avoid a low-limit bottleneck.
+resources:
+  requests:
+    cpu: 100m
+    memory: 32Mi
+  limits:
+    cpu: 1000m
+    memory: 64Mi

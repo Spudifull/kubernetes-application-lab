@@ -1,0 +1,19 @@
+{{- range $component := list "lab-loki" "lab-alloy" }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: {{ $component }}
+  labels: {release: lab-monitoring}
+spec:
+  sampleLimit: 5000
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $component }}
+  podMetricsEndpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
+{{- end }}

@@ -1,0 +1,106 @@
+{
+  "groups": [
+    {
+      "name": "lab-application-alerts",
+      "interval": "30s",
+      "rules": [
+        {
+          "alert": "APIUnavailable",
+          "expr": "max(kube_deployment_status_replicas_available{namespace=\"kubernetes-application-lab\",deployment=\"lab-api\"}) < 1 or absent(kube_deployment_status_replicas_available{namespace=\"kubernetes-application-lab\",deployment=\"lab-api\"})",
+          "for": "1m",
+          "labels": {
+            "namespace": "kubernetes-application-lab",
+            "severity": "warning",
+            "component": "api",
+            "lab_alerting": "true"
+          },
+          "annotations": {
+            "summary": "API has no observed available replica",
+            "description": "Check Deployment, probes, Service and an actual HTTP request. Missing Kubernetes telemetry is unknown availability; recovery requires fresh replicas and HTTP success.",
+            "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+          }
+        },
+        {
+          "alert": "OutboxBacklogGrowing",
+          "expr": "(max((lab_outbox_pending_events{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} and on(instance) (lab_outbox_stats_up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} == 1) and on(instance) ((time() - lab_outbox_stats_last_success_timestamp_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"}) < 30) and on(instance) (up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} == 1))) > 10) or ((max((lab_outbox_pending_events{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} and on(instance) (lab_outbox_stats_up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} == 1) and on(instance) ((time() - lab_outbox_stats_last_success_timestamp_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"}) < 30) and on(instance) (up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} == 1))) > 0) and (max((lab_outbox_oldest_pending_age_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} and on(instance) (lab_outbox_stats_up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} == 1) and on(instance) ((time() - lab_outbox_stats_last_success_timestamp_seconds{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"}) < 30) and on(instance) (up{namespace=\"kubernetes-application-lab\",job=\"lab-publisher\"} == 1))) > 60))",
+          "for": "1m",
+          "labels": {
+            "namespace": "kubernetes-application-lab",
+            "severity": "warning",
+            "component": "publisher",
+            "lab_alerting": "true"
+          },
+          "annotations": {
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold",
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+          }
+        },
+        {
+          "alert": "KafkaConsumerLagHigh",
+          "expr": "((sum(kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\"}) > 0) and (count(kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\"} >= 0) == 3) and (max(up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\"}) == 1))",
+          "for": "1m",
+          "labels": {
+            "namespace": "kubernetes-application-lab",
+            "severity": "warning",
+            "component": "kafka",
+            "lab_alerting": "true"
+          },
+          "annotations": {
+            "summary": "Known consumer lag persists",
+            "description": "Check all three partition offsets, exporter health and group members. Restore consumer progress and confirm committed offsets equal log end; missing or negative lag is unknown.",
+            "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+          }
+        },
+        {
+          "alert": "WorkerProcessingStalled",
+          "expr": "((sum(kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\"}) > 0) and (count(kafka_consumergroup_lag{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\",consumergroup=\"lab-workers\",topic=\"lab.jobs.v1\"} >= 0) == 3) and (max(up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-kafka-exporter\"}) == 1)) and ((max(kube_deployment_status_replicas_available{namespace=\"kubernetes-application-lab\",deployment=\"lab-worker\"}) < 1) or ((sum(increase(lab_worker_jobs_processed_total{namespace=\"kubernetes-application-lab\",job=\"lab-worker\"}[2m])) == 0) and (max(up{namespace=\"kubernetes-application-lab\",job=\"lab-worker\"}) == 1)))",
+          "for": "2m",
+          "labels": {
+            "namespace": "kubernetes-application-lab",
+            "severity": "warning",
+            "component": "worker",
+            "lab_alerting": "true"
+          },
+          "annotations": {
+            "summary": "Known queued work has no observed worker progress",
+            "description": "Inspect worker availability, SQL, retries, DLQ and offset commits. Processed is a sampled process counter, not proof of SQL effects. Recovery requires job/SQL and lag checks.",
+            "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+          }
+        },
+        {
+          "alert": "DLQMessagesDetected",
+          "expr": "sum(increase(lab_worker_jobs_dlq_total{namespace=\"kubernetes-application-lab\",job=\"lab-worker\"}[5m])) > 0",
+          "for": "30s",
+          "labels": {
+            "namespace": "kubernetes-application-lab",
+            "severity": "warning",
+            "component": "worker",
+            "lab_alerting": "true"
+          },
+          "annotations": {
+            "summary": "New durable DLQ receipts observed",
+            "description": "Inspect retry reason, durable SQL receipt and bounded DLQ reader. Do not replay automatically. Resolved means the counter window aged out, not that the failed job was repaired.",
+            "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+          }
+        },
+        {
+          "alert": "PostgreSQLUnavailable",
+          "expr": "max(pg_up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-postgres-exporter\"}) < 1 or absent(pg_up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-postgres-exporter\"}) or max(up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-postgres-exporter\"}) < 1 or absent(up{namespace=\"kubernetes-application-lab-observability\",job=\"lab-postgres-exporter\"})",
+          "for": "1m",
+          "labels": {
+            "namespace": "kubernetes-application-lab",
+            "severity": "warning",
+            "component": "postgres",
+            "lab_alerting": "true"
+          },
+          "annotations": {
+            "summary": "PostgreSQL monitoring cannot confirm connectivity",
+            "description": "Distinguish exporter target failure/missing series from pg_up=0. Check exporter credentials and PostgreSQL independently; recover fresh pg_up=1 and exporter UP.",
+            "runbook_url": "https://github.com/Spudifull/kubernetes-application-lab/blob/main/docs/engineering/alerting-lab.md"
+          }
+        }
+      ]
+    }
+  ]
+}

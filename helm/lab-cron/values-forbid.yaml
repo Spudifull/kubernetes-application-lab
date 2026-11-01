@@ -1,0 +1,2 @@
+job: {activeDeadlineSeconds: 120, backoffLimit: 2}
+lab: {holdSeconds: 75, databasePort: ""}

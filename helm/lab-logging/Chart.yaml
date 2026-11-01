@@ -1,0 +1,6 @@
+apiVersion: v2
+name: lab-logging
+description: Fixed single-node laboratory Loki and API-based Alloy log collection
+type: application
+version: 0.1.0
+appVersion: "3.7.9"

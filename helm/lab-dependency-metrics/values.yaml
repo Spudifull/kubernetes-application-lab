@@ -1,0 +1,39 @@
+# Fixed laboratory profile; credentials are prepared separately, never Helm values.
+exporters:
+  - name: lab-postgres-exporter
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.18.1
+    port: 9187
+    secret: lab-metrics-postgres
+    args:
+      - --no-collector.stat_statements
+    env:
+      - {name: DATA_SOURCE_URI, value: "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432/lab?sslmode=disable&connect_timeout=2"}
+      - {name: DATA_SOURCE_USER, value: lab_metrics}
+      - {name: DATA_SOURCE_PASS_FILE, value: /credentials/password}
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {cpu: 200m, memory: 128Mi}
+  - name: lab-kafka-exporter
+    image: docker.io/danielqsj/kafka-exporter:v1.10.0
+    port: 9308
+    secret: lab-metrics-kafka
+    args:
+      - --kafka.server=lab-kafka-kafka-bootstrap.kubernetes-application-lab-kafka.svc.cluster.local:9093
+      - --kafka.version=4.0.0
+      - --tls.enabled
+      - --tls.ca-file=/credentials/ca.crt
+      - --tls.cert-file=/credentials/user.crt
+      - --tls.key-file=/credentials/user.key
+      - --topic.filter=^lab[.]jobs[.]v1$
+      - --group.filter=^lab-workers$
+      - --topic.workers=1
+      - --group.workers=1
+      - --group.metrics.timeout=5s
+      - --refresh.metadata=15s
+      - --offset.show-all
+      - --no-concurrent.enable
+      - --no-kafka.allow-auto-topic-creation
+    env: []
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {cpu: 200m, memory: 128Mi}

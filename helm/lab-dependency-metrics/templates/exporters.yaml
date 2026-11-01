@@ -1,0 +1,139 @@
+{{/* Release ownership is checked by labctl; helm lint uses a synthetic release name. */}}
+{{- if ne .Release.Namespace "kubernetes-application-lab-observability" }}
+{{- fail "dependency metrics require the observability namespace" }}
+{{- end }}
+{{- range .Values.exporters }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "dependency.labels" . | nindent 4 }}
+automountServiceAccountToken: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "dependency.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy: {type: Recreate}
+  selector:
+    matchLabels:
+      {{- include "dependency.selector" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "dependency.selector" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .name }}
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 20
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: exporter
+          image: {{ .image | quote }}
+          imagePullPolicy: IfNotPresent
+          args:
+            {{- toYaml .args | nindent 12 }}
+          {{- if .env }}
+          env:
+            {{- toYaml .env | nindent 12 }}
+          {{- end }}
+          ports:
+            - {name: metrics, containerPort: {{ .port }}, protocol: TCP}
+          # TCP probes check the exporter process, not dependency health.
+          startupProbe:
+            tcpSocket: {port: metrics}
+            periodSeconds: 5
+            failureThreshold: 24
+          readinessProbe:
+            tcpSocket: {port: metrics}
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket: {port: metrics}
+            periodSeconds: 15
+            failureThreshold: 4
+          resources:
+            {{- toYaml .resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+          volumeMounts:
+            - {name: credentials, mountPath: /credentials, readOnly: true}
+      volumes:
+        - name: credentials
+          secret:
+            secretName: {{ .secret }}
+            defaultMode: 0440
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    release: lab-monitoring
+    {{- include "dependency.labels" . | nindent 4 }}
+spec:
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    matchNames: [kubernetes-application-lab-observability]
+  selector:
+    matchLabels:
+      {{- include "dependency.selector" . | nindent 6 }}
+  podMetricsEndpoints:
+    - {port: metrics, path: /metrics, interval: 30s, scrapeTimeout: 10s}
+  sampleLimit: 3000
+  targetLimit: 2
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "dependency.selector" . | nindent 6 }}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              prometheus: lab-monitoring-prometheus
+      ports: [{protocol: TCP, port: {{ .port }}}]
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kube-system}
+          podSelector:
+            matchLabels: {k8s-app: kube-dns}
+      ports: [{protocol: UDP, port: 53}, {protocol: TCP, port: 53}]
+    - to:
+        {{- if eq .name "lab-postgres-exporter" }}
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kubernetes-application-lab}
+          podSelector:
+            matchLabels: {app.kubernetes.io/name: lab-postgres, app.kubernetes.io/instance: lab-postgres}
+      ports: [{protocol: TCP, port: 5432}]
+        {{- else }}
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kubernetes-application-lab-kafka}
+          podSelector:
+            matchLabels: {strimzi.io/name: lab-kafka-kafka}
+      ports: [{protocol: TCP, port: 9093}]
+        {{- end }}
+{{- end }}

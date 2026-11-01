@@ -1,0 +1,65 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: lab-publisher
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  authentication: {type: tls}
+  authorization:
+    type: simple
+    acls:
+      - resource: {type: topic, name: lab.jobs.v1, patternType: literal}
+        operations: [Write, Describe]
+      - resource: {type: cluster}
+        operations: [IdempotentWrite]
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: lab-dlq-inspector
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  authentication: {type: tls}
+  authorization:
+    type: simple
+    acls:
+      - resource: {type: topic, name: lab.jobs.dlq.v1, patternType: literal}
+        operations: [Read, Describe]
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: lab-worker
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  authentication: {type: tls}
+  authorization:
+    type: simple
+    acls:
+      - resource: {type: topic, name: lab.jobs.v1, patternType: literal}
+        operations: [Read, Describe]
+      - resource: {type: group, name: lab-workers, patternType: literal}
+        operations: [Read, Describe]
+      - resource: {type: topic, name: lab.jobs.dlq.v1, patternType: literal}
+        operations: [Write, Describe]
+      - resource: {type: cluster}
+        operations: [IdempotentWrite]
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: lab-kafka-smoke
+  namespace: kubernetes-application-lab-kafka
+  labels: {strimzi.io/cluster: lab-kafka}
+spec:
+  authentication: {type: tls}
+  authorization:
+    type: simple
+    acls:
+      - resource: {type: topic, name: lab.smoke.v1, patternType: literal}
+        operations: [Read, Write, Describe]
+      - resource: {type: cluster}
+        operations: [IdempotentWrite]

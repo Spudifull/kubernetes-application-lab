@@ -1,0 +1,6 @@
+apiVersion: v2
+name: lab-worker
+description: Sequential Kafka consumer with transactional PostgreSQL effects
+type: application
+version: 0.5.0
+appVersion: "0.1.0"

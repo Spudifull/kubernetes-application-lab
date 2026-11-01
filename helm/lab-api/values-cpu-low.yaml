@@ -1,0 +1,11 @@
+# Only the CPU limit changes relative to values-cpu-high.yaml.
+replicaCount: 1
+experiments:
+  enabled: true
+resources:
+  requests:
+    cpu: 100m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 64Mi

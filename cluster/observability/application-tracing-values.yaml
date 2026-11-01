@@ -1,0 +1,4 @@
+# Diagnostic profile: capture every new trace for a short controlled experiment.
+tracing:
+  enabled: true
+  sampleRatio: 1.0

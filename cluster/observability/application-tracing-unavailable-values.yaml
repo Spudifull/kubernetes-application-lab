@@ -1,0 +1,5 @@
+# Fault changes only telemetry destination; it does not stop Kafka or SQL.
+tracing:
+  enabled: true
+  sampleRatio: 1.0
+  endpoint: http://127.0.0.1:14319

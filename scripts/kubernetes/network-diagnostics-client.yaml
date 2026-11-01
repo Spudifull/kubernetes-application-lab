@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lab-network-client
+  namespace: kubernetes-application-lab
+  labels:
+    app.kubernetes.io/name: lab-network-client
+    app.kubernetes.io/part-of: kubernetes-application-lab
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 90
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: client
+      image: curlimages/curl:8.16.0
+      imagePullPolicy: IfNotPresent
+      command: ["sh", "-ec"]
+      args:
+        - |
+          date -u '+time=%Y-%m-%dT%H:%M:%SZ'
+          echo 'positive_fqdn'
+          curl --noproxy '*' --fail --silent --show-error --connect-timeout 2 --max-time 5 -D - http://lab-api.kubernetes-application-lab.svc/version
+          echo 'positive_short_name'
+          curl --noproxy '*' --fail --silent --show-error --connect-timeout 2 --max-time 5 -D - http://lab-api/version
+          echo 'positive_direct_pod_ip_via_headless_dns'
+          curl --noproxy '*' --fail --silent --show-error --connect-timeout 2 --max-time 5 -D - -w 'remote_ip=%{remote_ip}\n' http://lab-network-headless:8080/version
+          expect_transport_failure() {
+            label="$1"
+            url="$2"
+            echo "$label"
+            if curl --noproxy '*' --silent --show-error --connect-timeout 8 --max-time 10 -o /dev/null -w 'http_status=%{http_code} remote_ip=%{remote_ip}\n' "$url"; then
+              echo 'unexpected transport success' >&2
+              exit 1
+            else
+              result="$?"
+              echo "curl_exit=$result"
+            fi
+          }
+          expect_transport_failure nonexistent_dns http://lab-network-no-such-service.kubernetes-application-lab.svc.cluster.local./version
+          expect_transport_failure empty_selector http://lab-network-empty/version
+          expect_transport_failure unready_endpoint http://lab-network-unready/version
+          expect_transport_failure wrong_service_port http://lab-api:81/version
+          echo 'http_404_from_application'
+          curl --noproxy '*' --silent --show-error --connect-timeout 2 --max-time 5 -D - -o /dev/null -w 'http_status=%{http_code} remote_ip=%{remote_ip}\n' http://lab-api/no-such-route
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi

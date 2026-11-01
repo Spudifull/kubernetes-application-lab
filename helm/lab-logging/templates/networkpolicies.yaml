@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: lab-loki
+spec:
+  podSelector:
+    matchLabels: {app.kubernetes.io/name: lab-loki}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {app.kubernetes.io/name: lab-alloy}
+        - podSelector:
+            matchLabels: {app.kubernetes.io/name: grafana, app.kubernetes.io/instance: lab-monitoring}
+        - podSelector:
+            matchLabels: {prometheus: lab-monitoring-prometheus}
+      ports: [{port: 3100, protocol: TCP}]
+  egress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: lab-alloy
+spec:
+  podSelector:
+    matchLabels: {app.kubernetes.io/name: lab-alloy}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {prometheus: lab-monitoring-prometheus}
+      ports: [{port: 12345, protocol: TCP}]
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kube-system}
+          podSelector:
+            matchLabels: {k8s-app: kube-dns}
+      ports: [{port: 53, protocol: UDP}, {port: 53, protocol: TCP}]
+    - to:
+        - podSelector:
+            matchLabels: {app.kubernetes.io/name: lab-loki}
+      ports: [{port: 3100, protocol: TCP}]
+    # API Service/endpoint DNAT varies by CNI. TLS + RBAC provide identity;
+    # this port-only rule is deliberately documented, not a host allowlist.
+    - ports: [{port: 443, protocol: TCP}, {port: 6443, protocol: TCP}]

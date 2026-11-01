@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: lab-api
+  namespace: {{ .Release.Namespace }}
+  labels:
+    release: lab-monitoring
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: lab-observability
+spec:
+  namespaceSelector:
+    matchNames: [{{ .Values.applicationNamespace | quote }}]
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lab-api
+      app.kubernetes.io/instance: lab-api
+  endpoints:
+    - port: http
+      scheme: {{ ternary "https" "http" .Values.apiScrapeFailure | quote }}
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 5s
+  sampleLimit: 2000
+  targetLimit: 8

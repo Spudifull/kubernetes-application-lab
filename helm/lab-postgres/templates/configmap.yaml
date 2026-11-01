@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  labels:
+    {{- include "lab-postgres.labels" . | nindent 4 }}
+data:
+  POSTGRES_DB: {{ .Values.databaseName | quote }}
+  LAB_DB_HOST: {{ .Release.Name | quote }}
+  LAB_DB_PORT: "5432"

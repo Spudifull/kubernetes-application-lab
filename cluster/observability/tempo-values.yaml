@@ -1,0 +1,111 @@
+fullnameOverride: lab-tempo
+replicas: 1
+# Do not instantiate an empty Jaeger receiver in Tempo. The upstream port
+# helpers still need its values map even though its listeners are disabled.
+config: |
+  stream_over_http_enabled: false
+  multitenancy_enabled: false
+  usage_report:
+    reporting_enabled: false
+  memberlist:
+    cluster_label: "{{ .Release.Name }}.{{ .Release.Namespace }}"
+  distributor:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: "0.0.0.0:4317"
+  backend_scheduler:
+    provider:
+      compaction:
+        compaction:
+          block_retention: {{ .Values.tempo.retention }}
+  backend_worker:
+    compaction:
+      block_retention: {{ .Values.tempo.retention }}
+  live_store:
+    {{- toYaml .Values.tempo.liveStore | nindent 4 }}
+  server:
+    {{- toYaml .Values.tempo.server | nindent 4 }}
+  storage:
+    {{- toYaml .Values.tempo.storage | nindent 4 }}
+  querier:
+    {{- toYaml .Values.tempo.querier | nindent 4 }}
+  query_frontend:
+    {{- toYaml .Values.tempo.queryFrontend | nindent 4 }}
+  overrides:
+    {{- toYaml .Values.tempo.overrides | nindent 4 }}
+tempo:
+  registry: docker.io
+  repository: grafana/tempo
+  tag: 3.1.1
+  updateStrategy: RollingUpdate
+  reportingEnabled: false
+  retention: 1h
+  metricsGenerator: {enabled: false}
+  resources:
+    requests: {cpu: 100m, memory: 512Mi}
+    limits: {cpu: 700m, memory: 1Gi}
+  extraEnv:
+    - {name: GOMEMLIMIT, value: 819MiB}
+  extraVolumeMounts:
+    - {name: lab-tempo-tmp, mountPath: /tmp}
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities: {drop: [ALL]}
+  receivers:
+    # The chart's port helpers dereference jaeger.protocols unconditionally.
+    # Keep that map, disable each legacy port, and omit Jaeger from config below.
+    jaeger:
+      protocols:
+        grpc: null
+        thrift_binary: null
+        thrift_compact: null
+        thrift_http: null
+    otlp:
+      protocols:
+        grpc: {endpoint: '0.0.0.0:4317'}
+        http: null
+  liveStore:
+    max_block_duration: 1m
+  querier:
+    max_concurrent_queries: 2
+  queryFrontend:
+    search:
+      concurrent_jobs: 4
+  readinessProbe:
+    httpGet: {path: /ready, port: 3200}
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 12
+  livenessProbe:
+    httpGet: {path: /ready, port: 3200}
+    initialDelaySeconds: 120
+    periodSeconds: 15
+    timeoutSeconds: 3
+    failureThreshold: 6
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+  seccompProfile: {type: RuntimeDefault}
+serviceAccount:
+  create: true
+  automountServiceAccountToken: false
+service: {type: ClusterIP}
+extraVolumes:
+  - name: lab-tempo-tmp
+    emptyDir: {sizeLimit: 64Mi}
+persistence:
+  enabled: true
+  enableStatefulSetAutoDeletePVC: false
+  storageClassName: standard
+  size: 1Gi
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  scrapeTimeout: 5s
+  additionalLabels: {release: lab-monitoring}

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "name": "kubernetes",
+      "source": "https://github.com/LukasNiessen/kubernetes-skill.git",
+      "commit": "34f93c1e409156958cc7c410ab1aa88ab512f10f",
+      "path": ".",
+      "destination": ".agents/skills/kubernetes",
+      "license": "MIT"
+    },
+    {
+      "name": "docker",
+      "source": "https://github.com/iuliandita/skills.git",
+      "commit": "df2d3cfff737995d6a54ceef41d06aa5d3d137b5",
+      "path": "skills/docker",
+      "destination": ".agents/skills/docker",
+      "license": "MIT"
+    },
+    {
+      "name": "observability",
+      "source": "https://github.com/iuliandita/skills.git",
+      "commit": "df2d3cfff737995d6a54ceef41d06aa5d3d137b5",
+      "path": "skills/observability",
+      "destination": ".agents/skills/observability",
+      "license": "MIT"
+    },
+    {
+      "name": "terraform-style-guide",
+      "source": "https://github.com/hashicorp/agent-skills.git",
+      "commit": "f706481af9b8fedb66de909f6243ad29601afa0c",
+      "path": "plugins/terraform/skills/terraform-style-guide",
+      "destination": ".agents/skills/terraform-style-guide",
+      "license": "MPL-2.0"
+    },
+    {
+      "name": "terraform-test",
+      "source": "https://github.com/hashicorp/agent-skills.git",
+      "commit": "f706481af9b8fedb66de909f6243ad29601afa0c",
+      "path": "plugins/terraform/skills/terraform-test",
+      "destination": ".agents/skills/terraform-test",
+      "license": "MPL-2.0"
+    }
+  ]
+}

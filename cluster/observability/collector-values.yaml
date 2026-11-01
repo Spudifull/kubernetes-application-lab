@@ -1,0 +1,87 @@
+fullnameOverride: lab-otel-collector
+mode: deployment
+replicaCount: 1
+rollout:
+  strategy: Recreate
+image:
+  repository: otel/opentelemetry-collector
+  tag: 0.163.2
+command:
+  name: otelcol
+serviceAccount:
+  create: true
+  automountServiceAccountToken: false
+clusterRole:
+  create: false
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  seccompProfile: {type: RuntimeDefault}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities: {drop: [ALL]}
+resources:
+  requests: {cpu: 50m, memory: 128Mi}
+  limits: {cpu: 300m, memory: 256Mi}
+ports:
+  otlp: {enabled: true, hostPort: null}
+  otlp-http: {enabled: true, hostPort: null}
+  jaeger-compact: {enabled: false}
+  jaeger-thrift: {enabled: false}
+  jaeger-grpc: {enabled: false}
+  zipkin: {enabled: false}
+  metrics: {enabled: true}
+service:
+  type: ClusterIP
+serviceMonitor:
+  enabled: true
+  extraLabels: {release: lab-monitoring}
+  metricsEndpoints: [{port: metrics, interval: 15s, scrapeTimeout: 5s}]
+  sampleLimit: 3000
+config:
+  receivers:
+    jaeger: null
+    zipkin: null
+    prometheus: null
+    otlp:
+      protocols:
+        # kubectl port-forward connects to loopback inside the Pod network.
+        # Binding only MY_POD_IP rejects that path even when the Service works.
+        grpc: {endpoint: '0.0.0.0:4317'}
+        http: {endpoint: '0.0.0.0:4318'}
+  processors:
+    memory_limiter:
+      check_interval: 1s
+      limit_percentage: null
+      spike_limit_percentage: null
+      limit_mib: 192
+      spike_limit_mib: 32
+    batch:
+      timeout: 1s
+      send_batch_size: 128
+      send_batch_max_size: 256
+  exporters:
+    debug: null
+    otlp_grpc/tempo:
+      endpoint: lab-tempo.kubernetes-application-lab-observability.svc.cluster.local:4317
+      tls: {insecure: true}
+      timeout: 5s
+      sending_queue:
+        enabled: true
+        num_consumers: 1
+        queue_size: 64
+      retry_on_failure:
+        enabled: true
+        initial_interval: 1s
+        max_interval: 5s
+        max_elapsed_time: 30s
+  service:
+    pipelines:
+      logs: null
+      metrics: null
+      traces:
+        receivers: [otlp]
+        processors: [memory_limiter, batch]
+        exporters: [otlp_grpc/tempo]

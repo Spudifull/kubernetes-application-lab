@@ -1,0 +1,6 @@
+apiVersion: v2
+name: lab-postgres
+description: Single-instance PostgreSQL for the stateful laboratory
+type: application
+version: 0.4.0
+appVersion: "16.14"

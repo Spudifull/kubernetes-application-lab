@@ -1,0 +1,10 @@
+{
+  "spec": {
+    "kafka": {
+      "metricsConfig": {
+        "type": "jmxPrometheusExporter",
+        "valueFrom": {"configMapKeyRef": {"name": "lab-kafka-jmx-metrics", "key": "metrics.yaml"}}
+      }
+    }
+  }
+}
