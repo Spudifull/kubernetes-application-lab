@@ -1,0 +1,12 @@
+{
+  "source_commit_sha": "6f6521d81226931f42edd2783584cb33c8fc8519",
+  "promotion_commit_sha": "b2b8ccb8c9ab7069ca8a6922de09751a47b33ce7",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+  "checked_container_run_id": 41394590245,
+  "publish_run_id": 41394590401,
+  "release_gate_run_id": 41400612212,
+  "release_pr": 7,
+  "dev_observation": "docs/verification/milestone9/dev-recovered.json",
+  "registry_observation": "docs/verification/milestone9/registry.json"
+}

@@ -1,6 +1,6 @@
 # Проверка CI/CD и GitOps
 
-Быстрый CI [проверен](../verification/evidence-restoration-ci.md). Контейнерный workflow и ограниченный kind smoke подготовлены для приёмки в отдельном PR. Архитектурные границы — в [контракте](../design/ci-cd-gitops.md).
+Быстрый CI [проверен](../verification/evidence-restoration-ci.md); container/kind, GHCR и оба GitOps-окружения подтверждены [runtime-отчётом](../verification/gitops-development.md). Архитектурные границы — в [контракте](../design/ci-cd-gitops.md).
 
 Перед отправкой изменений выполнить Go test/race/vet/build, evidence tests, actionlint и `bash scripts/ci-helm.sh`. Последняя команда использует только локальное формирование YAML и не меняет кластер. Для Windows доступны эквивалентные `helm lint` / `helm template`; установленные версии фиксируются в отчёте.
 
@@ -8,15 +8,15 @@
 
 Контейнерный workflow `container.yml` выполняет Buildx, govulncheck, Trivy и передаёт проверенный image archive в отдельный kind job. `scripts/ci-kind.sh` создаёт исключительно свой временный кластер `lab-ci-*`, использует отдельный kubeconfig, проверяет `/readyz` и `/version` из client Pod через Service DNS, ломает selector только этого Service и подтверждает отказ и восстановление. Диагностика сохраняется перед удалением собственного временного кластера. Команды: `task ci-container`; для Linux `IMAGE=lab-ci-api:<revision> REVISION=<revision> task ci-kind`. Локальные образы имеют dirty revision до фиксации исходников.
 
-GHCR publication и development Argo runtime [проверены](../verification/gitops-development.md) на одобренном digest. Используется отдельный kind `kubernetes-application-lab-gitops`, собственный `.cache/gitops/kubeconfig`, kubectl 1.35.9 и Argo CD Core 3.5.6. Stable profile подготовлен с тем же digest, но Application lab-stable до разрешённого Release PR не создаётся. Основные кластеры не используются. Release gate подготовлен и ещё не required до первого успешного Release PR.
+GHCR publication и оба Argo runtime [проверены](../verification/gitops-development.md) на одном digest. Используется отдельный kind `kubernetes-application-lab-gitops`, собственный `.cache/gitops/kubeconfig`, kubectl 1.35.9 и Argo CD Core 3.5.6. Application lab-stable впервые создана и вручную синхронизирована после Release PR №7; development использует self-heal. Основные кластеры не используются. Release gate стал required main после первого successful run на Release PR.
 
-Публикация требует отдельного разрешения владельца. Для одобренного run включить repository variable `ENABLE_GHCR_PUBLISH=true` и выполнить publishing workflow, затем удалить временный флаг после подтверждения success. Workflow загружает `checked-api` и выполняет tag/push без build. Первый одобренный run `41394590401` уже выполнен; digest сохранён в `gitops/candidate.json`, anonymous pull подтверждён, флаг удалён. Токены и kubeconfig не вносить в Git. Локальный image ID не подменяет registry digest.
+Для публикации включить repository variable `ENABLE_GHCR_PUBLISH=true` и выполнить publishing workflow, затем удалить временный флаг после подтверждения success. Workflow загружает `checked-api` и выполняет tag/push без build. Первый run `41394590401` выполнен; digest сохранён в `gitops/candidate.json`, anonymous pull подтверждён, флаг удалён. Токены и kubeconfig не вносить в Git. Локальный image ID не подменяет registry digest.
 
 ## Защита main
 
 Проверка 2 ноября 2026 года: репозиторий Public. GitHub API обеих веток `dev` и `main` подтвердил обязательный PR, checks `go`, `evidence`, `helm` от GitHub Actions (app ID 15368), strict=true, применение к администраторам, запрет force push и удаления. Обязательных чужих approvals нет: владелец может работать один. PR №1 закрыт с merged=true, merge SHA `b34fe8b19da5cfa67e0b16745586a3b2d18f1568`; CI подтверждён на PR и push в dev.
 
-Новые required checks включать только после успешного запуска на соответствующих PR. Подготовленный `release-gate` для main до первого successful Release PR не required; базовая защита не доказывает успешный promotion. Доступность защиты описана в [документации GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+Новые required checks включать только после успешного запуска на соответствующих PR. `release-gate` включён в required main после успешного run `41400612212`; сама защита не доказывает успешный runtime promotion. Доступность защиты описана в [документации GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
 
 После успешного PR №2 для dev через API добавлены required checks `container`, `kind`, с сохранением `go`, `evidence`, `helm` и strict=true. На push merge SHA `6f6521d` все пять checks успешны. Publishing run `41394590401` сначала был skipped, после отдельного разрешения повторён и завершился success без пересборки.
 
@@ -24,4 +24,17 @@ GHCR publication и development Argo runtime [проверены](../verificatio
 
 `task gitops-observe-dev` сохраняет выбранные Argo/Pod/HTTP поля и проверяет health, version и imageID. `task gitops-failed-rollout` намеренно ломает image только lab-dev с bounded progress deadline, сохраняет Degraded/ErrImagePull и в finally восстанавливает известный Git desired state. Он временно отключает auto-sync для наблюдения ошибки, затем возвращает policy из Git. Не запускать этот опыт в stable.
 
-`task release-check` проверяет архивированные receipts и неизменность API build inputs. Main PR обязан исходить из защищённой dev; release workflow дополнительно проверяет GitHub Actions provenance и config digest CI artifact/registry. Пока Gate не прошёл реальный Release PR, не добавлять его в required checks. После разрешённого merge выполнить первый manual sync Application lab-stable и тот же observer с `-Environment lab-stable`; зафиксировать source SHA, реальный promotion SHA, Pod imageID и HTTP. Stable не пересобирает image и не включает auto-prune.
+`task release-check` проверяет receipts, выбранные текущим candidate, и неизменность API build inputs. Для каждого нового кандидата сохранять новый набор файлов наблюдений; исторические receipts и source SHA не переписывать. Исторические тесты читают зафиксированную identity своего релиза и не привязываются к будущему current candidate. Main PR обязан исходить из защищённой dev; release workflow дополнительно проверяет GitHub Actions provenance и config digest CI artifact/registry. После merge выполнить manual sync Application lab-stable и `task gitops-observe-stable`; зафиксировать source SHA, фактический promotion SHA, Pod imageID и HTTP. Stable не пересобирает image и не включает auto-prune.
+
+Observer выполняет HTTP из диагностического Pod `lab-smoke` выбранного namespace. Перед повтором создать его в отдельном GitOps-кластере и дождаться Ready, например для development:
+
+```powershell
+$k = '.cache/tools/kubectl-1.35.9.exe'
+$scope = @('--kubeconfig','.cache/gitops/kubeconfig','--context','kind-kubernetes-application-lab-gitops')
+& $k @scope -n lab-dev run lab-smoke --image=curlimages/curl:8.16.0 --restart=Never --command -- sleep 600
+& $k @scope -n lab-dev wait --for=condition=Ready pod/lab-smoke --timeout=120s
+task gitops-observe-dev
+& $k @scope -n lab-dev delete pod lab-smoke
+```
+
+Для stable использовать namespace lab-stable и task gitops-observe-stable. Эти Pod не управляются Argo и удаляются после измерений; отсутствие diagnostic Pod является отказом наблюдателя, а не доказательством недоступности приложения. Promotion SHA в observer берётся из фактической последней sync operation, отдельно от Git revision текущего сравнения Argo.

@@ -4,5 +4,7 @@
   "image_digest": "sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
   "checked_container_run_id": 41394590245,
   "publish_run_id": 41394590401,
-  "promotion_commit_sha": null
+  "dev_observation": "docs/verification/milestone9/dev-recovered.json",
+  "registry_observation": "docs/verification/milestone9/registry.json",
+  "promotion_commit_sha": "b2b8ccb8c9ab7069ca8a6922de09751a47b33ce7"
 }
