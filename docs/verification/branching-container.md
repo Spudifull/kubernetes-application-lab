@@ -26,6 +26,8 @@ Container job `125109654155` выполнил dependency scan, Buildx, identity 
 
 Первый kind run использовал Kubernetes 1.34, но обнаружено предупреждение о встроенном kubectl 1.37 на runner. После этого installer явно закреплён на kubectl 1.35.9 с checksum verification; исправленная версия требует повторного run. Подготовлен выключенный `publish.yml`, ожидающий отдельного разрешения владельца. GHCR публикация ещё не выполнялась.
 
+Повторный быстрый CI `41393938941` на head `29b9d17` выявил ShellCheck SC2034 в выключенном publishing workflow: счётчик ожидания объявлялся, но не использовался. Исправлено добавлением диагностического номера попытки; ShellCheck не отключался. Дополнительно запрещена Docker-пересборка на PR/push main: stable promotion должен использовать ранее проверенный dev artifact. Изменения проходят новый run до слияния.
+
 `container.yml`: path classification, govulncheck, Buildx API, проверка non-root/OCI revision, Trivy HIGH/CRITICAL с exit-code=1, передача Docker archive отдельному kind job. Публикации GHCR и registry secrets нет. Отчёты и build metadata сохраняются как CI artifacts. На PR проверяется merge revision из `github.sha`, а не произвольно объявленная source revision.
 
 `ci-kind.sh`: исключительно собственный временный кластер `lab-ci-*`, отдельный kubeconfig; Helm stateless API; client Pod → Service DNS → readyz/version; намеренно неверный Service selector; обнаружение HTTP-отказа; восстановление selector и HTTP. Диагностика до cleanup собственного кластера. Время отказа ограничено; отрицательный сценарий не меняет чужие ресурсы. Полный Kubernetes/PostgreSQL/Kafka стек не нужен.

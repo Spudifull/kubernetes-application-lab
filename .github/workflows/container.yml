@@ -27,8 +27,12 @@ jobs:
         env:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
           MANUAL: ${{ github.event_name == 'workflow_dispatch' }}
+          STABLE: ${{ github.base_ref == 'main' || github.ref == 'refs/heads/main' }}
         run: |
-          if [[ "$MANUAL" == true || -z "$BASE" || "$BASE" == 0000000000000000000000000000000000000000 ]]; then
+          if [[ "$STABLE" == true ]]; then
+            echo 'Stable promotion must reuse a checked dev artifact; no Docker rebuild on main.'
+            echo 'build=false' >> "$GITHUB_OUTPUT"
+          elif [[ "$MANUAL" == true || -z "$BASE" || "$BASE" == 0000000000000000000000000000000000000000 ]]; then
             echo 'build=true' >> "$GITHUB_OUTPUT"
           elif git diff --name-only "$BASE" HEAD | grep -Eq '^(cmd/|internal/|docker/|helm/|go\.(mod|sum)$|\.dockerignore$|\.github/workflows/|scripts/ci-)'; then
             echo 'build=true' >> "$GITHUB_OUTPUT"
