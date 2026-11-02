@@ -53,6 +53,18 @@ kubectl --context "kind-$cluster" -n ci-smoke get pods -l app.kubernetes.io/inst
 jq -e 'any(.status.conditions[]; .type == "Progressing" and .status == "False" and .reason == "ProgressDeadlineExceeded")' .cache/container/kind/failed-deployment.json
 jq -e 'any(.items[].status.containerStatuses[]?; .state.waiting.reason == "ErrImageNeverPull")' .cache/container/kind/failed-pods.json
 kubectl --context "kind-$cluster" -n ci-smoke set image deployment/ci-api "api=$IMAGE"
+# rollout status can immediately return the previous generation's failed condition.
+# Wait for the controller to acknowledge the restored spec and clear that condition.
+acknowledged=false
+for attempt in {1..60}; do
+  kubectl --context "kind-$cluster" -n ci-smoke get deployment ci-api -o json > .cache/container/kind/recovery-deployment.json
+  if jq -e '.status.observedGeneration >= .metadata.generation and any(.status.conditions[]; .type == "Progressing" and .status == "True")' .cache/container/kind/recovery-deployment.json > /dev/null; then
+    acknowledged=true; break
+  fi
+  echo "Waiting for restored rollout generation: $attempt/60"
+  sleep 1
+done
+[[ "$acknowledged" == true ]] || { echo 'Controller did not acknowledge recovery' >&2; exit 1; }
 kubectl --context "kind-$cluster" -n ci-smoke rollout status deployment/ci-api --timeout=120s
 assert_endpoints rollout-recovered
 request version | jq -e --arg revision "$REVISION" '.revision == $revision'

@@ -28,6 +28,8 @@ Derived [квитанция CI](milestone9/completion-ci.json) извлечен�
 
 В `.gitleaks.toml` добавлено узкое исключение точной строки `lab-ci-api:c7842d0e14549b2322c5bde3ea11f308d27a8cd6`: generic-api-key ошибочно распознал публичный image tag из архивируемого CI receipt. Это проверенный merge SHA, не credential. Новые значения и другие строки этим исключением не покрываются; повторный staged scan обязателен.
 
+Push/dev run `41494877715` после первого merge обнаружил гонку recovery: после возврата правильного image `kubectl rollout status` прочитал прежнее ProgressDeadlineExceeded до обработки новой generation controller. Container job прошёл для всех трёх компонентов, отрицательный rollout корректно обнаружен; recovery преждевременно завершил job. PR-приёмка выше остаётся реальной успешной попыткой, но одна попытка не доказывает отсутствие гонки. В `ci-kind.sh` добавлен bounded barrier: observedGeneration должна догнать текущую metadata.generation, Progressing стать True, затем выполняется обычный rollout status. Снимок recovery Deployment сохраняется; проверка не заменена задержкой или игнорированием ошибки.
+
 ## Покрытие обязательных требований
 
 | Область | Результат и доказательство |
