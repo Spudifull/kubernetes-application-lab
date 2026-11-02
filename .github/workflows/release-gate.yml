@@ -13,14 +13,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - name: Require protected dev as release source
-        env:
-          HEAD_BRANCH: ${{ github.head_ref }}
-          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
-          TARGET_REPOSITORY: ${{ github.repository }}
-        run: |
-          test "$HEAD_BRANCH" = dev
-          test "$HEAD_REPOSITORY" = "$TARGET_REPOSITORY"
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
@@ -28,33 +20,7 @@ jobs:
       - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
         with:
           go-version-file: go.mod
-      - name: Archived runtime proof and unchanged API inputs
-        run: go run ./cmd/labctl release-check
-      - name: Verify trusted CI and publishing provenance
+      - name: Verify release identity and provenance
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: |
-          set -euo pipefail
-          source=$(jq -r .source_commit_sha gitops/candidate.json)
-          checked=$(jq -r .checked_container_run_id gitops/candidate.json)
-          published=$(jq -r .publish_run_id gitops/candidate.json)
-          gh api "repos/$GH_REPO/actions/runs/$checked" \
-            | jq -e --arg sha "$source" '.head_sha == $sha and .head_branch == "dev" and .event == "push" and .conclusion == "success" and .path == ".github/workflows/container.yml"'
-          gh api "repos/$GH_REPO/actions/runs/$checked/jobs?per_page=100" \
-            | jq -e '[.jobs[] | select((.name == "container" or .name == "kind") and .conclusion == "success")] | length == 2'
-          gh api "repos/$GH_REPO/actions/runs/$published" \
-            | jq -e --arg sha "$source" '.head_sha == $sha and .head_branch == "dev" and .event == "push" and .conclusion == "success" and .path == ".github/workflows/publish.yml"'
-          bash scripts/ci-release-proof.sh
-      - name: Verify current registry identity without credentials
-        run: |
-          set -euo pipefail
-          repository=spudifull/kubernetes-application-lab-api
-          digest=$(jq -r .image_digest gitops/candidate.json)
-          registry=$(jq -r '.registry_observation // "docs/verification/milestone9/registry.json"' gitops/candidate.json)
-          token=$(curl -fsS "https://ghcr.io/token?service=ghcr.io&scope=repository:$repository:pull" | jq -r .token)
-          curl -fsS -H "Authorization: Bearer $token" \
-            -H 'Accept: application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json' \
-            "https://ghcr.io/v2/$repository/manifests/$digest" \
-            | jq -e --slurpfile registry "$registry" '.config.digest == $registry[0].config_digest'
+        run: go run ./cmd/labctl release-verify

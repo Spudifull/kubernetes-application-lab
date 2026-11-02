@@ -54,6 +54,11 @@ tasks:
     cmds:
       - go run ./cmd/labctl release-check
 
+  release-verify:
+    desc: Verify release provenance and anonymous registry identity using GitHub event metadata and GH_TOKEN.
+    cmds:
+      - go run ./cmd/labctl release-verify
+
   gitops-failed-rollout:
     desc: Controlled failure and recovery only in the owned development GitOps namespace.
     cmds:
