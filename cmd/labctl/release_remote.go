@@ -227,6 +227,14 @@ func (r releaseRemote) provenance(ctx context.Context, c releaseCandidate) error
 		if err := requireReleaseJobs(jobs, "publish / publish"); err != nil {
 			return err
 		}
+	} else {
+		publishedJobs, err := r.jobs(ctx, c.PublishRun)
+		if err != nil {
+			return err
+		}
+		if err := requireReleaseJobs(publishedJobs, "publish"); err != nil {
+			return err
+		}
 	}
 	return nil
 }

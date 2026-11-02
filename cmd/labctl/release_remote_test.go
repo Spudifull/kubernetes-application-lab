@@ -52,13 +52,15 @@ func successfulJobs(names ...string) []releaseJob {
 
 func TestReleaseProvenanceLayoutsAndFailures(t *testing.T) {
 	for _, tc := range []struct {
-		name    string
-		unified bool
-		alter   func(*releaseCandidate, *releaseRun, *releaseRun, *[]releaseJob)
-		bad     bool
+		name           string
+		unified        bool
+		publishSkipped bool
+		alter          func(*releaseCandidate, *releaseRun, *releaseRun, *[]releaseJob)
+		bad            bool
 	}{
 		{name: "historical separate runs"},
 		{name: "unified checked and published run", unified: true},
+		{name: "skipped historical publication", publishSkipped: true, bad: true},
 		{name: "wrong SHA", alter: func(_ *releaseCandidate, c, p *releaseRun, _ *[]releaseJob) { c.SHA = strings.Repeat("d", 40) }, bad: true},
 		{name: "pull request run", alter: func(_ *releaseCandidate, c, p *releaseRun, _ *[]releaseJob) { c.Event = "pull_request" }, bad: true},
 		{name: "fork repository", alter: func(_ *releaseCandidate, c, p *releaseRun, _ *[]releaseJob) { c.HeadRepository.Name = "other/repo" }, bad: true},
@@ -76,6 +78,10 @@ func TestReleaseProvenanceLayoutsAndFailures(t *testing.T) {
 			checked := successfulRun(c.CheckedRun, c.Source, ".github/workflows/container.yml")
 			published := successfulRun(c.PublishRun, c.Source, ".github/workflows/publish.yml")
 			jobs := successfulJobs("container", "kind")
+			publishedJobs := successfulJobs("publish")
+			if tc.publishSkipped {
+				publishedJobs[0].Conclusion = "skipped"
+			}
 			if tc.unified {
 				c.PublishRun = c.CheckedRun
 				checked.Path = ".github/workflows/ci.yml"
@@ -107,6 +113,8 @@ func TestReleaseProvenanceLayoutsAndFailures(t *testing.T) {
 						}
 					}
 					_ = json.NewEncoder(w).Encode(map[string]any{"total_count": len(jobs), "jobs": part})
+				case fmt.Sprintf("actions/runs/%d/jobs", c.PublishRun):
+					_ = json.NewEncoder(w).Encode(map[string]any{"total_count": len(publishedJobs), "jobs": publishedJobs})
 				default:
 					http.NotFound(w, r)
 				}
