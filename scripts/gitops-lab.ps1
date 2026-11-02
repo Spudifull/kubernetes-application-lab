@@ -2,6 +2,7 @@ param(
     [Parameter(Mandatory)][ValidateSet('preflight','render','install','status','sync','smoke','cleanup')][string]$Action,
     [ValidateSet('lab-dev','lab-stable')][string]$Environment = 'lab-dev',
     [string]$Revision,
+    [string]$CandidatePath = 'gitops/candidate.json',
     [string]$ConfirmCluster
 )
 $ErrorActionPreference = 'Stop'
@@ -119,7 +120,7 @@ switch ($Action) {
             $created = $true
             Kube @('-n',$Environment,'wait','--for=condition=Ready','pod/lab-smoke','--timeout=120s')
             Kube @('-n',$Environment,'exec','lab-smoke','--','curl','--fail','--silent','--show-error','--max-time','5',"http://$Environment.$Environment.svc/readyz")
-            & (Join-Path $PSScriptRoot 'gitops-observe.ps1') -Environment $Environment -OutputPath ".cache/gitops/observations/$Environment.json" -RequireHealthy
+            & (Join-Path $PSScriptRoot 'gitops-observe.ps1') -Environment $Environment -CandidatePath $CandidatePath -OutputPath ".cache/gitops/observations/$Environment.json" -RequireHealthy
         } finally {
             if ($created) { Kube @('-n',$Environment,'delete','pod','lab-smoke','--wait=true') }
         }

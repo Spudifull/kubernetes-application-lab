@@ -157,6 +157,7 @@ func runCLI(ctx context.Context, args []string, r runner, out io.Writer) error {
 	key := f.String("key", "", "bounded database record key")
 	value := f.String("value", "", "bounded database record value")
 	baseURL := f.String("url", "http://127.0.0.1:18081", "local API port-forward for jobs")
+	inputFile := f.String("file", "", "input report file")
 	if err := f.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -192,6 +193,8 @@ func runCLI(ctx context.Context, args []string, r runner, out io.Writer) error {
 	ctx, cancel := context.WithTimeout(ctx, bound)
 	defer cancel()
 	switch command {
+	case "govulncheck":
+		return l.govulncheck(*inputFile)
 	case "alert-receiver-image-record":
 		return l.receiverImageRecord(ctx)
 	case "alerting-rules-test":

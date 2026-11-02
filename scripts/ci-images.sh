@@ -6,6 +6,7 @@ for component in api publisher worker; do
   output=".cache/container/$component"
   mkdir -p "$output"
   go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 -format json "./cmd/$component" > "$output/govulncheck.json"
+  go run ./cmd/labctl govulncheck --file "$output/govulncheck.json" > "$output/govulncheck-summary.json"
   docker buildx build --load --provenance=false --platform linux/amd64 \
     --file "docker/$component.Dockerfile" --tag "lab-ci-$component:$SOURCE_SHA" \
     --build-arg "REVISION=$SOURCE_SHA" --build-arg VERSION=dev \
