@@ -1,0 +1,10 @@
+# Prepared: fill only with an audited, published, tested artifact.
+image:
+  repository: ghcr.io/spudifull/kubernetes-application-lab-api
+  digest: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+database:
+  enabled: false
+jobs:
+  enabled: false

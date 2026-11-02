@@ -37,7 +37,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: api
-          image: {{ printf "%s:%s" (required "image.repository is required" .Values.image.repository) (required "image.tag is required" .Values.image.tag) | quote }}
+          image: {{ include "lab-api.image" . | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: LAB_TRACING_ENABLED

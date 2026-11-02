@@ -1,0 +1,10 @@
+# Prepared: promote the exact digest validated in lab-dev, never rebuild.
+image:
+  repository: ghcr.io/spudifull/kubernetes-application-lab-api
+  digest: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+database:
+  enabled: false
+jobs:
+  enabled: false
