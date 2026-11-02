@@ -28,7 +28,7 @@ Windows/PowerShell: `task gitops-preflight`, `task gitops-render`, `task gitops-
 
 `task gitops-smoke GITOPS_ENV=lab-dev` (или lab-stable) создаёт собственный диагностический Pod, проверяет readyz/version/imageID и удаляет Pod в finally. Если Pod с таким именем уже есть, команда отказывается его использовать или удалять. Это удобная замена ручной подготовке Pod для observer ниже. JSON сохраняется в `.cache/gitops/observations/`.
 
-`task gitops-cleanup CONFIRM_GITOPS_CLUSTER=kubernetes-application-lab-gitops` удаляет весь выделенный кластер с обоими окружениями. Не запускать для обычного завершения smoke; основной и network-кластеры не входят в область команды. Отсутствующее или неверное подтверждение приводит к отказу. Новый install и фактический cleanup остаются Prepared до отдельного прогона; существующие окружения сохраняются.
+`task gitops-cleanup CONFIRM_GITOPS_CLUSTER=kubernetes-application-lab-gitops` удаляет весь выделенный кластер с обоими окружениями. Не запускать для обычного завершения smoke; основной и network-кластеры не входят в область команды. Отсутствующее или неверное подтверждение приводит к отказу. Повторный install на существующем стенде и отказ cleanup проверены; создание с нуля и фактический cleanup остаются Prepared, существующие окружения сохраняются.
 
 `container` проверяет три компонента через `scripts/ci-images.sh`. `ci-kind.sh` проверяет Ready EndpointSlice, настоящий failed rollout и восстановление, затем Service failure/recovery; сохраняет журналы приложения. Для ранее принятой identity release gate читает долговечную квитанцию из base SHA защищённой main; для нового кандидата требует исходный CI artifact. Условия доверия и retention описаны в [контракте](../design/ci-cd-gitops.md).
 

@@ -60,6 +60,7 @@ request version | jq -e --arg revision "$REVISION" '.revision == $revision'
 kubectl --context "kind-$cluster" -n ci-smoke patch service ci-api --type merge -p '{"spec":{"selector":{"ci-fault":"missing"}}}'
 failed=false
 for attempt in {1..10}; do
+  echo "Waiting for negative Service smoke: $attempt/10"
   if ! request readyz; then failed=true; break; fi
   sleep 1
 done
@@ -67,6 +68,7 @@ done
 kubectl --context "kind-$cluster" -n ci-smoke patch service ci-api --type json -p '[{"op":"remove","path":"/spec/selector/ci-fault"}]'
 recovered=false
 for attempt in {1..20}; do
+  echo "Waiting for Service recovery: $attempt/20"
   if request readyz; then recovered=true; break; fi
   sleep 1
 done
