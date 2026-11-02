@@ -100,6 +100,8 @@ Commit `dff4e4bc616ff94ebf96b4a490b77ef30ca7144d` («Восстановлены 
 
 Добавлен `.gitattributes`: evidence сохраняет исходные bytes, включая пробелы в TXT; shell-скрипты имеют LF. Стандартный staged whitespace check первоначально обнаружил пробелы в оригинальном TXT; они сохранены как часть исторического источника, для этого файла настроено узкое исключение whitespace.
 
+Evidence job `125096357382` первого run также обнаружил несовпадение SHA-256 TXT: первоначальный `git add` нормализовал CRLF в LF, а добавление `.gitattributes` не перечитало уже индексированный файл. Исправлено явным `git add --renormalize docs/verification/evidence`: сохранены bytes файла из исходного Windows checkout, по которым зафиксирована публичная SHA-256. Исторический текст и измерения не менялись. Второй commit `4567493` содержит исправление Helm; исправление index TXT выполнено следующим коммитом. Приёмка требует успешного нового run.
+
 Создан `.github/workflows/ci.yml`: PR/push main и ручной запуск, read-only contents, отключение сохранения checkout credentials, SHA-pinned actions, timeout и concurrency. Jobs: Go test/race/vet/build/formatting; evidence/links/secret scan/actionlint; Helm lint/render. YAML проверен actionlint 1.7.7 локально.
 
 Workflow run ID, runner execution, run URL и новый Git SHA отсутствуют: commit/push требуют явного разрешения владельца. CI не имеет статуса Passed. Контейнерная сборка, security scan зависимостей/образов, GHCR digest, kind smoke/negative scenario, Argo CD, sync, drift/self-heal и recovery в этом изменении ещё не выполнены. Kubernetes version, Argo CD version и Pod imageID для Milestone 9 отсутствуют. Исторические кластеры и PVC не затрагивались.
