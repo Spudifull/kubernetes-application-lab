@@ -210,6 +210,15 @@ func runCLI(ctx context.Context, args []string, r runner, out io.Writer) error {
 		return l.revision(ctx)
 	case "release-check":
 		return l.releaseCheck(ctx)
+	case "release-verify":
+		return l.releaseVerify(ctx)
+	case "publish-check":
+		return l.publishCheck(false)
+	case "publish-context":
+		_, _, err := publicationContext()
+		return err
+	case "publish-receipt":
+		return l.publishCheck(true)
 	case "image-record":
 		return l.imageRecord(ctx)
 	case "deploy-image":

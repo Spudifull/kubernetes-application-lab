@@ -118,44 +118,46 @@ func releaseValuesImage(data string) (string, error) {
 	return repository + "@" + digest, nil
 }
 
-func (l lab) releaseCheck(ctx context.Context) error {
-	readJSON := func(path string, dst any) error {
-		data, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		if err = json.Unmarshal(data, dst); err != nil {
-			return fmt.Errorf("parse %s: %w", path, err)
-		}
-		return nil
+func readReleaseJSON(path string, dst any) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
 	}
+	if err = json.Unmarshal(data, dst); err != nil {
+		return fmt.Errorf("parse %s: %w", path, err)
+	}
+	return nil
+}
+
+func releaseObservationPath(selected, fallback string) (string, error) {
+	if selected == "" {
+		selected = fallback
+	}
+	if path.Clean(selected) != selected || !strings.HasPrefix(selected, "docs/verification/milestone9/") || strings.ContainsAny(selected, `\:`) || !strings.HasSuffix(selected, ".json") {
+		return "", errors.New("observation path must stay inside milestone9 evidence")
+	}
+	return selected, nil
+}
+
+func (l lab) releaseCheck(ctx context.Context) error {
 	var candidate releaseCandidate
 	var proof releaseObservation
 	var registry releaseRegistry
-	if err := readJSON("gitops/candidate.json", &candidate); err != nil {
+	if err := readReleaseJSON("gitops/candidate.json", &candidate); err != nil {
 		return err
 	}
-	observationPath := func(selected, fallback string) (string, error) {
-		if selected == "" {
-			selected = fallback
-		}
-		if path.Clean(selected) != selected || !strings.HasPrefix(selected, "docs/verification/milestone9/") || strings.ContainsAny(selected, `\:`) || !strings.HasSuffix(selected, ".json") {
-			return "", errors.New("observation path must stay inside milestone9 evidence")
-		}
-		return selected, nil
-	}
-	devPath, err := observationPath(candidate.DevObservation, "docs/verification/milestone9/dev-recovered.json")
+	devPath, err := releaseObservationPath(candidate.DevObservation, "docs/verification/milestone9/dev-recovered.json")
 	if err != nil {
 		return err
 	}
-	registryPath, err := observationPath(candidate.RegistryObservation, "docs/verification/milestone9/registry.json")
+	registryPath, err := releaseObservationPath(candidate.RegistryObservation, "docs/verification/milestone9/registry.json")
 	if err != nil {
 		return err
 	}
-	if err := readJSON(devPath, &proof); err != nil {
+	if err := readReleaseJSON(devPath, &proof); err != nil {
 		return err
 	}
-	if err := readJSON(registryPath, &registry); err != nil {
+	if err := readReleaseJSON(registryPath, &registry); err != nil {
 		return err
 	}
 	images := make([]string, 0, 2)

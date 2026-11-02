@@ -1,72 +1,49 @@
 name: Publish checked dev image
 on:
-  push:
-    branches: [dev]
-    paths:
-      - 'cmd/**'
-      - 'internal/**'
-      - 'docker/**'
-      - 'go.mod'
-      - 'go.sum'
-      - '.dockerignore'
-      - '.github/workflows/**'
-      - 'scripts/ci-*.sh'
+  workflow_call:
+    inputs:
+      source_sha:
+        required: true
+        type: string
+      checked_run_id:
+        required: true
+        type: string
 permissions:
   contents: read
-concurrency:
-  group: publish-dev
-  cancel-in-progress: false
 jobs:
   publish:
-    # Owner must explicitly enable this variable after authorizing publication.
-    if: vars.ENABLE_GHCR_PUBLISH == 'true'
+    if: github.repository == 'Spudifull/kubernetes-application-lab' && github.event_name == 'push' && github.ref == 'refs/heads/dev' && vars.ENABLE_GHCR_PUBLISH == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 15
     permissions:
       contents: read
       actions: read
       packages: write
+    env:
+      SOURCE_SHA: ${{ inputs.source_sha }}
+      CHECKED_RUN_ID: ${{ inputs.checked_run_id }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - name: Verify trusted dev runs and fetch checked artifact
+      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        with:
+          go-version-file: go.mod
+      - name: Load checked API from this run
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          SOURCE_SHA: ${{ github.sha }}
         run: |
-          set -euo pipefail
-          for attempt in {1..60}; do
-            echo "Waiting for source CI: attempt $attempt/60"
-            ci=$(gh api "repos/$GH_REPO/actions/workflows/ci.yml/runs?event=push&branch=dev&head_sha=$SOURCE_SHA&per_page=1")
-            container=$(gh api "repos/$GH_REPO/actions/workflows/container.yml/runs?event=push&branch=dev&head_sha=$SOURCE_SHA&per_page=1")
-            if jq -e '.workflow_runs[0].conclusion == "failure" or .workflow_runs[0].conclusion == "cancelled"' <<< "$ci" > /dev/null || \
-               jq -e '.workflow_runs[0].conclusion == "failure" or .workflow_runs[0].conclusion == "cancelled"' <<< "$container" > /dev/null; then
-              echo 'Source CI failed or was cancelled' >&2
-              exit 1
-            fi
-            if jq -e '.workflow_runs[0].conclusion == "success"' <<< "$ci" > /dev/null && \
-               jq -e '.workflow_runs[0].conclusion == "success"' <<< "$container" > /dev/null; then
-              run_id=$(jq -r '.workflow_runs[0].id' <<< "$container")
-              break
-            fi
-            sleep 15
-          done
-          : "${run_id:?Timed out waiting for successful source CI}"
-          gh api "repos/$GH_REPO/actions/runs/$run_id/jobs?per_page=100" \
-            | jq -e '[.jobs[] | select((.name == "container" or .name == "kind") and .conclusion == "success")] | length == 2'
+          go run ./cmd/labctl publish-context
           mkdir -p .cache/promotion
-          gh run download "$run_id" --name checked-api --dir .cache/promotion
+          gh run download "$CHECKED_RUN_ID" --name checked-api --dir .cache/promotion
           docker load -i .cache/promotion/api.tar
-          docker image inspect "lab-ci-api:$SOURCE_SHA" \
-            | jq -e --arg sha "$SOURCE_SHA" '.[0].Config.Labels["org.opencontainers.image.revision"] == $sha and .[0].Config.User == "65532:65532"'
-          echo "CHECKED_RUN_ID=$run_id" >> "$GITHUB_ENV"
+          docker image inspect "lab-ci-api:$SOURCE_SHA" > .cache/promotion/image.json
+          go run ./cmd/labctl publish-check
       - name: Publish without rebuilding
         env:
           REGISTRY_TOKEN: ${{ github.token }}
           REGISTRY_USER: ${{ github.actor }}
-          SOURCE_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
           repository=ghcr.io/spudifull/kubernetes-application-lab-api
@@ -74,10 +51,8 @@ jobs:
           trap 'docker logout ghcr.io' EXIT
           docker tag "lab-ci-api:$SOURCE_SHA" "$repository:$SOURCE_SHA"
           docker push "$repository:$SOURCE_SHA"
-          digest=$(docker image inspect "$repository:$SOURCE_SHA" --format '{{index .RepoDigests 0}}')
-          [[ "$digest" == "$repository@sha256:"* ]]
-          jq -n --arg source "$SOURCE_SHA" --arg image "$digest" --arg run "$CHECKED_RUN_ID" \
-            '{source_commit_sha:$source,image:$image,checked_run_id:$run,promotion_commit_sha:null}' > .cache/promotion/candidate.json
+          docker image inspect "$repository:$SOURCE_SHA" > .cache/promotion/image.json
+          go run ./cmd/labctl publish-receipt
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: promotion-candidate
