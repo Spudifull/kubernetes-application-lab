@@ -18,6 +18,7 @@ database:
   secretName: lab-postgres-credentials
 
 image:
+  digest: ""
   repository: kubernetes-application-lab-api
   tag: "0.1.0"
   pullPolicy: Never

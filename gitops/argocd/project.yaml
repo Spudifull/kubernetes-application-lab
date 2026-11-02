@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: lab-release
+  namespace: argocd
+spec:
+  sourceRepos:
+    - https://github.com/Spudifull/kubernetes-application-lab.git
+  destinations:
+    - namespace: lab-dev
+      server: https://kubernetes.default.svc
+    - namespace: lab-stable
+      server: https://kubernetes.default.svc
+  # Namespaces are provisioned explicitly by the owner in the separate cluster.
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ""
+      kind: Service

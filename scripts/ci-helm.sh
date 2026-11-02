@@ -21,3 +21,11 @@ for chart in helm/*; do
     helm template "$(basename "$chart")" "$chart" -f "$profile" --kube-version 1.34.0 --namespace "$namespace" --set-string image.tag="$tag" > /dev/null
   done
 done
+# A promoted digest must override tags, and malformed digests must fail closed.
+digest="sha256:$(printf 'a%.0s' {1..64})"
+helm template ci helm/lab-api -f gitops/dev/values.yaml --set-string "image.digest=$digest" \
+  | grep -F "ghcr.io/spudifull/kubernetes-application-lab-api@$digest"
+if helm template ci helm/lab-api --set-string image.digest=invalid > /dev/null 2>&1; then
+  echo 'Malformed digest was accepted' >&2
+  exit 1
+fi
