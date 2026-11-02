@@ -21,6 +21,16 @@ vars:
   BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
 
 tasks:
+  release-check:
+    desc: Verify archived dev proof and unchanged API inputs; does not access a Kubernetes cluster.
+    cmds:
+      - go run ./cmd/labctl release-check
+
+  gitops-failed-rollout:
+    desc: Controlled failure and recovery only in the owned development GitOps namespace.
+    cmds:
+      - pwsh -NoProfile -File scripts/gitops-failed-rollout.ps1
+
   gitops-observe-dev:
     desc: Observe only the separate local GitOps cluster; never the main laboratory context.
     cmds:

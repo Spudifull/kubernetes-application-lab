@@ -1,6 +1,6 @@
 # Kubernetes Application Lab
 
-Milestone 9 начат: восстановлены [22 первичных архива Milestone 8](docs/verification/README.md#первичные-доказательства-milestone-8), быстрый CI для Go/Helm/evidence прошёл в GitHub Actions на `5bd57b0`. На dev `6f6521d` также подтверждены Buildx, security scans и kind Service smoke с отказом и восстановлением. GHCR publication и runtime GitOps ещё не выполнены. [Контейнерная проверка и ограничения](docs/verification/branching-container.md), [восстановление evidence](docs/verification/evidence-restoration-ci.md).
+Milestone 9 начат: восстановлены [22 первичных архива Milestone 8](docs/verification/README.md#первичные-доказательства-milestone-8), проверены быстрый CI, Buildx/security и kind smoke. Одобренный образ опубликован в GHCR без пересборки; в отдельном development GitOps-кластере подтверждены Argo sync, imageID/version, rollout, drift/self-heal и recovery. Stable promotion ещё не выполнен. [Runtime-проверки и ограничения](docs/verification/gitops-development.md), [контейнерный CI](docs/verification/branching-container.md), [восстановление evidence](docs/verification/evidence-restoration-ci.md).
 
 A reproducible Go workload lab for Kubernetes: lifecycle, resources, networking, persistent state, reliable events, and observability. Учебный одноузловой стенд; гарантии production/HA не заявляются.
 

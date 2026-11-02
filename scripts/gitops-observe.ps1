@@ -32,6 +32,7 @@ $observation = [ordered]@{
     namespace_uid = $namespace.metadata.uid
     argo_image = $controller.spec.template.spec.containers[0].image
     gitops_revision = $app.status.sync.revision
+    promotion_commit_sha = if ($Environment -eq 'lab-stable') { $app.status.sync.revision } else { $null }
     app_sync = $app.status.sync.status
     app_health = $app.status.health.status
     operation_phase = $app.status.operationState.phase
@@ -50,7 +51,7 @@ $observation = [ordered]@{
     curl_exit = $curlExit
     version = $version
     pods = @($pods.items | ForEach-Object {
-        [ordered]@{name=$_.metadata.name;uid=$_.metadata.uid;phase=$_.status.phase;containers=@($_.status.containerStatuses | ForEach-Object {
+        [ordered]@{name=$_.metadata.name;uid=$_.metadata.uid;deletion_timestamp=$_.metadata.deletionTimestamp;phase=$_.status.phase;containers=@($_.status.containerStatuses | ForEach-Object {
             [ordered]@{name=$_.name;ready=$_.ready;image_id=$_.imageID;waiting_reason=$_.state.waiting.reason;restarts=$_.restartCount}
         })}
     })
@@ -60,7 +61,7 @@ if ($directory) { New-Item -ItemType Directory -Path $directory -Force | Out-Nul
 [IO.File]::WriteAllText([IO.Path]::GetFullPath($OutputPath),($observation | ConvertTo-Json -Depth 12)+"`n",[Text.UTF8Encoding]::new($false))
 if ($RequireHealthy) {
     $expected = $candidate.image_repository+'@'+$candidate.image_digest
-    $ready = @($observation.pods.containers | Where-Object {$_.ready})
+    $ready = @($observation.pods | Where-Object {-not $_.deletion_timestamp} | ForEach-Object {$_.containers} | Where-Object {$_.ready})
     if ($observation.app_sync -ne 'Synced' -or $observation.app_health -ne 'Healthy' -or
         $observation.ready_replicas -ne $observation.replicas -or $observation.updated_replicas -ne $observation.replicas -or
         $observation.observed_generation -ne $observation.deployment_generation -or

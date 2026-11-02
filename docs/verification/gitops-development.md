@@ -22,6 +22,28 @@ PR №4 внёс digest в dev. Manual sync Git revision `651cb520f19802c5bf60ed
 
 Сбор наблюдений: `scripts/gitops-observe.ps1 -Environment lab-dev -OutputPath <file> -RequireHealthy`. Скрипт использует только отдельный kubeconfig/context, проверяет имя единственного node, сохраняет выбранные поля без Secret/kubeconfig/HTTP headers, затем проверяет health/readiness/version/imageID. Сырые локальные credentials в публичные evidence не включены.
 
-## Следующие проверки
+## Git-driven rollout: Passed
 
-Git-driven rollout, auto-sync/self-heal, controlled failed rollout/recovery и stable promotion требуют отдельных наблюдений. До их выполнения статус Prepared. Добавляемые development annotation и короткий progress deadline служат контролируемым изменением в изолированном окружении. Ни одна из этих будущих проверок не объявляется Passed первой синхронизацией.
+После успешных [CI 41397105518](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41397105518) и [container/kind 41397105528](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41397105528) PR №5 слит в dev как `20ea81988b4310c1b8075608c8446102424d7a4f`. Изменены Pod annotation и development progress deadline=30s; основной image digest прежний.
+
+До sync зафиксированы [OutOfSync/Healthy и HTTP 200](milestone9/dev-git-outofsync.json). После manual sync появилась новая Deployment generation и новый Pod UID; [первый снимок rollout](milestone9/dev-git-rollout.json) ещё содержал старый terminating Pod. Сравнение только первого UID списка ошибочно отклонило наблюдение и не использовано как доказательство отсутствия rollout. [Снимок после завершения](milestone9/dev-git-rollout-settled.json) подтвердил новый Pod по множеству UID, Synced/Healthy, HTTP 200, тот же registry imageID и source revision. После ручной приёмки применена Git-конфигурация development auto-sync/selfHeal, prune=false.
+
+## Drift/self-heal: Passed с ограничением наблюдения
+
+Первая [попытка непрерывного наблюдения](milestone9/dev-drift.json) не увидела промежуточный OutOfSync: в samples уже replicas=1/Synced. Она сохранена как незасчитанная, а не переписана в успех.
+
+Во втором опыте auto-sync временно остановлен на время инъекции replicas=2; Argo зафиксировал [OutOfSync/Progressing при HTTP 200](milestone9/dev-drift-outofsync.json). После восстановления policy из Git без ручной sync operation controller автоматически вернул replicas=1 и [Synced/Healthy](milestone9/dev-after-self-heal.json). [Контрольный результат](milestone9/dev-drift-controlled.json): Git before=after=`20ea819`, live replicas 2→1, HTTP samples 200. Этот опыт подтверждает обнаружение расхождения и автоматическое восстановление после включения policy, но не измеряет минимальное время непрерывного self-heal.
+
+## Неудачный rollout и recovery: Passed
+
+`scripts/gitops-failed-rollout.ps1` проверил здоровый baseline и собственный GitOps cluster, временно отключил auto-sync и заменил только lab-dev Deployment image на заведомо отсутствующий digest. Git desired state не менялся. [Наблюдение отказа](milestone9/dev-failed-rollout.json): Deployment Progressing=False/ProgressDeadlineExceeded, новый Pod ErrImagePull, Argo OutOfSync/Degraded. Старая Ready-реплика продолжала отвечать HTTP 200; это не доказательство недоступности всего Service и не ошибочное объявление rollout успешным.
+
+В finally выполнена manual sync прежней Git revision, затем восстановлена automated/selfHeal policy из Git. [Recovery](milestone9/dev-recovered.json): Synced/Healthy, updated/ready replicas=1, HTTP 200, `/version` source `6f6521d`, фактический Pod imageID совпадает с опубликованным digest. Argo history rollback при включённом auto-sync не использовался.
+
+## Release gate и границы
+
+`labctl release-check` проверяет archived recovery/registry receipts, source/version/build date, готовность и фактический Pod imageID, одинаковый digest обоих profiles и неизменность API build inputs от source commit до HEAD. Сравниваются cmd/api, internal, go.mod/go.sum и API Dockerfile; lab tooling не линкуется в API и не включено в этот diff. Историческая Git revision наблюдения также должна содержать тот же development image.
+
+Workflow `release-gate` дополнительно проверяет trusted push/dev provenance container/kind и publishing runs, config ID checked image artifact и текущий anonymous registry manifest. Он не обращается к локальному кластеру: runtime часть основана на опубликованной проекции фактических наблюдений, а не на новой независимой live-проверке. Gate зависит от сохранности CI artifacts (container evidence хранится 14 дней); при отсутствии artifact он обязан отказать. В required main gate включается только после первого успешного Release PR.
+
+Stable values подготовлены с тем же digest, но Application lab-stable ещё не создана. Stable sync, равенство двух реальных Pod imageID, promotion_commit_sha и release recovery остаются Prepared до разрешённого владельцем promotion и выполнения. Main не продвигалась; runtime-кластер сохранён для следующей проверки. Milestone 9 пока не Done.
