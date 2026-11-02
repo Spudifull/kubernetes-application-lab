@@ -13,11 +13,11 @@ for chart in helm/*; do
     namespace=kubernetes-application-lab-observability
     tag=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   fi
-  helm lint "$chart" --namespace "$namespace" --set-string image.tag="$tag"
-  helm template "$(basename "$chart")" "$chart" --namespace "$namespace" --set-string image.tag="$tag" > /dev/null
+  helm lint "$chart" --kube-version 1.34.0 --namespace "$namespace" --set-string image.tag="$tag"
+  helm template "$(basename "$chart")" "$chart" --kube-version 1.34.0 --namespace "$namespace" --set-string image.tag="$tag" > /dev/null
   for profile in "$chart"/values-*.yaml; do
     [[ -f "$profile" ]] || continue
-    helm lint "$chart" -f "$profile" --namespace "$namespace" --set-string image.tag="$tag"
-    helm template "$(basename "$chart")" "$chart" -f "$profile" --namespace "$namespace" --set-string image.tag="$tag" > /dev/null
+    helm lint "$chart" -f "$profile" --kube-version 1.34.0 --namespace "$namespace" --set-string image.tag="$tag"
+    helm template "$(basename "$chart")" "$chart" -f "$profile" --kube-version 1.34.0 --namespace "$namespace" --set-string image.tag="$tag" > /dev/null
   done
 done

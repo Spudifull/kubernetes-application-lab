@@ -94,6 +94,12 @@ Helm 4.3.0: lint и template прошли для 21 сочетания chart/pro
 
 ## GitHub Actions: Prepared
 
+### Первый фактический запуск
+
+Commit `dff4e4bc616ff94ebf96b4a490b77ef30ca7144d` («Восстановлены доказательства и подготовлен CI») отправлен в main с разрешения владельца. [Run 41389104193](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41389104193): Helm job `125096357445` завершился ошибкой. Helm 3.17.3 при template использовал условную Kubernetes v1.32.0; chart observability требует >=1.34.0-0. В `scripts/ci-helm.sh` явно установлен `--kube-version 1.34.0` для lint/template, соответствующий целевому kind node из Taskfile. Это версия для формирования YAML; реальный Kubernetes в быстром CI не запускался. Повторный run требуется для приёмки.
+
+Добавлен `.gitattributes`: evidence сохраняет исходные bytes, включая пробелы в TXT; shell-скрипты имеют LF. Стандартный staged whitespace check первоначально обнаружил пробелы в оригинальном TXT; они сохранены как часть исторического источника, для этого файла настроено узкое исключение whitespace.
+
 Создан `.github/workflows/ci.yml`: PR/push main и ручной запуск, read-only contents, отключение сохранения checkout credentials, SHA-pinned actions, timeout и concurrency. Jobs: Go test/race/vet/build/formatting; evidence/links/secret scan/actionlint; Helm lint/render. YAML проверен actionlint 1.7.7 локально.
 
 Workflow run ID, runner execution, run URL и новый Git SHA отсутствуют: commit/push требуют явного разрешения владельца. CI не имеет статуса Passed. Контейнерная сборка, security scan зависимостей/образов, GHCR digest, kind smoke/negative scenario, Argo CD, sync, drift/self-heal и recovery в этом изменении ещё не выполнены. Kubernetes version, Argo CD version и Pod imageID для Milestone 9 отсутствуют. Исторические кластеры и PVC не затрагивались.
