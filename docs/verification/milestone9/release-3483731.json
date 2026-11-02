@@ -1,0 +1,10 @@
+{
+  "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a",
+  "checked_container_run_id": 41512671718,
+  "publish_run_id": 41512671718,
+  "dev_observation": "docs/verification/milestone9/security-dev.json",
+  "registry_observation": "docs/verification/milestone9/security-registry.json",
+  "promotion_commit_sha": "6cf5e00bb2c56293532148757023e3cb4d6bf37d"
+}

@@ -6,5 +6,5 @@
   "publish_run_id": 41512671718,
   "dev_observation": "docs/verification/milestone9/security-dev.json",
   "registry_observation": "docs/verification/milestone9/security-registry.json",
-  "promotion_commit_sha": null
+  "promotion_commit_sha": "6cf5e00bb2c56293532148757023e3cb4d6bf37d"
 }

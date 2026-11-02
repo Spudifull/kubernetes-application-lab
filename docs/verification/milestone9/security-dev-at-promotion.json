@@ -1,0 +1,69 @@
+{
+  "observed_at": "2026-11-02T20:06:25.1977438Z",
+  "environment": "lab-dev",
+  "cluster": "kubernetes-application-lab-gitops",
+  "namespace_uid": "e6ae1fe5-00fb-4fb0-a643-ba812c4d2cbe",
+  "application_uid": "1fa64647-bad1-4eca-b4b1-fac128e7e83b",
+  "deployment_uid": "4e0cba60-55fe-4b8d-bc33-1d79715db841",
+  "service_uid": "49ecdbfa-8d6d-4dff-9164-1cade68ecbd2",
+  "tracked_branch": "dev",
+  "destination_namespace": "lab-dev",
+  "helm_release": "lab-dev",
+  "argo_image": "quay.io/argoproj/argocd:v3.5.6",
+  "gitops_revision": "961fdcf3b2d033050c940f8c5d2db80c36bf6e4b",
+  "last_sync_revision": "5193107f14f99fb931be7b3ec2ca6c7b74f206f4",
+  "promotion_commit_sha": null,
+  "app_sync": "Synced",
+  "app_health": "Healthy",
+  "operation_phase": "Succeeded",
+  "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a",
+  "desired_images": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a"
+  ],
+  "deployment_generation": 9,
+  "progress_deadline_seconds": 30,
+  "deployment_conditions": [
+    {
+      "type": "Available",
+      "status": "True",
+      "reason": "MinimumReplicasAvailable",
+      "lastTransitionTime": "2026-11-02T06:08:48Z"
+    },
+    {
+      "type": "Progressing",
+      "status": "True",
+      "reason": "NewReplicaSetAvailable",
+      "lastTransitionTime": "2026-11-02T06:10:31Z"
+    }
+  ],
+  "observed_generation": 9,
+  "replicas": 1,
+  "ready_replicas": 1,
+  "updated_replicas": 1,
+  "http_status": 200,
+  "curl_exit": 0,
+  "version": {
+    "version": "dev",
+    "revision": "348373135c844c06a3b53fa3d729d7ee1df05348",
+    "build_date": "2026-11-02T22:44:07+03:00"
+  },
+  "pods": [
+    {
+      "name": "lab-dev-799698466-n5t6g",
+      "uid": "3b7fa1cc-bc93-4d04-88eb-ce07680a25fb",
+      "deletion_timestamp": null,
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "image_id": "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a",
+          "waiting_reason": null,
+          "restarts": 0
+        }
+      ]
+    }
+  ]
+}

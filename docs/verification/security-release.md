@@ -24,4 +24,61 @@ Derived [CI receipt](milestone9/security-ci.json) получен из Actions ZI
 
 [Baseline dev](milestone9/security-baseline-dev.json) и [baseline stable](milestone9/security-baseline-stable.json) сняты до обновления. [PR №16](https://github.com/Spudifull/kubernetes-application-lab/pull/16) прошёл CI `41513934883`, слит как GitOps revision `5193107f14f99fb931be7b3ec2ca6c7b74f206f4`. После exact sync и smoke с опубликованным proposal [новый dev proof](milestone9/security-dev.json) показал Synced/Healthy, observed generation=current, 1/1 ready/updated, HTTP 200, `/version` source `3483731` и фактический Pod imageID нового digest. Диагностический Pod удалён. Новый Pod UID отличается от baseline.
 
-Candidate и stable profile подготовлены с тем же digest после dev proof. Promotion SHA до фактического main merge — null. Stable promotion и повторное сравнение двух окружений остаются Prepared до выполнения Release PR/manual sync; в этот момент stable ещё использует прежний image.
+Candidate и stable profile подготовлены с тем же digest после dev proof. До фактического main merge promotion SHA был null; stable сохранял прежний image. Последующая приёмка ниже фиксирует уже выполненное продвижение.
+
+## Promotion и два окружения: Passed
+
+[PR №17](https://github.com/Spudifull/kubernetes-application-lab/pull/17) с dev proof прошёл CI `41514866163` и слит как `961fdcf3b2d033050c940f8c5d2db80c36bf6e4b`. [Release PR №18](https://github.com/Spudifull/kubernetes-application-lab/pull/18) прошёл CI `41515423281` и Go release-gate `41515422983`. Поскольку main baseline ещё выбирал прежний source, gate проверил исходный container artifact нового run, его SHA-256 ZIP/config ID, успешный reusable publish и живой registry identity. Вывод не содержал reuse старой baseline identity. Push/dev `41515284498` также прошёл.
+
+Promotion commit — `6cf5e00bb2c56293532148757023e3cb4d6bf37d`; он отдельно записан в candidate и [архиве identity этого релиза](milestone9/release-3483731.json). Source остаётся `348373135c844c06a3b53fa3d729d7ee1df05348`. Main не выполнял Docker build: post-merge CI `41515894347` прошёл, container/kind/publish skipped по политике promotion.
+
+`task gitops-sync GITOPS_ENV=lab-stable GITOPS_REVISION=6cf5e00bb2c56293532148757023e3cb4d6bf37d` завершился Succeeded/Synced/Healthy, затем smoke двух окружений прошёл через их Service. [Stable proof](milestone9/security-stable.json), [dev при promotion](milestone9/security-dev-at-promotion.json) и [Derived comparison](milestone9/security-promotion-comparison.json) подтверждают:
+
+- оба HTTP 200 и version revision source `3483731`, build date из OCI labels;
+- оба реальных Pod imageID равны `ghcr.io/spudifull/kubernetes-application-lab-api@sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a`;
+- новые Pod UID относительно baseline, current observed generation и ready/updated replicas;
+- независимые UID namespace/Deployment/Service/Application и отдельные tracked branches;
+- фактическая последняя stable sync указывает на promotion SHA; VERSION остаётся dev, поскольку артефакт не пересобирался для main.
+
+Diagnostic Pod после обеих проверок удалены. Flag ENABLE_GHCR_PUBLISH отсутствует. Runtime source/digest и исходный promotion не заменяются последующими commits документации. Предыдущий release-6f6521d и все его raw/derived receipts сохранены.
+
+## Границы и очистка веток
+
+Обычный полный Go regression и stateless CI/runtime пройдены. Live SQL/Kafka/observability regression, отдельная stable fault/recovery, HA, сетевая изоляция и длительная нагрузка этим прогоном не проверяются. Два required-only x/net advisory видны в report; это не called findings и не нулевое число всех advisories.
+
+После итоговой приёмки удаляются только codex/* с merged PR для точного tip, включённые в main, без открытого PR, незавершённых локальных commits и использующего их worktree. Перед delete повторно читается remote tip; force push и принудительное local удаление не применяются. Исходные SHA и фактический результат cleanup фиксируются в итоговом Release PR, чтобы избежать нового Git commit только ради удаления собственной временной ветки.
+
+## Изменённые файлы итерации
+
+Относительно исходного main `09babeeb`, без локального ignored cache:
+
+```text
+.github/workflows/ci.yml
+README.md
+THIRD_PARTY_DEPENDENCIES.md
+cmd/labctl/govulncheck.go
+cmd/labctl/govulncheck_test.go
+cmd/labctl/main.go
+docs/design/ci-cd-gitops.md
+docs/engineering/ci-cd-gitops-lab.md
+docs/roadmap.md
+docs/verification/milestone9/release-3483731.json
+docs/verification/milestone9/security-baseline-dev.json
+docs/verification/milestone9/security-baseline-stable.json
+docs/verification/milestone9/security-ci.json
+docs/verification/milestone9/security-dev-at-promotion.json
+docs/verification/milestone9/security-dev.json
+docs/verification/milestone9/security-promotion-comparison.json
+docs/verification/milestone9/security-registry.json
+docs/verification/milestone9/security-stable.json
+docs/verification/release-orchestration.md
+docs/verification/security-release.md
+gitops/candidate.json
+gitops/dev/values.yaml
+gitops/stable/values.yaml
+go.mod
+go.sum
+scripts/ci-images.sh
+scripts/gitops-lab.ps1
+scripts/gitops-observe.ps1
+```
