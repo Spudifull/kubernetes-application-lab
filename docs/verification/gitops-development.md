@@ -42,7 +42,7 @@ PR №4 внёс digest в dev. Manual sync Git revision `651cb520f19802c5bf60ed
 
 ## Release gate и границы
 
-`labctl release-check` проверяет archived recovery/registry receipts, source/version/build date, готовность и фактический Pod imageID, одинаковый digest обоих profiles и неизменность API build inputs от source commit до HEAD. Сравниваются cmd/api, internal, go.mod/go.sum и API Dockerfile; lab tooling не линкуется в API и не включено в этот diff. Историческая Git revision наблюдения также должна содержать тот же development image.
+`labctl release-check` проверяет archived recovery/registry receipts, source/version/build date, готовность и фактический Pod imageID, одинаковый digest обоих profiles и неизменность API build inputs от source commit до HEAD. Сравниваются cmd/api, internal, go.mod/go.sum, API Dockerfile и .dockerignore; lab tooling не линкуется в API и не включено в этот diff. Историческая Git revision наблюдения также должна содержать тот же development image.
 
 Workflow `release-gate` дополнительно проверяет trusted push/dev provenance container/kind и publishing runs, config ID checked image artifact и текущий anonymous registry manifest. Он не обращается к локальному кластеру: runtime часть основана на опубликованной проекции фактических наблюдений, а не на новой независимой live-проверке. Gate зависит от сохранности CI artifacts (container evidence хранится 14 дней); при отсутствии artifact он обязан отказать. В required main gate включается только после первого успешного Release PR.
 

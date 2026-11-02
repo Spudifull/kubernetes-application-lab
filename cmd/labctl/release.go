@@ -146,7 +146,7 @@ func (l lab) releaseCheck(ctx context.Context) error {
 		return err
 	}
 	// Only API build inputs are compared. Lab tooling and environment values are not linked into the API.
-	if _, err := l.must(ctx, "git", nil, "diff", "--exit-code", candidate.Source, "HEAD", "--", "cmd/api", "internal", "go.mod", "go.sum", "docker/api.Dockerfile"); err != nil {
+	if _, err := l.must(ctx, "git", nil, "diff", "--exit-code", candidate.Source, "HEAD", "--", "cmd/api", "internal", "go.mod", "go.sum", "docker/api.Dockerfile", ".dockerignore"); err != nil {
 		return fmt.Errorf("API build inputs changed after the checked artifact: %w", err)
 	}
 	historic, err := l.must(ctx, "git", nil, "show", proof.GitRevision+":gitops/dev/values.yaml")
