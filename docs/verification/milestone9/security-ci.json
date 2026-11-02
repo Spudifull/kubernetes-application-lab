@@ -1,0 +1,133 @@
+{
+  "kind": "Derived",
+  "description": "Selected results from SHA-256-verified source CI artifacts; config ID checked against published registry manifest.",
+  "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+  "run_id": 41512671718,
+  "workflow": ".github/workflows/ci.yml",
+  "jobs": {
+    "publish": 125510901045,
+    "go": 125508238436,
+    "container": 125508388850,
+    "kind": 125509964178
+  },
+  "publication_job_name": "publish / publish",
+  "checked_and_published_in_same_run": true,
+  "artifacts": [
+    {
+      "run_id": 41512671718,
+      "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+      "artifact_id": 13174201501,
+      "name": "container-evidence",
+      "zip_sha256": "dedd86d237a663cd622e2f058a4c43da29902fe281a1c6c7e7bcfb2dd3736bc2"
+    },
+    {
+      "run_id": 41512671718,
+      "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+      "artifact_id": 13174101796,
+      "name": "kind-evidence",
+      "zip_sha256": "a96a204f152ee7777135e98ff496bb87b5d47596d8be56feb34b8a902f491e9e"
+    },
+    {
+      "run_id": 41512671718,
+      "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+      "artifact_id": 13175115232,
+      "name": "cli-security",
+      "zip_sha256": "7f406da8231f1f2b13f4a971bb3a87c0dc33a28469e2dee73a1fe3ddc4f6c018"
+    },
+    {
+      "run_id": 41512671718,
+      "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+      "artifact_id": 13174531228,
+      "name": "promotion-candidate",
+      "zip_sha256": "906730dbe01ec5458db841cc63d4c7a3bdd148c0fd885912f78dc73559846948"
+    }
+  ],
+  "components": [
+    {
+      "component": "api",
+      "config_digest": "sha256:dab7c01e52f27fca55f42b01aa551dd083773c9159c347e2270cfc11c930ccf3",
+      "runtime_user": "65532:65532",
+      "otel_sdk": "v1.45.0",
+      "govulncheck": {
+        "scanner_version": "v1.1.4",
+        "go_version": "go1.26.10",
+        "db_last_modified": "2026-10-27T21:16:18Z",
+        "called": [],
+        "imported": [],
+        "required": [
+          "GO-2026-6860",
+          "GO-2026-6866"
+        ]
+      },
+      "govulncheck_sha256": "de667e362c058d055126ed26392a62c01121ab1e3b4d8ec83803b8f162639ba9",
+      "trivy_version": "0.76.1",
+      "high_critical_count": 0,
+      "trivy_sha256": "0b57635f6156febec5e1e438a21e6c077760107c94d4e914d0cc5390df64e3f7"
+    },
+    {
+      "component": "publisher",
+      "config_digest": "sha256:3392a024078cc855a3b9ce2368488b81a54a57ff12ade5bb4315aa725fa18bf5",
+      "runtime_user": "65532:65532",
+      "otel_sdk": "v1.45.0",
+      "govulncheck": {
+        "scanner_version": "v1.1.4",
+        "go_version": "go1.26.10",
+        "db_last_modified": "2026-10-27T21:16:18Z",
+        "called": [],
+        "imported": [],
+        "required": [
+          "GO-2026-6860",
+          "GO-2026-6866"
+        ]
+      },
+      "govulncheck_sha256": "6d8c49f6f669a9f4bf861c797a6f112dcfff72c610dfd222e8bbf200124ed556",
+      "trivy_version": "0.76.1",
+      "high_critical_count": 0,
+      "trivy_sha256": "2f29313f497c27a2a427610309b03204de2208e00bfc3b531474473febbffdcb"
+    },
+    {
+      "component": "worker",
+      "config_digest": "sha256:347ebec8d222891e07b0acaa1324172a79f714c4ed001430e898531e83f43ef3",
+      "runtime_user": "65532:65532",
+      "otel_sdk": "v1.45.0",
+      "govulncheck": {
+        "scanner_version": "v1.1.4",
+        "go_version": "go1.26.10",
+        "db_last_modified": "2026-10-27T21:16:18Z",
+        "called": [],
+        "imported": [],
+        "required": [
+          "GO-2026-6860",
+          "GO-2026-6866"
+        ]
+      },
+      "govulncheck_sha256": "8330f9292e45081175f4fb29b35bdf4a9c4a4caa544c8d241da61a1a7e56475f",
+      "trivy_version": "0.76.1",
+      "high_critical_count": 0,
+      "trivy_sha256": "ef975b4524c61d70f141443497ba59aecd87e48b73b60ce82f5377b6d23973df"
+    }
+  ],
+  "cli": {
+    "scanner_version": "v1.1.4",
+    "go_version": "go1.26.10",
+    "db_last_modified": "2026-10-27T21:16:18Z",
+    "called": [],
+    "imported": [],
+    "required": [
+      "GO-2026-6860",
+      "GO-2026-6866"
+    ]
+  },
+  "kind_negative": {
+    "bad_rollout_detected": true,
+    "rollout_recovered": true,
+    "negative_detected": true,
+    "service_recovered": true
+  },
+  "kind_version": {
+    "version": "dev",
+    "revision": "348373135c844c06a3b53fa3d729d7ee1df05348",
+    "build_date": "2026-11-02T22:44:07+03:00"
+  },
+  "registry_manifest_digest": "sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a"
+}

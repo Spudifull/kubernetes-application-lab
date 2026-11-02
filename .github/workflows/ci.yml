@@ -30,6 +30,17 @@ jobs:
       - run: go test -race ./...
       - run: go vet ./...
       - run: go build ./cmd/...
+      - name: CLI dependency vulnerabilities
+        run: |
+          mkdir -p .cache/cli-security
+          go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 -format json ./cmd/labctl > .cache/cli-security/govulncheck.json
+          go run ./cmd/labctl govulncheck --file .cache/cli-security/govulncheck.json > .cache/cli-security/summary.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: cli-security
+          path: .cache/cli-security/
+          retention-days: 14
 
   evidence:
     runs-on: ubuntu-24.04
