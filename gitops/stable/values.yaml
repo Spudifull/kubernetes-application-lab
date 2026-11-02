@@ -1,7 +1,7 @@
-# Release candidate only: deploy after owner approval and the release gate.
+# Source 3483731: promote the checked dev digest after the release gate.
 image:
   repository: ghcr.io/spudifull/kubernetes-application-lab-api
-  digest: sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677
+  digest: sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a
   tag: ""
   pullPolicy: IfNotPresent
 database:
