@@ -92,7 +92,7 @@ Go test/race/vet/build прошли вне sandbox. Первоначальные
 
 Helm 4.3.0: lint и template прошли для 21 сочетания chart/profile, включая специальные namespace и image tag alerting. В CI закреплён Helm 3.17.3; его исполнение в Linux runner ещё предстоит. `scripts/ci-helm.sh` повторяет эту матрицу без обращения к кластеру. Существующие Go-тесты контрактов Helm входят в полный test.
 
-## GitHub Actions: Prepared
+## GitHub Actions: приёмка выполняется
 
 ### Первый фактический запуск
 
@@ -101,6 +101,8 @@ Commit `dff4e4bc616ff94ebf96b4a490b77ef30ca7144d` («Восстановлены 
 Добавлен `.gitattributes`: evidence сохраняет исходные bytes, включая пробелы в TXT; shell-скрипты имеют LF. Стандартный staged whitespace check первоначально обнаружил пробелы в оригинальном TXT; они сохранены как часть исторического источника, для этого файла настроено узкое исключение whitespace.
 
 Evidence job `125096357382` первого run также обнаружил несовпадение SHA-256 TXT: первоначальный `git add` нормализовал CRLF в LF, а добавление `.gitattributes` не перечитало уже индексированный файл. Исправлено явным `git add --renormalize docs/verification/evidence`: сохранены bytes файла из исходного Windows checkout, по которым зафиксирована публичная SHA-256. Исторический текст и измерения не менялись. Второй commit `4567493` содержит исправление Helm; исправление index TXT выполнено следующим коммитом. Приёмка требует успешного нового run.
+
+[Run 41389381992](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41389381992), SHA `a7911123ddd4e7d6b68176a7ee1b4b6243e2abb2`: Helm успешно выполнен; evidence tests и полный secret scan прошли. Actionlint с доступным на Linux ShellCheck обнаружил SC2046 в formatting command (локально ShellCheck отсутствовал). Исправлено через NUL-separated `git ls-files -z` и `xargs -0`, без отключения ShellCheck.
 
 Создан `.github/workflows/ci.yml`: PR/push main и ручной запуск, read-only contents, отключение сохранения checkout credentials, SHA-pinned actions, timeout и concurrency. Jobs: Go test/race/vet/build/formatting; evidence/links/secret scan/actionlint; Helm lint/render. YAML проверен actionlint 1.7.7 локально.
 
