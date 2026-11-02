@@ -1,5 +1,7 @@
 # Проверка оркестрации публикации и release policy
 
+Этот отчёт сохраняет приёмку первоначального рефакторинга и обнаруженные тогда ограничения. Последующее исправление JSON gate, SDK 1.45.0, реальная reusable publication и два окружения подтверждены [новой security-приёмкой](security-release.md); исторические findings ниже не переписаны.
+
 Исходный main `0f204e335e0273496c46f5f9dc36294e304ffc8a`, dev `238d00f04de37fa21407055280e656a99f2455e2`. Ветка `codex/release-orchestration` создана от dev и fast-forward до main. Исторические SHA и результаты Milestone 9 сохранены.
 
 Изменения: `ci.yml` объединяет прежние jobs без изменения имён required checks; `publish.yml` стал reusable workflow, зависит от всех проверок и получает checked run ID текущего запуска. Polling и отдельный `container.yml` удалены. `release-gate.yml` вызывает Go `release-verify`; shell `ci-release-proof.sh` и его mock-тест заменены Go-тестами. Offline `release-check` сохранён. `publish-context` выполняется до загрузки archive; `publish-check` и `publish-receipt` проверяют его identity и сохраняют proposal после push.
