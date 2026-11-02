@@ -1,6 +1,7 @@
 param(
     [ValidateSet('lab-dev','lab-stable')][string]$Environment = 'lab-dev',
     [string]$OutputPath = '.cache/gitops/observations/current.json',
+    [string]$CandidatePath = 'gitops/candidate.json',
     [switch]$RequireHealthy
 )
 $ErrorActionPreference = 'Stop'
@@ -14,7 +15,7 @@ function Read-KubeJson([string[]]$Arguments) {
 }
 $nodes = Read-KubeJson @('get','nodes')
 if ($nodes.items.Count -ne 1 -or $nodes.items[0].metadata.name -ne 'kubernetes-application-lab-gitops-control-plane') { throw 'Unexpected GitOps cluster' }
-$candidate = Get-Content (Join-Path $root 'gitops/candidate.json') -Raw | ConvertFrom-Json
+$candidate = Get-Content (Join-Path $root $CandidatePath) -Raw | ConvertFrom-Json
 $app = Read-KubeJson @('-n','argocd','get','application',$Environment)
 $deployment = Read-KubeJson @('-n',$Environment,'get','deployment',$Environment)
 $service = Read-KubeJson @('-n',$Environment,'get','service',$Environment)
