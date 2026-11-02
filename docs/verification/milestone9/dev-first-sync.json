@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-11-02T05:53:18.8998887Z",
+  "environment": "lab-dev",
+  "cluster": "kubernetes-application-lab-gitops",
+  "namespace_uid": "e6ae1fe5-00fb-4fb0-a643-ba812c4d2cbe",
+  "argo_image": "quay.io/argoproj/argocd:v3.5.6",
+  "gitops_revision": "651cb520f19802c5bf60edc9c52ecd688b39b47b",
+  "app_sync": "Synced",
+  "app_health": "Healthy",
+  "operation_phase": "Succeeded",
+  "source_commit_sha": "6f6521d81226931f42edd2783584cb33c8fc8519",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+  "desired_images": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677"
+  ],
+  "deployment_generation": 1,
+  "observed_generation": 1,
+  "replicas": 1,
+  "ready_replicas": 1,
+  "updated_replicas": 1,
+  "http_status": 200,
+  "curl_exit": 0,
+  "version": {
+    "version": "dev",
+    "revision": "6f6521d81226931f42edd2783584cb33c8fc8519",
+    "build_date": "2026-11-02T08:32:08+03:00"
+  },
+  "pods": [
+    {
+      "name": "lab-dev-5dd5cd786f-kckmm",
+      "uid": "322a4bf7-a0ab-4bba-80d0-f6cd1c358721",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "image_id": "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+          "waiting_reason": null,
+          "restarts": 0
+        }
+      ]
+    }
+  ]
+}

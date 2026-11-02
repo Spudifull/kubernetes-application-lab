@@ -1,0 +1,42 @@
+# Prepared. Apply only in the separate GitOps cluster after filling image digests.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lab-dev
+  namespace: argocd
+spec:
+  project: lab-release
+  source:
+    repoURL: https://github.com/Spudifull/kubernetes-application-lab.git
+    targetRevision: dev
+    path: helm/lab-api
+    helm:
+      releaseName: lab-dev
+      valueFiles: [../../gitops/dev/values.yaml]
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lab-dev
+  # Apply automated policy only after the first verified manual sync.
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lab-stable
+  namespace: argocd
+spec:
+  project: lab-release
+  source:
+    repoURL: https://github.com/Spudifull/kubernetes-application-lab.git
+    targetRevision: main
+    path: helm/lab-api
+    helm:
+      releaseName: lab-stable
+      valueFiles: [../../gitops/stable/values.yaml]
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lab-stable
+  syncPolicy: {}

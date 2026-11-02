@@ -9,3 +9,23 @@
 Argo CD должен работать в отдельном kind-кластере, управлять только выделенным приложением и не менять основной PostgreSQL/Kafka/PVC. Git-driven rollout, drift/self-heal и неисправный rollout с восстановлением требуют фактических наблюдений. При auto-sync восстановление выполняется через возврат desired state в Git. Подготовленные конфигурации не считаются доказательством этих свойств.
 
 Passed требует сохранённых Git SHA, workflow run ID/URL, digest, версий Kubernetes/Argo CD, наблюдений Service HTTP и ограничений. Эти результаты добавляются по выполнении; текущий статус Milestone 9 — незавершён.
+
+## Ветки и продвижение
+
+Изменения проходят `feature/*` или `codex/*` → PR в `dev` → Release PR в `main`. `dev` содержит интеграционные кандидаты, `main` — подтверждённую стабильную версию. Required checks обеих веток: `go`, `evidence`, `helm`; для dev после успешного PR №2 добавлены `container`, `kind`. Для main они не объявлены required без успешного соответствующего release PR. Реализованный `release-gate` проверяет архивированный development runtime proof, trusted source CI/publishing runs, текущую registry identity и неизменность API build inputs; до первого успешного Release PR он Prepared и не required. Это не новая live-проверка локального кластера. Подробные ограничения — в [verification](../verification/gitops-development.md).
+
+Один опубликованный image digest сначала проверяется в development, затем переносится в stable без повторной сборки. `source_commit_sha` обозначает исходники сборки; `promotion_commit_sha` — commit, утвердивший выпуск. Gate должен сравнить влияющие на бинарный файл входы сборки (`cmd`, `internal`, `go.mod`, `go.sum`, Dockerfile и build arguments) с источником проверенного артефакта. Совпадение двух строк values не заменяет проверку фактического Pod imageID и `/version`.
+
+## Окружения
+
+Один отдельный GitOps kind-кластер, namespaces `lab-dev` и `lab-stable`. Независимы Deployment, Service, release, values, digest и Argo CD Application. Profiles в `gitops/` ссылаются на один проверенный GHCR digest. Development уже развёрнут и проверен; stable profile является кандидатом и не применяется до разрешённого Release PR. Namespaces создаются явно в выделенном кластере. AppProject разрешает только этот репозиторий, две destination namespace и namespaced Deployment/Service; cluster-scoped ресурсы, PVC и Secret не разрешены. Это логическое разделение workloads, не HA и не проверенная сетевая изоляция.
+
+Первый sync обоих окружений ручной. Development auto-sync/self-heal включается только после первой runtime-проверки. Stable остаётся manual, без автоматического prune. Recovery возвращает известный рабочий Git desired state. Ветка не меняет destination. Успешный release, failed rollout/recovery и drift/self-heal требуют отдельных реальных наблюдений; сейчас они не Passed.
+
+## Контейнерная проверка
+
+Подготовленный `container.yml` отделён от быстрого CI. Изменения только документации не создают kind-кластер. PR получает contents read; job загрузки собственного CI artifact дополнительно actions read, без packages write. Сборка API — Buildx linux/amd64, непривилегированный scratch runtime, OCI revision/version/source/created. Проверяются вызываемые уязвимости Go через govulncheck и HIGH/CRITICAL образа через закреплённый Trivy. Обходы и ignore-unfixed не используются. Один проверенный Docker archive передаётся в kind job; этот archive ещё не является опубликованным GHCR digest.
+
+Отдельный `publish.yml` запускается только на push в dev, а привилегированный job — только при `ENABLE_GHCR_PUBLISH=true`, устанавливаемом после разрешения владельца. Он ждёт успешных быстрых и container/kind runs для точного SHA и события push/dev, проверяет реальные container/kind jobs, загружает проверенный archive и сверяет OCI revision/non-root. Затем выполняет tag/push без Docker build, сохраняет registry digest и source SHA; promotion SHA ещё null. Обычные PR не получают packages write. Пока переменная не включена, этот путь Prepared, registry digest отсутствует. Публичная доступность GHCR package должна проверяться отдельно перед anonymous pull из GitOps.
+
+На PR/push main контейнерная сборка отключена: stable должен использовать проверенный dev artifact, а не новый image с SHA merge commit. Быстрый CI обеих веток продолжает работать. До реализации release gate это не подтверждает готовность main к promotion; слияние Release PR требует отдельной runtime-приёмки.

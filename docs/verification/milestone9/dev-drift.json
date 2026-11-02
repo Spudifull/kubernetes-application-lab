@@ -1,0 +1,910 @@
+{
+  "scenario": "development replica drift and self-heal",
+  "git_before": "20ea81988b4310c1b8075608c8446102424d7a4f",
+  "git_after": "20ea81988b4310c1b8075608c8446102424d7a4f",
+  "git_unchanged": true,
+  "out_of_sync_observed": false,
+  "desired_replicas_restored": false,
+  "samples": [
+    {
+      "observed_at": "2026-11-02T06:06:21.6446551Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 2,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:22.1943249Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:22.7396593Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:23.2922597Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:23.8560983Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:24.4082185Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:24.9332248Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:25.4680514Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:26.0044077Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:26.5403265Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:27.0568334Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:27.5810187Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:28.1127330Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:28.6364957Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:29.1809218Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:29.7233194Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:30.2563103Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:30.7840557Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:31.3071615Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:31.8434577Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:32.3881743Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:32.9237504Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:33.4434039Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:33.9717873Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:34.5117912Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:35.0566743Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:35.5996130Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:36.1399535Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:36.6759405Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:37.2275880Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:37.7516125Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:38.2918180Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:38.8358322Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:39.3634521Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:39.9041420Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:40.4314212Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:40.9799940Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:41.5155323Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:42.0642129Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:42.5704897Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:43.1237043Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:43.6441240Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:44.1912826Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:44.7358760Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:45.2711135Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:45.8108257Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:46.3516076Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:46.8719982Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:47.4114547Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:47.9399726Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:48.4556409Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:48.9879099Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:49.5314500Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:50.0624606Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:50.5990088Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:51.1315275Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:51.6668912Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:52.1988269Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:52.7384271Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:53.2711941Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:53.8313393Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:54.3735763Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:54.9106257Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:55.4424938Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:55.9824463Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:56.5273041Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:57.0503425Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:57.5792964Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:58.1226121Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:58.6504853Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:59.1746697Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:06:59.7186157Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:00.2437089Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:00.7747673Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:01.2984193Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:01.8424135Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:02.3782402Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:02.9180620Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:03.4507351Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:03.9710853Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:04.5142630Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:05.0419644Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:05.5868324Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:06.1388218Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:06.6704824Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:07.2266290Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:07.7782456Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:08.3067227Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:08.8382321Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:09.3665494Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:09.9020696Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:10.4420664Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:10.9741612Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:11.5398052Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:12.0583131Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:12.5610847Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:13.0900682Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:13.6279654Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:14.1591851Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    },
+    {
+      "observed_at": "2026-11-02T06:07:14.6855359Z",
+      "sync": "Synced",
+      "health": "Healthy",
+      "revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+      "replicas": 1,
+      "ready": 1,
+      "http_status": "200"
+    }
+  ]
+}

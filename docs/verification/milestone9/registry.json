@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-11-02T05:57:32.0551141Z",
+  "repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "anonymous_pull": true,
+  "registry_manifest_digest": "sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+  "media_type": "application/vnd.docker.distribution.manifest.v2+json",
+  "config_digest": "sha256:448654cff201f8a8ce424f3b45af79e305d034b741a01459c5c5b9643a38a035",
+  "oci_labels": {
+    "org.opencontainers.image.created": "2026-11-02T08:32:08+03:00",
+    "org.opencontainers.image.revision": "6f6521d81226931f42edd2783584cb33c8fc8519",
+    "org.opencontainers.image.source": "https://github.com/Spudifull/kubernetes-application-lab",
+    "org.opencontainers.image.version": "dev"
+  },
+  "runtime_user": "65532:65532"
+}

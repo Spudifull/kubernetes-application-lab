@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.26.0-alpine3.23@sha256:d4c4845f5d60c6a974c6000ce58ae079328d03ab7f721a0734277e69905473e5 AS build
+FROM golang:1.26.10-alpine3.23@sha256:34414731924cf2263160f0021f5cf6e1807382d85248f7cb419d4187b96d5e43 AS build
 WORKDIR /src
 
 COPY go.mod go.sum ./
@@ -19,6 +19,13 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
     -o /out/lab-api ./cmd/api
 
 FROM scratch
+ARG VERSION=dev
+ARG REVISION=unknown
+ARG BUILD_DATE=unknown
+LABEL org.opencontainers.image.source="https://github.com/Spudifull/kubernetes-application-lab" \
+      org.opencontainers.image.revision="${REVISION}" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.created="${BUILD_DATE}"
 COPY --from=build /out/lab-api /lab-api
 USER 65532:65532
 EXPOSE 8080

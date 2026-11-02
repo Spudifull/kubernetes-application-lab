@@ -1,15 +1,27 @@
 # Проверка CI/CD и GitOps
 
-Текущее выполнение ограничено [проверенным быстрым CI](../verification/evidence-restoration-ci.md). Архитектурные границы — в [контракте](../design/ci-cd-gitops.md).
+Быстрый CI [проверен](../verification/evidence-restoration-ci.md). Контейнерный workflow и ограниченный kind smoke подготовлены для приёмки в отдельном PR. Архитектурные границы — в [контракте](../design/ci-cd-gitops.md).
 
 Перед отправкой изменений выполнить Go test/race/vet/build, evidence tests, actionlint и `bash scripts/ci-helm.sh`. Последняя команда использует только локальное формирование YAML и не меняет кластер. Для Windows доступны эквивалентные `helm lint` / `helm template`; установленные версии фиксируются в отчёте.
 
 После разрешённых владельцем commit/push дождаться jobs workflow CI в GitHub Actions. Сохранить run URL/ID, точный Git SHA, runner и результаты каждого job. При отказе сохранить диагностику и повторить после исправления. До этого workflow остаётся Prepared.
 
-Контейнерный workflow, GHCR и отдельное GitOps-окружение ещё требуют реализации. Команды установки Argo CD и fault experiments появятся после подготовки исполняемой конфигурации и выбора изолированного окружения; текущая инструкция не разрешает менять действующий кластер. Public visibility требует отдельного решения владельца.
+Контейнерный workflow `container.yml` выполняет Buildx, govulncheck, Trivy и передаёт проверенный image archive в отдельный kind job. `scripts/ci-kind.sh` создаёт исключительно свой временный кластер `lab-ci-*`, использует отдельный kubeconfig, проверяет `/readyz` и `/version` из client Pod через Service DNS, ломает selector только этого Service и подтверждает отказ и восстановление. Диагностика сохраняется перед удалением собственного временного кластера. Команды: `task ci-container`; для Linux `IMAGE=lab-ci-api:<revision> REVISION=<revision> task ci-kind`. Локальные образы имеют dirty revision до фиксации исходников.
+
+GHCR publication и development Argo runtime [проверены](../verification/gitops-development.md) на одобренном digest. Используется отдельный kind `kubernetes-application-lab-gitops`, собственный `.cache/gitops/kubeconfig`, kubectl 1.35.9 и Argo CD Core 3.5.6. Stable profile подготовлен с тем же digest, но Application lab-stable до разрешённого Release PR не создаётся. Основные кластеры не используются. Release gate подготовлен и ещё не required до первого успешного Release PR.
+
+Публикация требует отдельного разрешения владельца. Для одобренного run включить repository variable `ENABLE_GHCR_PUBLISH=true` и выполнить publishing workflow, затем удалить временный флаг после подтверждения success. Workflow загружает `checked-api` и выполняет tag/push без build. Первый одобренный run `41394590401` уже выполнен; digest сохранён в `gitops/candidate.json`, anonymous pull подтверждён, флаг удалён. Токены и kubeconfig не вносить в Git. Локальный image ID не подменяет registry digest.
 
 ## Защита main
 
-Проверка 2 ноября 2026 года: репозиторий Private, права администратора доступны. GitHub API для branch protection и rulesets возвращает HTTP 403: `Upgrade to GitHub Pro or make this repository public to enable this feature.` Поэтому обязательные status checks на уровне GitHub не настроены; успешный workflow сам по себе не запрещает слияние или прямой push. Visibility и тариф не изменялись.
+Проверка 2 ноября 2026 года: репозиторий Public. GitHub API обеих веток `dev` и `main` подтвердил обязательный PR, checks `go`, `evidence`, `helm` от GitHub Actions (app ID 15368), strict=true, применение к администраторам, запрет force push и удаления. Обязательных чужих approvals нет: владелец может работать один. PR №1 закрыт с merged=true, merge SHA `b34fe8b19da5cfa67e0b16745586a3b2d18f1568`; CI подтверждён на PR и push в dev.
 
-До появления доступной защиты изменения следует проверять через PR и дожидаться успешных `go`, `evidence`, `helm`. Это ручной порядок, технической блокировки слияния сейчас нет. После подключения подходящего тарифа настроить защиту `main`: обязательный PR, обязательные checks `go`, `evidence`, `helm` от GitHub Actions (app ID 15368), актуальность ветки перед слиянием, применение правил к администраторам, запрет force push и удаления ветки. Эти настройки пока только целевые. Доступность защиты описана в [документации GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+Новые required checks включать только после успешного запуска на соответствующих PR. Подготовленный `release-gate` для main до первого successful Release PR не required; базовая защита не доказывает успешный promotion. Доступность защиты описана в [документации GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+
+После успешного PR №2 для dev через API добавлены required checks `container`, `kind`, с сохранением `go`, `evidence`, `helm` и strict=true. На push merge SHA `6f6521d` все пять checks успешны. Publishing run `41394590401` сначала был skipped, после отдельного разрешения повторён и завершился success без пересборки.
+
+## Runtime и release
+
+`task gitops-observe-dev` сохраняет выбранные Argo/Pod/HTTP поля и проверяет health, version и imageID. `task gitops-failed-rollout` намеренно ломает image только lab-dev с bounded progress deadline, сохраняет Degraded/ErrImagePull и в finally восстанавливает известный Git desired state. Он временно отключает auto-sync для наблюдения ошибки, затем возвращает policy из Git. Не запускать этот опыт в stable.
+
+`task release-check` проверяет архивированные receipts и неизменность API build inputs. Main PR обязан исходить из защищённой dev; release workflow дополнительно проверяет GitHub Actions provenance и config digest CI artifact/registry. Пока Gate не прошёл реальный Release PR, не добавлять его в required checks. После разрешённого merge выполнить первый manual sync Application lab-stable и тот же observer с `-Environment lab-stable`; зафиксировать source SHA, реальный promotion SHA, Pod imageID и HTTP. Stable не пересобирает image и не включает auto-prune.

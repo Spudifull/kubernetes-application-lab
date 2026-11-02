@@ -1,0 +1,61 @@
+{
+  "observed_at": "2026-11-02T06:05:25.3033409Z",
+  "environment": "lab-dev",
+  "cluster": "kubernetes-application-lab-gitops",
+  "namespace_uid": "e6ae1fe5-00fb-4fb0-a643-ba812c4d2cbe",
+  "argo_image": "quay.io/argoproj/argocd:v3.5.6",
+  "gitops_revision": "20ea81988b4310c1b8075608c8446102424d7a4f",
+  "app_sync": "Synced",
+  "app_health": "Healthy",
+  "operation_phase": "Succeeded",
+  "source_commit_sha": "6f6521d81226931f42edd2783584cb33c8fc8519",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+  "desired_images": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677"
+  ],
+  "deployment_generation": 2,
+  "progress_deadline_seconds": 30,
+  "deployment_conditions": [
+    {
+      "type": "Available",
+      "status": "True",
+      "reason": "MinimumReplicasAvailable",
+      "lastTransitionTime": "2026-11-02T05:51:14Z"
+    },
+    {
+      "type": "Progressing",
+      "status": "True",
+      "reason": "NewReplicaSetAvailable",
+      "lastTransitionTime": "2026-11-02T05:51:09Z"
+    }
+  ],
+  "observed_generation": 2,
+  "replicas": 1,
+  "ready_replicas": 1,
+  "updated_replicas": 1,
+  "http_status": 200,
+  "curl_exit": 0,
+  "version": {
+    "version": "dev",
+    "revision": "6f6521d81226931f42edd2783584cb33c8fc8519",
+    "build_date": "2026-11-02T08:32:08+03:00"
+  },
+  "pods": [
+    {
+      "name": "lab-dev-68fd54457-mdxt2",
+      "uid": "fdc6690f-d620-40f8-a6d5-ee47ec8ab04a",
+      "deletion_timestamp": null,
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "image_id": "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+          "waiting_reason": null,
+          "restarts": 0
+        }
+      ]
+    }
+  ]
+}

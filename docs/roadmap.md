@@ -89,7 +89,15 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 
 ## Current: Milestone 9 — CI/CD и GitOps
 
-Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Следующий шаг — контейнерная сборка и проверки безопасности. Контейнерная поставка и GitOps остаются незавершёнными.
+### Branching, Release Promotion & Environment Separation
+
+Current: модель `feature → dev → main`; PR №1 слит в `dev`, CI подтверждён на PR и push. Обе ветки защищены обязательными `go`, `evidence`, `helm`, актуальной базой PR и запретом force push/удаления, включая администраторов. Репозиторий Public. Новые проверки включаются в required checks после успешного запуска.
+
+Current: Docker Buildx, security checks и kind negative smoke Passed на dev `6f6521d`; `container` и `kind` required после успешного PR. Одобренная GHCR publication выполнена без пересборки. Development Argo CD Core в отдельном kind подтвердил manual sync, Git rollout, imageID/version, controlled drift/self-heal и failed rollout/recovery; [фактические receipts](verification/gitops-development.md). Next: первый successful release gate, разрешённый владельцем `dev → main`, stable manual sync того же digest, сравнение реальных Pod imageID, source/promotion SHA и stable recovery.
+
+Development runtime проверен; stable promotion остаётся Prepared до разрешения и исполнения. Gate реализован для проверки archived dev proof/provenance и неизменности API build inputs, но становится required main только после первого successful Release PR. [Контракт](design/ci-cd-gitops.md), [практическая процедура](engineering/ci-cd-gitops-lab.md).
+
+Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Контейнерная сборка, security checks и kind smoke подтверждены [отдельным отчётом](verification/branching-container.md). GHCR и GitOps остаются незавершёнными.
 
 - тесты;
 - сборка образа;
@@ -121,7 +129,7 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 
 ## Blocked
 
-- Миграция в отдельный репозиторий разрешена владельцем; исходная история остаётся приватной. Происхождение снимка описано в [provenance](provenance.md). Изменение visibility на Public требует отдельного решения.
+- Репозиторий Public; исходная история остаётся приватной. Происхождение снимка описано в [provenance](provenance.md).
 - До появления конкретной потребности не выбираются облачный провайдер, CNI для самостоятельно управляемого кластера, система внешних секретов и долговременное хранилище метрик, логов и трасс.
 
 Milestone 8 завершён: [crash/redelivery](verification/worker-crash-observability.md), [отказ настоящего Collector](verification/collector-outage.md), обновлённые панели и новая DLQ-корреляция подтверждены. [Итоговая приёмка](verification/grafana-dashboards.md#итоговая-приёмка-milestone-8): полный Go race/vet, профильные Helm-проверки, 23/23 выбранных targets UP в трёх проверках, smoke, pending/lag=0, сохранный PVC, suspended CronJob и исправный KEDA в fixed-worker режиме; диагностические worker Pod удалены. Остаточные ограничения и исторические рестарты Strimzi сохранены в отчётах. Обязательной незавершённой работы по Milestone 8 нет.

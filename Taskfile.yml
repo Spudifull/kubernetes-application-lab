@@ -21,6 +21,36 @@ vars:
   BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
 
 tasks:
+  release-check:
+    desc: Verify archived dev proof and unchanged API inputs; does not access a Kubernetes cluster.
+    cmds:
+      - go run ./cmd/labctl release-check
+
+  gitops-failed-rollout:
+    desc: Controlled failure and recovery only in the owned development GitOps namespace.
+    cmds:
+      - pwsh -NoProfile -File scripts/gitops-failed-rollout.ps1
+
+  gitops-observe-dev:
+    desc: Observe only the separate local GitOps cluster; never the main laboratory context.
+    cmds:
+      - pwsh -NoProfile -File scripts/gitops-observe.ps1 -Environment lab-dev -OutputPath .cache/gitops/observations/dev.json -RequireHealthy
+
+  ci-container:
+    desc: Build the stateless API locally; no publication or cluster changes.
+    cmds:
+      - docker buildx build --load --provenance=false --file docker/api.Dockerfile --tag lab-ci-api:{{.REVISION}} --build-arg REVISION={{.REVISION}} --build-arg VERSION={{.VERSION}} --build-arg BUILD_DATE={{.BUILD_DATE}} .
+
+  ci-kind:
+    desc: Run bounded smoke, Service failure and recovery in an exclusively owned temporary kind cluster.
+    cmds:
+      - bash scripts/ci-kind.sh
+
+  ci-helm:
+    desc: Lint and render all local chart profiles without cluster access.
+    cmds:
+      - bash scripts/ci-helm.sh
+
   alert-receiver-build:
     desc: Build and record the internal diagnostic receiver image; no cluster changes.
     cmds:
