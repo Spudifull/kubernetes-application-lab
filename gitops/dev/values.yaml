@@ -1,10 +1,10 @@
-# Candidate built from source 6f6521d81226931f42edd2783584cb33c8fc8519.
+# Candidate built from source 348373135c844c06a3b53fa3d729d7ee1df05348.
 progressDeadlineSeconds: 30
 podAnnotations:
-  lab.gitops/release: candidate-6f6521d
+  lab.gitops/release: candidate-3483731
 image:
   repository: ghcr.io/spudifull/kubernetes-application-lab-api
-  digest: sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677
+  digest: sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a
   tag: ""
   pullPolicy: IfNotPresent
 database:

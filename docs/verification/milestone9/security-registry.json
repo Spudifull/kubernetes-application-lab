@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-11-02T19:50:28.0321151Z",
+  "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+  "checked_container_run_id": 41512671718,
+  "publish_run_id": 41512671718,
+  "repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "anonymous_pull": true,
+  "registry_manifest_digest": "sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a",
+  "media_type": "application/vnd.docker.distribution.manifest.v2+json",
+  "config_digest": "sha256:dab7c01e52f27fca55f42b01aa551dd083773c9159c347e2270cfc11c930ccf3",
+  "oci_labels": {
+    "org.opencontainers.image.created": "2026-11-02T22:44:07+03:00",
+    "org.opencontainers.image.revision": "348373135c844c06a3b53fa3d729d7ee1df05348",
+    "org.opencontainers.image.source": "https://github.com/Spudifull/kubernetes-application-lab",
+    "org.opencontainers.image.version": "dev"
+  },
+  "runtime_user": "65532:65532",
+  "architecture": "amd64",
+  "os": "linux"
+}
