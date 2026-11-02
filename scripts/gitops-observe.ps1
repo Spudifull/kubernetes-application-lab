@@ -17,6 +17,7 @@ if ($nodes.items.Count -ne 1 -or $nodes.items[0].metadata.name -ne 'kubernetes-a
 $candidate = Get-Content (Join-Path $root 'gitops/candidate.json') -Raw | ConvertFrom-Json
 $app = Read-KubeJson @('-n','argocd','get','application',$Environment)
 $deployment = Read-KubeJson @('-n',$Environment,'get','deployment',$Environment)
+$service = Read-KubeJson @('-n',$Environment,'get','service',$Environment)
 $pods = Read-KubeJson @('-n',$Environment,'get','pods','-l',"app.kubernetes.io/instance=$Environment")
 $controller = Read-KubeJson @('-n','argocd','get','statefulset','argocd-application-controller')
 $namespace = Read-KubeJson @('get','namespace',$Environment)
@@ -30,9 +31,16 @@ $observation = [ordered]@{
     environment = $Environment
     cluster = 'kubernetes-application-lab-gitops'
     namespace_uid = $namespace.metadata.uid
+    application_uid = $app.metadata.uid
+    deployment_uid = $deployment.metadata.uid
+    service_uid = $service.metadata.uid
+    tracked_branch = $app.spec.source.targetRevision
+    destination_namespace = $app.spec.destination.namespace
+    helm_release = $app.spec.source.helm.releaseName
     argo_image = $controller.spec.template.spec.containers[0].image
     gitops_revision = $app.status.sync.revision
-    promotion_commit_sha = if ($Environment -eq 'lab-stable') { $app.status.sync.revision } else { $null }
+    last_sync_revision = $app.status.operationState.syncResult.revision
+    promotion_commit_sha = if ($Environment -eq 'lab-stable') { $app.status.operationState.syncResult.revision } else { $null }
     app_sync = $app.status.sync.status
     app_health = $app.status.health.status
     operation_phase = $app.status.operationState.phase

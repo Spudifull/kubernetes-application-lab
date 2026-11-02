@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-11-02T06:42:46.6964025Z",
+  "source_commit_sha": "6f6521d81226931f42edd2783584cb33c8fc8519",
+  "promotion_commit_sha": "b2b8ccb8c9ab7069ca8a6922de09751a47b33ce7",
+  "dev_git_revision": "7dfa93a311becb27864a862180ca04b6da0c4b12",
+  "stable_git_revision": "b2b8ccb8c9ab7069ca8a6922de09751a47b33ce7",
+  "dev_image_ids": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677"
+  ],
+  "stable_image_ids": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677"
+  ],
+  "same_image_id": true,
+  "independent_namespaces": true,
+  "independent_deployments": true,
+  "independent_services": true,
+  "independent_applications": true,
+  "independent_releases": true,
+  "dev_branch": "dev",
+  "stable_branch": "main",
+  "dev_http": 200,
+  "stable_http": 200,
+  "dev_sync": "Synced",
+  "stable_sync": "Synced",
+  "dev_health": "Healthy",
+  "stable_health": "Healthy"
+}

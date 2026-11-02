@@ -1,0 +1,62 @@
+{
+  "observed_at": "2026-11-02T06:38:56.2895837Z",
+  "environment": "lab-stable",
+  "cluster": "kubernetes-application-lab-gitops",
+  "namespace_uid": "86403282-0bb3-4241-b6b0-f1fa15915139",
+  "argo_image": "quay.io/argoproj/argocd:v3.5.6",
+  "gitops_revision": "b2b8ccb8c9ab7069ca8a6922de09751a47b33ce7",
+  "promotion_commit_sha": "b2b8ccb8c9ab7069ca8a6922de09751a47b33ce7",
+  "app_sync": "Synced",
+  "app_health": "Healthy",
+  "operation_phase": "Succeeded",
+  "source_commit_sha": "6f6521d81226931f42edd2783584cb33c8fc8519",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+  "desired_images": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677"
+  ],
+  "deployment_generation": 1,
+  "progress_deadline_seconds": 600,
+  "deployment_conditions": [
+    {
+      "type": "Available",
+      "status": "True",
+      "reason": "MinimumReplicasAvailable",
+      "lastTransitionTime": "2026-11-02T06:38:54Z"
+    },
+    {
+      "type": "Progressing",
+      "status": "True",
+      "reason": "NewReplicaSetAvailable",
+      "lastTransitionTime": "2026-11-02T06:38:52Z"
+    }
+  ],
+  "observed_generation": 1,
+  "replicas": 1,
+  "ready_replicas": 1,
+  "updated_replicas": 1,
+  "http_status": 200,
+  "curl_exit": 0,
+  "version": {
+    "version": "dev",
+    "revision": "6f6521d81226931f42edd2783584cb33c8fc8519",
+    "build_date": "2026-11-02T08:32:08+03:00"
+  },
+  "pods": [
+    {
+      "name": "lab-stable-5c546c7c49-vw7fm",
+      "uid": "47275b96-ec9e-473d-9d4e-d0f9897b25cf",
+      "deletion_timestamp": null,
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "image_id": "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+          "waiting_reason": null,
+          "restarts": 0
+        }
+      ]
+    }
+  ]
+}

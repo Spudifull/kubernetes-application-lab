@@ -65,32 +65,39 @@ func TestMilestone9ObservedEvidence(t *testing.T) {
 	var registry releaseRegistry
 	read("dev-recovered.json", &recovered)
 	read("registry.json", &registry)
-	data, err := os.ReadFile(filepath.Join(root, "gitops", "candidate.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
 	var candidate releaseCandidate
-	if err := json.Unmarshal(data, &candidate); err != nil {
+	read("release-6f6521d.json", &candidate)
+	image := candidate.Repository + "@" + candidate.Digest
+	if err := validateRelease(candidate, recovered, registry, image, image); err != nil {
 		t.Fatal(err)
 	}
-	dev, err := os.ReadFile(filepath.Join(root, "gitops", "dev", "values.yaml"))
-	if err != nil {
-		t.Fatal(err)
+	var dev, stable releaseObservation
+	read("dev-at-promotion.json", &dev)
+	read("stable-at-promotion.json", &stable)
+	if stable.GitRevision != candidate.Promotion || stable.Promotion != candidate.Promotion || candidate.Source == candidate.Promotion || stable.Source != candidate.Source || stable.Version.Revision != candidate.Source || stable.HTTP != 200 || stable.Health != "Healthy" || stable.Sync != "Synced" || dev.Branch != "dev" || stable.Branch != "main" {
+		t.Fatal("stable promotion provenance changed")
 	}
-	devImage, err := releaseValuesImage(string(dev))
-	if err != nil {
-		t.Fatal(err)
+	for _, pair := range [][2]string{{dev.NamespaceUID, stable.NamespaceUID}, {dev.DeploymentUID, stable.DeploymentUID}, {dev.ServiceUID, stable.ServiceUID}, {dev.ApplicationUID, stable.ApplicationUID}, {dev.Release, stable.Release}} {
+		if pair[0] == "" || pair[1] == "" || pair[0] == pair[1] {
+			t.Fatal("environment resources are not independent")
+		}
 	}
-	stable, err := os.ReadFile(filepath.Join(root, "gitops", "stable", "values.yaml"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	stableImage, err := releaseValuesImage(string(stable))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := validateRelease(candidate, recovered, registry, devImage, stableImage); err != nil {
-		t.Fatal(err)
+	for _, observation := range []releaseObservation{dev, stable} {
+		ready := 0
+		for _, pod := range observation.Pods {
+			if pod.Deletion != nil {
+				continue
+			}
+			for _, container := range pod.Containers {
+				if !container.Ready || container.ImageID != image {
+					t.Fatal("different actual Pod imageID at promotion")
+				}
+				ready++
+			}
+		}
+		if ready < 1 {
+			t.Fatal("missing actual promoted Pod identity")
+		}
 	}
 }
 
