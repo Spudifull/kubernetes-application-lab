@@ -1,5 +1,38 @@
 # Ветки, контейнерная проверка и подготовка окружений
 
+## Изменённые файлы подэтапа
+
+```text
+.github/workflows/container.yml
+.github/workflows/publish.yml
+CONTRIBUTING.md
+README.md
+THIRD_PARTY_DEPENDENCIES.md
+Taskfile.yml
+docker/alert-receiver.Dockerfile
+docker/api.Dockerfile
+docker/client.Dockerfile
+docker/kafka-probe.Dockerfile
+docker/publisher.Dockerfile
+docker/worker.Dockerfile
+docs/design/ci-cd-gitops.md
+docs/engineering/ci-cd-gitops-lab.md
+docs/roadmap.md
+docs/verification/README.md
+docs/verification/branching-container.md
+gitops/argocd/applications.yaml
+gitops/argocd/project.yaml
+gitops/dev/values.yaml
+gitops/stable/values.yaml
+go.mod
+go.sum
+helm/lab-api/templates/_helpers.tpl
+helm/lab-api/templates/deployment.yaml
+helm/lab-api/values.yaml
+scripts/ci-helm.sh
+scripts/ci-kind.sh
+```
+
 Дата: 2 ноября 2026 года. Исходный `dev`: `b34fe8b19da5cfa67e0b16745586a3b2d18f1568`; `main`: `562e23c2ddfee56a28c112a9bb465b7259d3db62`. Работа начата в `codex/release-promotion` от актуальной `origin/dev`, исходное рабочее дерево чистое.
 
 ## Проверенные исходные условия
@@ -31,6 +64,16 @@ Container job `125109654155` выполнил dependency scan, Buildx, identity 
 `container.yml`: path classification, govulncheck, Buildx API, проверка non-root/OCI revision, Trivy HIGH/CRITICAL с exit-code=1, передача Docker archive отдельному kind job. Публикации GHCR и registry secrets нет. Отчёты и build metadata сохраняются как CI artifacts. На PR проверяется merge revision из `github.sha`, а не произвольно объявленная source revision.
 
 `ci-kind.sh`: исключительно собственный временный кластер `lab-ci-*`, отдельный kubeconfig; Helm stateless API; client Pod → Service DNS → readyz/version; намеренно неверный Service selector; обнаружение HTTP-отказа; восстановление selector и HTTP. Диагностика до cleanup собственного кластера. Время отказа ограничено; отрицательный сценарий не меняет чужие ресурсы. Полный Kubernetes/PostgreSQL/Kafka стек не нужен.
+
+## Приёмка последней версии и интеграция в dev
+
+[PR №2](https://github.com/Spudifull/kubernetes-application-lab/pull/2) слит после успешных [CI 41394140792](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41394140792) и [Container/kind 41394140833](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41394140833) на head `327ccccce293181758937dbc1c21d333191c39b4`.
+
+Merge в dev: `6f6521d81226931f42edd2783584cb33c8fc8519`. На нём успешны [push CI 41394590333](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41394590333) и [Container/kind 41394590245](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41394590245). Container job `125113106774`, kind job `125113711993`; API image manifest `sha256:026b8e2b198d065e2a470c4987e654f3416b9da82e8038f101b87ab81ee40022`, config ID `sha256:448654cff201f8a8ce424f3b45af79e305d034b741a01459c5c5b9643a38a035`. Build arguments: REVISION=dev merge SHA, VERSION=dev, BUILD_DATE=2026-11-02T08:32:08+03:00. Dockerfile `docker/api.Dockerfile`, Go 1.26.10, Helm 3.17.3, kind 0.33.0, Kubernetes 1.34.0, kubectl 1.35.9. OCI source/revision/version/created и non-root проверены job.
+
+Service smoke, отрицательный selector и восстановление прошли; кластер `lab-ci-41394590245-1` удалён. В artifacts сохранены version, готовые Pod с imageID, ресурсы, события, отрицательная проверка, build metadata и security reports. Это ещё не проверка GHCR digest в Argo CD или stable.
+
+После успешного PR добавлены required `container`, `kind` только для dev. Main осталась на `562e23c`, с базовыми checks. Release PR не создавался. Publishing [41394590401](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41394590401) skipped: переменная `ENABLE_GHCR_PUBLISH` отсутствует. Публикация и дальнейший promotion ожидают отдельного разрешения владельца согласно разделу 12 задания; подготовленный workflow допускает повторный запуск для этого же dev SHA без пересборки.
 
 ## Prepared и ещё не проверенные свойства
 
