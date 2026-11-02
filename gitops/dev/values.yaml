@@ -1,7 +1,7 @@
-# Prepared: fill only with an audited, published, tested artifact.
+# Candidate built from source 6f6521d81226931f42edd2783584cb33c8fc8519.
 image:
   repository: ghcr.io/spudifull/kubernetes-application-lab-api
-  digest: ""
+  digest: sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677
   tag: ""
   pullPolicy: IfNotPresent
 database:
