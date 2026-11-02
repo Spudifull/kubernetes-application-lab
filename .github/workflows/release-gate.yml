@@ -34,22 +34,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
           source=$(jq -r .source_commit_sha gitops/candidate.json)
           checked=$(jq -r .checked_container_run_id gitops/candidate.json)
           published=$(jq -r .publish_run_id gitops/candidate.json)
-          registry=$(jq -r '.registry_observation // "docs/verification/milestone9/registry.json"' gitops/candidate.json)
           gh api "repos/$GH_REPO/actions/runs/$checked" \
             | jq -e --arg sha "$source" '.head_sha == $sha and .head_branch == "dev" and .event == "push" and .conclusion == "success" and .path == ".github/workflows/container.yml"'
           gh api "repos/$GH_REPO/actions/runs/$checked/jobs?per_page=100" \
             | jq -e '[.jobs[] | select((.name == "container" or .name == "kind") and .conclusion == "success")] | length == 2'
           gh api "repos/$GH_REPO/actions/runs/$published" \
             | jq -e --arg sha "$source" '.head_sha == $sha and .head_branch == "dev" and .event == "push" and .conclusion == "success" and .path == ".github/workflows/publish.yml"'
-          mkdir -p .cache/release
-          gh run download "$checked" --name container-evidence --dir .cache/release
-          jq -e --arg sha "$source" --slurpfile registry "$registry" \
-            '.[0].Id == $registry[0].config_digest and .[0].Config.Labels["org.opencontainers.image.revision"] == $sha' .cache/release/image.json
+          bash scripts/ci-release-proof.sh
       - name: Verify current registry identity without credentials
         run: |
           set -euo pipefail

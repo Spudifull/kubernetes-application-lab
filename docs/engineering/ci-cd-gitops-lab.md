@@ -6,7 +6,7 @@
 
 После разрешённых владельцем commit/push дождаться jobs workflow CI в GitHub Actions. Сохранить run URL/ID, точный Git SHA, runner и результаты каждого job. При отказе сохранить диагностику и повторить после исправления. До этого workflow остаётся Prepared.
 
-Контейнерный workflow `container.yml` выполняет Buildx, govulncheck, Trivy и передаёт проверенный image archive в отдельный kind job. `scripts/ci-kind.sh` создаёт исключительно свой временный кластер `lab-ci-*`, использует отдельный kubeconfig, проверяет `/readyz` и `/version` из client Pod через Service DNS, ломает selector только этого Service и подтверждает отказ и восстановление. Диагностика сохраняется перед удалением собственного временного кластера. Команды: `task ci-container`; для Linux `IMAGE=lab-ci-api:<revision> REVISION=<revision> task ci-kind`. Локальные образы имеют dirty revision до фиксации исходников.
+Контейнерный workflow `container.yml` выполняет Buildx, govulncheck, Trivy для API/publisher/worker и передаёт проверенный API archive в отдельный kind job. `scripts/ci-kind.sh` создаёт исключительно свой временный кластер `lab-ci-*`, использует отдельный kubeconfig, проверяет Ready EndpointSlice, `/readyz` и `/version` из client Pod через Service DNS. Неисправный rollout должен дать ProgressDeadlineExceeded/ErrImageNeverPull, затем восстановиться; дополнительно проверяется отказ Service selector и восстановление. Ресурсы, события и логи сохраняются перед удалением своего временного кластера. Команды: `task ci-container` для локального API; для Linux `IMAGE=lab-ci-api:<revision> REVISION=<revision> task ci-kind`. Локальные образы имеют dirty revision до фиксации исходников.
 
 GHCR publication и оба Argo runtime [проверены](../verification/gitops-development.md) на одном digest. Используется отдельный kind `kubernetes-application-lab-gitops`, собственный `.cache/gitops/kubeconfig`, kubectl 1.35.9 и Argo CD Core 3.5.6. Application lab-stable впервые создана и вручную синхронизирована после Release PR №7; development использует self-heal. Основные кластеры не используются. Release gate стал required main после первого successful run на Release PR.
 
@@ -19,6 +19,18 @@ GHCR publication и оба Argo runtime [проверены](../verification/git
 Новые required checks включать только после успешного запуска на соответствующих PR. `release-gate` включён в required main после успешного run `41400612212`; сама защита не доказывает успешный runtime promotion. Доступность защиты описана в [документации GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
 
 После успешного PR №2 для dev через API добавлены required checks `container`, `kind`, с сохранением `go`, `evidence`, `helm` и strict=true. На push merge SHA `6f6521d` все пять checks успешны. Publishing run `41394590401` сначала был skipped, после отдельного разрешения повторён и завершился success без пересборки.
+
+## Воспроизводимое управление выделенным стендом
+
+Windows/PowerShell: `task gitops-preflight`, `task gitops-render`, `task gitops-install`, `task gitops-status`. Требуются Docker Desktop Linux, kind 0.33.0, Helm (CI использует 3.17.3; локальная проверка выполнена 4.3.0), Go и Git. Install скачивает kubectl 1.35.9 с проверкой SHA-256 и Argo CD Core 3.5.6 по закреплённому SHA-256 manifest. Собственный kubeconfig не меняет default context. Существующий одноимённый кластер принимается только с отдельным kubeconfig и ожидаемым узлом. Install создаёт отсутствующие Applications с manual policy; существующие не перезаписывает.
+
+`task gitops-sync GITOPS_ENV=lab-dev GITOPS_REVISION=<полный-SHA>` синхронизирует конкретную ревизию из `origin/dev`, без prune, ожидает Succeeded/Synced/Healthy. Для stable указать `lab-stable` и SHA из `origin/main`; дополнительно выполняется release-check. Перед sync обновить remote refs через `git fetch origin`; команда не заменяет review и release gate. После первой успешной manual sync/smoke development можно включить policy из `gitops/argocd/applications.yaml`.
+
+`task gitops-smoke GITOPS_ENV=lab-dev` (или lab-stable) создаёт собственный диагностический Pod, проверяет readyz/version/imageID и удаляет Pod в finally. Если Pod с таким именем уже есть, команда отказывается его использовать или удалять. Это удобная замена ручной подготовке Pod для observer ниже. JSON сохраняется в `.cache/gitops/observations/`.
+
+`task gitops-cleanup CONFIRM_GITOPS_CLUSTER=kubernetes-application-lab-gitops` удаляет весь выделенный кластер с обоими окружениями. Не запускать для обычного завершения smoke; основной и network-кластеры не входят в область команды. Отсутствующее или неверное подтверждение приводит к отказу. Повторный install на существующем стенде и отказ cleanup проверены; создание с нуля и фактический cleanup остаются Prepared, существующие окружения сохраняются.
+
+`container` проверяет три компонента через `scripts/ci-images.sh`. `ci-kind.sh` проверяет Ready EndpointSlice, настоящий failed rollout и восстановление, затем Service failure/recovery; сохраняет журналы приложения. Для ранее принятой identity release gate читает долговечную квитанцию из base SHA защищённой main; для нового кандидата требует исходный CI artifact. Условия доверия и retention описаны в [контракте](../design/ci-cd-gitops.md).
 
 ## Runtime и release
 
