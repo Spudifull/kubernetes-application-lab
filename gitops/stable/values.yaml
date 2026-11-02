@@ -1,7 +1,7 @@
-# Prepared: promote the exact digest validated in lab-dev, never rebuild.
+# Release candidate only: deploy after owner approval and the release gate.
 image:
   repository: ghcr.io/spudifull/kubernetes-application-lab-api
-  digest: ""
+  digest: sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677
   tag: ""
   pullPolicy: IfNotPresent
 database:

@@ -1,0 +1,14 @@
+{
+  "scenario": "controlled drift observation then automated self-heal",
+  "auto_sync_paused_during_injection": true,
+  "git_before": "20ea81988b4310c1b8075608c8446102424d7a4f",
+  "git_after": "20ea81988b4310c1b8075608c8446102424d7a4f",
+  "git_unchanged": true,
+  "observed_out_of_sync": true,
+  "live_replicas_during_drift": 2,
+  "restored_replicas": 1,
+  "final_sync": "Synced",
+  "final_health": "Healthy",
+  "http_during": 200,
+  "http_after": 200
+}

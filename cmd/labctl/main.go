@@ -208,6 +208,8 @@ func runCLI(ctx context.Context, args []string, r runner, out io.Writer) error {
 		return l.inflightWork(ctx)
 	case "revision":
 		return l.revision(ctx)
+	case "release-check":
+		return l.releaseCheck(ctx)
 	case "image-record":
 		return l.imageRecord(ctx)
 	case "deploy-image":
