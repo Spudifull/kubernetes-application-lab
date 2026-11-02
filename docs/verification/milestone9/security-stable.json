@@ -1,0 +1,84 @@
+{
+  "observed_at": "2026-11-02T20:05:50.1524005Z",
+  "environment": "lab-stable",
+  "cluster": "kubernetes-application-lab-gitops",
+  "namespace_uid": "86403282-0bb3-4241-b6b0-f1fa15915139",
+  "application_uid": "c18921d5-b39a-4f02-a178-d315d6798017",
+  "deployment_uid": "f70bf002-02e0-4d1a-bf3b-7b2835005926",
+  "service_uid": "efe78f55-e782-41da-92cd-3f4d28d5129f",
+  "tracked_branch": "main",
+  "destination_namespace": "lab-stable",
+  "helm_release": "lab-stable",
+  "argo_image": "quay.io/argoproj/argocd:v3.5.6",
+  "gitops_revision": "6cf5e00bb2c56293532148757023e3cb4d6bf37d",
+  "last_sync_revision": "6cf5e00bb2c56293532148757023e3cb4d6bf37d",
+  "promotion_commit_sha": "6cf5e00bb2c56293532148757023e3cb4d6bf37d",
+  "app_sync": "Synced",
+  "app_health": "Healthy",
+  "operation_phase": "Succeeded",
+  "source_commit_sha": "348373135c844c06a3b53fa3d729d7ee1df05348",
+  "image_repository": "ghcr.io/spudifull/kubernetes-application-lab-api",
+  "image_digest": "sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a",
+  "desired_images": [
+    "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a"
+  ],
+  "deployment_generation": 2,
+  "progress_deadline_seconds": 600,
+  "deployment_conditions": [
+    {
+      "type": "Available",
+      "status": "True",
+      "reason": "MinimumReplicasAvailable",
+      "lastTransitionTime": "2026-11-02T06:38:54Z"
+    },
+    {
+      "type": "Progressing",
+      "status": "True",
+      "reason": "NewReplicaSetAvailable",
+      "lastTransitionTime": "2026-11-02T06:38:52Z"
+    }
+  ],
+  "observed_generation": 2,
+  "replicas": 1,
+  "ready_replicas": 1,
+  "updated_replicas": 1,
+  "http_status": 200,
+  "curl_exit": 0,
+  "version": {
+    "version": "dev",
+    "revision": "348373135c844c06a3b53fa3d729d7ee1df05348",
+    "build_date": "2026-11-02T22:44:07+03:00"
+  },
+  "pods": [
+    {
+      "name": "lab-stable-5c546c7c49-vw7fm",
+      "uid": "47275b96-ec9e-473d-9d4e-d0f9897b25cf",
+      "deletion_timestamp": "2026-11-02T20:06:06Z",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "image_id": "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:b5a4ea8debd055b9f051b7ac449a5d65cca5fda97685fd203df83bd9fb44e677",
+          "waiting_reason": null,
+          "restarts": 0
+        }
+      ]
+    },
+    {
+      "name": "lab-stable-5d4d5b8545-9bzl7",
+      "uid": "401eea58-8c0b-42fc-b98f-71a0849022b4",
+      "deletion_timestamp": null,
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "image_id": "ghcr.io/spudifull/kubernetes-application-lab-api@sha256:ae4b503cd0f56643bd6467a406c25df9de7c3b71f5e91b65f5e024e1480b452a",
+          "waiting_reason": null,
+          "restarts": 0
+        }
+      ]
+    }
+  ]
+}

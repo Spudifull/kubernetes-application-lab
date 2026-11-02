@@ -4,6 +4,8 @@ Milestone 9 завершён в границах stateless лабораторн�
 
 A reproducible Go workload lab for Kubernetes: lifecycle, resources, networking, persistent state, reliable events, and observability. Учебный одноузловой стенд; гарантии production/HA не заявляются.
 
+Последняя [security-приёмка](docs/verification/security-release.md): блокирующий JSON findings gate, OpenTelemetry 1.45.0, реальная reusable GHCR publication source `3483731` и продвижение того же immutable digest в dev/stable без пересборки. Исторический первый выпуск сохранён отдельно.
+
 ## Архитектура
 
 ```mermaid

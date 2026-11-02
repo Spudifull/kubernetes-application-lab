@@ -112,6 +112,8 @@ Release gate стал required main после первого успешного
 
 ## Later: Terraform и kubeadm
 
+Предварительная завершающая итерация CI/CD выполнена: [security gate, OpenTelemetry 1.45.0, новый immutable image и runtime promotion](verification/security-release.md) подтверждены для source `3483731`, promotion `6cf5e00`. Последующий выбор Terraform/kubeadm остаётся отдельной задачей.
+
 - сеть;
 - виртуальные машины;
 - диски;
