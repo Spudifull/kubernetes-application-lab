@@ -1,4 +1,4 @@
-# Prepared. Apply only in the separate GitOps cluster after filling image digests.
+# Current policy after verified manual bootstrap; use gitops-install for a fresh cluster.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:

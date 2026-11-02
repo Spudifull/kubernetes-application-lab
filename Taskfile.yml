@@ -21,6 +21,29 @@ vars:
   BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
 
 tasks:
+  gitops-preflight:
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action preflight']
+  gitops-render:
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action render']
+  gitops-install:
+    desc: Bootstrap only the dedicated GitOps cluster; first sync remains manual.
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action install']
+  gitops-status:
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action status']
+  gitops-sync:
+    requires:
+      vars: [GITOPS_ENV, GITOPS_REVISION]
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action sync -Environment {{.GITOPS_ENV}} -Revision {{.GITOPS_REVISION}}']
+  gitops-smoke:
+    requires:
+      vars: [GITOPS_ENV]
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action smoke -Environment {{.GITOPS_ENV}}']
+  gitops-cleanup:
+    desc: Delete both environments only when explicitly naming the dedicated cluster.
+    requires:
+      vars: [CONFIRM_GITOPS_CLUSTER]
+    cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action cleanup -ConfirmCluster {{.CONFIRM_GITOPS_CLUSTER}}']
+
   gitops-observe-stable:
     desc: Observe the stable namespace of the separate GitOps cluster without deployment changes.
     cmds:
@@ -47,7 +70,7 @@ tasks:
       - docker buildx build --load --provenance=false --file docker/api.Dockerfile --tag lab-ci-api:{{.REVISION}} --build-arg REVISION={{.REVISION}} --build-arg VERSION={{.VERSION}} --build-arg BUILD_DATE={{.BUILD_DATE}} .
 
   ci-kind:
-    desc: Run bounded smoke, Service failure and recovery in an exclusively owned temporary kind cluster.
+    desc: Run smoke, failed rollout, Service failure and recovery in an exclusively owned temporary kind cluster.
     cmds:
       - bash scripts/ci-kind.sh
 
