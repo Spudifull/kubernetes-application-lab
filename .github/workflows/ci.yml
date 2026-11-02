@@ -46,6 +46,10 @@ jobs:
         run: go run github.com/zricethezav/gitleaks/v8@v8.24.3 dir . --config .gitleaks.toml --redact --no-banner
       - name: Workflow validation
         run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
+      - name: Release proof trust boundary
+        run: bash scripts/ci-release-proof-test.sh
+      - name: Shell scripts
+        run: shellcheck scripts/ci-images.sh scripts/ci-kind.sh scripts/ci-release-proof.sh scripts/ci-release-proof-test.sh
 
   helm:
     runs-on: ubuntu-24.04

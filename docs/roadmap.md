@@ -97,7 +97,7 @@ Done в границах stateless API: Docker Buildx, security checks, kind neg
 
 Release gate стал required main после первого успешного run на Release PR; dev требует container/kind. При проверке следующих кандидатов исторические receipts не перезаписываются. Непроверенные свойства: отдельная fault/recovery-приёмка stable, full-stack SQL/Kafka регрессия и сетевая изоляция. [Контракт](design/ci-cd-gitops.md), [практическая процедура](engineering/ci-cd-gitops-lab.md).
 
-Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Контейнерная сборка, security checks и kind smoke подтверждены [отдельным отчётом](verification/branching-container.md). GHCR и GitOps остаются незавершёнными.
+Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Контейнерная сборка, security checks и kind smoke подтверждены [отдельным отчётом](verification/branching-container.md). GHCR и оба GitOps-окружения подтверждены [runtime-отчётом](verification/gitops-development.md). Завершающая проверка трёх контейнеров, failed rollout в kind CI и команд Taskfile описана в [приёмке](verification/milestone9-completion.md).
 
 - тесты;
 - сборка образа;
