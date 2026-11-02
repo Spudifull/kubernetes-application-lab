@@ -1,5 +1,7 @@
 # GHCR и development GitOps
 
+Этот отчёт сохраняет исходную сквозную приёмку образа `6f6521d`. Последующие проверки трёх контейнеров, failed rollout в kind CI и команд Taskfile находятся в [финальной приёмке](milestone9-completion.md); исторические результаты ниже не заменяются новыми.
+
 ## Изменённые файлы подэтапа
 
 Относительно исходной dev `b34fe8b`:
@@ -75,7 +77,7 @@ CI exporter выдал OCI manifest `sha256:026b8e2b198d065e2a470c4987e654f3416b
 
 Argo CD Core 3.5.6 установлен из официального `manifests/core-install.yaml`, SHA-256 `d3d9d3555ad77eb4b6d27b1ec0d2af7978a91537e84d54631f983c227f0a3d31`. Application controller, repo-server, Redis и ApplicationSet controller Ready. В этом режиме нет постоянно доступного Argo UI/API server; наблюдения получены через Kubernetes API. [Core mode](https://argo-cd.readthedocs.io/en/stable/operator-manual/core/).
 
-Namespaces `lab-dev`, `lab-stable` созданы отдельно. AppProject `lab-release` ограничивает source repo, destination namespace и виды ресурсов Deployment/Service; cluster-scoped управление приложением не разрешено. В этом испытании создана только Application lab-dev; stable ещё не развёрнут.
+Namespaces `lab-dev`, `lab-stable` созданы отдельно. AppProject `lab-release` ограничивает source repo, destination namespace и виды ресурсов Deployment/Service; cluster-scoped управление приложением не разрешено. На этапе первой development sync создана только Application lab-dev; последующее развёртывание stable описано ниже.
 
 PR №4 внёс digest в dev. Manual sync Git revision `651cb520f19802c5bf60edc9c52ecd688b39b47b` завершилась Synced/Healthy. Deployment Ready; HTTP `/version` из diagnostic Pod через Service DNS вернул source SHA `6f6521d`, VERSION=dev и build date. Фактический Pod imageID в [первом наблюдении](milestone9/dev-first-sync.json) точно равен опубликованному registry reference. Это не сравнение только Helm values.
 

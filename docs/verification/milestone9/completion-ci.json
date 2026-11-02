@@ -1,0 +1,79 @@
+{
+  "kind": "Derived",
+  "description": "Selected fields from SHA-256-verified Actions artifacts; govulncheck exits follow successful set -e container job.",
+  "pr": 10,
+  "head_commit_sha": "68d34ce95b9ff553dff04bbc9acdba365ffa877f",
+  "tested_merge_sha": "c7842d0e14549b2322c5bde3ea11f308d27a8cd6",
+  "ci_run_id": 41493918255,
+  "container_run_id": 41493918264,
+  "container_job_id": 125444351434,
+  "kind_job_id": 125445721229,
+  "container_archive_sha256": "c89a166a3519dddab01ca3221a80e16417d2989e236aa4b57cb1a67e46eed46f",
+  "kind_archive_sha256": "686c59e4cdd07aaf078b8c71f8a96d41854e959cd54bf31c920d42c5e16ba1ad",
+  "components": [
+    {
+      "component": "api",
+      "image": "lab-ci-api:c7842d0e14549b2322c5bde3ea11f308d27a8cd6",
+      "config_digest": "sha256:05ee4ef7098aa9379049945d83402966cd3b888cedef0fa4b594342bdc74efd2",
+      "runtime_user": "65532:65532",
+      "trivy_version": "0.76.1",
+      "high_critical_count": 0,
+      "govulncheck_exit": 0,
+      "govulncheck_sha256": "dafbbcc44fb16b7f31c89223288df3d8e2d9bb7dc5715128f4bed04de13d95dc"
+    },
+    {
+      "component": "publisher",
+      "image": "lab-ci-publisher:c7842d0e14549b2322c5bde3ea11f308d27a8cd6",
+      "config_digest": "sha256:0e950ca1a64f29672749f4742803bb166ddb10e91b40a1a9c0a172a5cb99811b",
+      "runtime_user": "65532:65532",
+      "trivy_version": "0.76.1",
+      "high_critical_count": 0,
+      "govulncheck_exit": 0,
+      "govulncheck_sha256": "65731fd6ced219a9196b39b2f5a759275d4f3f8017677e135c6f62dd9445728d"
+    },
+    {
+      "component": "worker",
+      "image": "lab-ci-worker:c7842d0e14549b2322c5bde3ea11f308d27a8cd6",
+      "config_digest": "sha256:cbb957ca080a1042394eb7dd85543e9c97c1578eb7b12cd3e122d2901a3d634a",
+      "runtime_user": "65532:65532",
+      "trivy_version": "0.76.1",
+      "high_critical_count": 0,
+      "govulncheck_exit": 0,
+      "govulncheck_sha256": "15bd0a376be282eca2bda9259bff27869b325ab783073a50782e2262844c3f01"
+    }
+  ],
+  "kubernetes": "v1.34.0",
+  "version": {
+    "version": "dev",
+    "revision": "c7842d0e14549b2322c5bde3ea11f308d27a8cd6",
+    "build_date": "2026-11-02T17:43:57Z"
+  },
+  "failed_conditions": [
+    {
+      "type": "Available",
+      "status": "True",
+      "reason": "MinimumReplicasAvailable"
+    },
+    {
+      "type": "Progressing",
+      "status": "False",
+      "reason": "ProgressDeadlineExceeded"
+    }
+  ],
+  "waiting_reasons": [
+    "ErrImageNeverPull"
+  ],
+  "ready_endpoint_addresses": {
+    "initial": 1,
+    "rollout-recovered": 1,
+    "service-recovered": 1
+  },
+  "negative": {
+    "bad_rollout_detected": true,
+    "rollout_recovered": true,
+    "negative_detected": true,
+    "service_recovered": true
+  },
+  "application_log_bytes": 286,
+  "application_log_sha256": "10d4a0a081c1bf0bb3c12305d9468030b903a3c83f4cb3b866eb4ea817950412"
+}

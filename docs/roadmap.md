@@ -87,11 +87,11 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 - трассировка пути API → очередь/БД → worker;
 - оповещения только для состояний с определённым действием оператора.
 
-## Current: Milestone 9 — CI/CD и GitOps
+## Done: Milestone 9 — CI/CD и GitOps
 
 ### Branching, Release Promotion & Environment Separation
 
-Current: модель `feature → dev → main`; PR №1 слит в `dev`, CI подтверждён на PR и push. Обе ветки защищены обязательными `go`, `evidence`, `helm`, актуальной базой PR и запретом force push/удаления, включая администраторов. Репозиторий Public. Новые проверки включаются в required checks после успешного запуска.
+Done в границах stateless лабораторной цепочки: модель `feature → dev → main`; PR №1 слит в `dev`, CI подтверждён на PR и push. Обе ветки защищены обязательными `go`, `evidence`, `helm`, актуальной базой PR и запретом force push/удаления, включая администраторов. Репозиторий Public. Новые проверки включаются в required checks после успешного запуска.
 
 Done в границах stateless API: Docker Buildx, security checks, kind negative smoke, GHCR publication без пересборки, development Argo manual sync, Git rollout, imageID/version, controlled drift/self-heal и failed rollout/recovery. Release PR №7 прошёл release gate и продвинул тот же digest в stable; manual stable sync и равенство реальных Pod imageID подтверждены. Source `6f6521d` и promotion `b2b8ccb` зафиксированы отдельно. [Receipts и ограничения](verification/gitops-development.md).
 
@@ -107,6 +107,8 @@ Release gate стал required main после первого успешного
 - установка Helm chart и минимальная проверка;
 - Argo CD;
 - сценарий расхождения с Git и восстановления желаемого состояния.
+
+Финальный PR №10 подтвердил Buildx/govulncheck/Trivy для API, publisher и worker, настоящий failed rollout/recovery в kind, Ready EndpointSlice и диагностические логи. Команды отдельного GitOps-стенда проверены для render/preflight/status/sync/smoke и повторного install; отказ cleanup проверен без удаления стенда. Protected main хранит принятую identity независимо от retention Actions artifact. [Приёмка и границы](verification/milestone9-completion.md). Fresh bootstrap/cleanup, full-stack regression и сетевая изоляция не входят в подтверждённый объём.
 
 ## Later: Terraform и kubeadm
 
