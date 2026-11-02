@@ -16,8 +16,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: lab-dev
-  # First sync remains manual. No automated prune.
-  syncPolicy: {}
+  # Apply automated policy only after the first verified manual sync.
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: false
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application

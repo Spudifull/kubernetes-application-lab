@@ -1,4 +1,6 @@
 replicaCount: 1
+progressDeadlineSeconds: 600
+podAnnotations: {}
 
 autoscaling:
   enabled: false
