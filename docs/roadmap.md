@@ -93,11 +93,11 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 
 Current: модель `feature → dev → main`; PR №1 слит в `dev`, CI подтверждён на PR и push. Обе ветки защищены обязательными `go`, `evidence`, `helm`, актуальной базой PR и запретом force push/удаления, включая администраторов. Репозиторий Public. Новые проверки включаются в required checks после успешного запуска.
 
-Next: Docker Buildx, проверка зависимостей/образов и kind smoke с отрицательным сценарием. Далее — GHCR и immutable digest, изолированные GitOps-окружения `lab-dev`/`lab-stable`, release gate для `dev → main`, продвижение того же digest без пересборки. Связать `source_commit_sha`, `promotion_commit_sha`, `/version` и фактические Pod imageID обоих окружений. Подтвердить drift/self-heal, неисправный rollout и recovery реальными [verification-отчётами](verification/README.md).
+Current: Docker Buildx, проверка зависимостей/образов и kind smoke с отрицательным сценарием Passed в PR №2 и на dev `6f6521d`; `container` и `kind` добавлены в required checks dev после успешного PR. Next: разрешённая владельцем GHCR publication и immutable digest, изолированные GitOps-окружения `lab-dev`/`lab-stable`, release gate для `dev → main`, продвижение того же digest без пересборки. Связать `source_commit_sha`, `promotion_commit_sha`, `/version` и фактические Pod imageID обоих окружений. Подтвердить drift/self-heal, неисправный rollout и recovery реальными [verification-отчётами](verification/README.md).
 
 Разделение окружений и promotion пока Target, runtime-приёмка не выполнена. [Контракт](design/ci-cd-gitops.md), [практическая процедура](engineering/ci-cd-gitops-lab.md).
 
-Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Следующий шаг — контейнерная сборка и проверки безопасности. Контейнерная поставка и GitOps остаются незавершёнными.
+Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Контейнерная сборка, security checks и kind smoke подтверждены [отдельным отчётом](verification/branching-container.md). GHCR и GitOps остаются незавершёнными.
 
 - тесты;
 - сборка образа;

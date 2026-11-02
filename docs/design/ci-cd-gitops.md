@@ -12,7 +12,7 @@ Passed требует сохранённых Git SHA, workflow run ID/URL, diges
 
 ## Ветки и продвижение
 
-Изменения проходят `feature/*` или `codex/*` → PR в `dev` → Release PR в `main`. `dev` содержит интеграционные кандидаты, `main` — подтверждённую стабильную версию. Required checks обеих веток сейчас `go`, `evidence`, `helm`; container/kind становятся обязательными только после успешного выполнения на соответствующих PR. Release gate остаётся Target до фактической реализации и успешной проверки.
+Изменения проходят `feature/*` или `codex/*` → PR в `dev` → Release PR в `main`. `dev` содержит интеграционные кандидаты, `main` — подтверждённую стабильную версию. Required checks обеих веток: `go`, `evidence`, `helm`; для dev после успешного PR №2 добавлены `container`, `kind`. Для main они не объявлены required без успешного соответствующего release PR. Release gate остаётся Target до фактической реализации и успешной проверки.
 
 Один опубликованный image digest сначала проверяется в development, затем переносится в stable без повторной сборки. `source_commit_sha` обозначает исходники сборки; `promotion_commit_sha` — commit, утвердивший выпуск. Gate должен сравнить влияющие на бинарный файл входы сборки (`cmd`, `internal`, `go.mod`, `go.sum`, Dockerfile и build arguments) с источником проверенного артефакта. Совпадение двух строк values не заменяет проверку фактического Pod imageID и `/version`.
 
