@@ -4,7 +4,7 @@
 
 Использовать небольшой Go workload для конкретных Kubernetes-экспериментов. Не добавлять технологию ради списка навыков. Readiness/liveness/startup, requests/limits, SIGTERM/drain, SQL commit/Kafka offset commit — разные механизмы. Helm владеет конфигурацией приложения, Taskfile — типовыми командами. Не изменять namespace, PVC, topics, offsets или действующие кластеры без задачи владельца.
 
-Git commit/push, ветки и изменение истории требуют явной просьбы. Секреты и локальные credentials не включать в Git/telemetry. Читать [governance](docs/process/documentation-governance.md), [правила разработки](docs/engineering/contributing-rules.md) и [историческое происхождение](docs/provenance.md).
+Git commit/push, ветки и изменение истории требуют явной просьбы. Секреты и локальные credentials не включать в Git/telemetry. Читать [governance](docs/process/documentation-governance.md), [правила разработки](CONTRIBUTING.md) и [историческое происхождение](docs/provenance.md).
 
 Внешние навыки необязательны, источники закреплены в skills.lock.json; установка описана в docs/skills.md. Для Go/документации приватные навыки не требуются. Итоговый ответ должен точно назвать изменённые файлы, выполненные проверки и непроверенные свойства.
 

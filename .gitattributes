@@ -1,2 +1,5 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Historical evidence must retain its original bytes and checksums.
+docs/verification/evidence/** -text
+# Preserve spacing in the original kubectl text capture.
+docs/verification/evidence/*.txt whitespace=-blank-at-eol
+scripts/*.sh text eol=lf

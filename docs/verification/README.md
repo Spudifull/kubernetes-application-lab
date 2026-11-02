@@ -1,8 +1,40 @@
-> Historical result from the private development history. Original identifiers are preserved; this is not a rerun of the public snapshot. Reviewed screenshots are included; raw captures remain private. See [provenance](../provenance.md). Local paths, where present, were redacted.
+> Historical result from the private development history. Original identifiers are preserved; this is not a rerun of the public snapshot. Reviewed screenshots and selected archived evidence are included; attachment dumps remain private. See [provenance](../provenance.md) and the [evidence index](README.md#первичные-доказательства-milestone-8). Local paths, where present, were redacted.
 
 # Проверки и лабораторные сценарии
 
-Milestone 8 завершён в границах локального стенда; [итоговая приёмка и ограничения](grafana-dashboards.md#итоговая-приёмка-milestone-8), архив заключительных проверок (private original artifact omitted; see provenance).
+## Первичные доказательства Milestone 8
+
+Источник 22 файлов — приватный коммит `a8cf93bcc3c4a6316550a58e009d3406f80cd599`. Original означает неизменность относительно этого архива, включая ранее подготовленные выборки. Attachment dumps не включены. Учебные IP, offsets и trace ID сохранены.
+
+В двух Sanitized-файлах только абсолютный путь репозитория в PowerShell prompt заменён на `[repository]`: строки commands итоговых проверок и http_excerpts PostgreSQL. Причина — удаление пользовательского пути. Имена файлов, измерения, timestamps, статусы сохранены. Исходный SHA-256 итоговых проверок: `8ae0de08e5bd5480c546db438ff73b8b212e5e6f9873fc1b4e769b3ceff18ea7`; PostgreSQL: `1ff505c31fcc617a890b012845b595e29487e67ad5a66d426d22d1c69904e1a8`. Для Original исходный SHA-256 равен публичному.
+
+| Файл / сценарий | Тип / решение | Проверяемые данные | Отчёт | Публичный SHA-256 |
+|---|---|---|---|---|
+| [alerting-outbox-cycle-2026-11-01.json](evidence/alerting-outbox-cycle-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](alerting.md) | `d84fbba26af21a36252d9a193998ce02e8ea86090cb5f069f0583076a7a6d89d` |
+| [alerting-publisher-recovery-2026-11-01.json](evidence/alerting-publisher-recovery-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](alerting.md) | `29a42e5032194e5f6b28b6c0a7b10d4fe6a8aa58328568ce6ea260e62aed38ff` |
+| [alerting-publisher-trace-2026-11-01.json](evidence/alerting-publisher-trace-2026-11-01.json) | JSON / Original | Связи spans | [Отчёт](alerting.md) | `6f1c60f023d22202925514b385b1221cd3b978d1d4048773716dd45f9d5bf69b` |
+| [api-unavailable-partial-2026-11-01.json](evidence/api-unavailable-partial-2026-11-01.json) | JSON / Original | Частичный результат и отказ наблюдателя | [Отчёт](api-unavailable-alert.md) | `fa8f7ab198804d1f1bb1d7b4808a4a2ffca1d31c39de0d0b5865ad6ff98c5b85` |
+| [api-unavailable-recovery-2026-11-01.json](evidence/api-unavailable-recovery-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](api-unavailable-alert.md) | `9ed4301024aea5b03a831e59230094fd1819557984e67dcd238e9d18132c6c83` |
+| [application-logging-events-2026-11-01.json](evidence/application-logging-events-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](application-logging.md) | `263888e227ab81d04d917e213f5df45f9389762b9c44585e6e100c1e71bb4da6` |
+| [application-logging-resources-2026-11-01.json](evidence/application-logging-resources-2026-11-01.json) | JSON / Original | Ресурсы и перезапуски | [Отчёт](application-logging.md) | `20e843e1636405b8491c9a8555e8a9304a40268eb84e722fd393af8efb258501` |
+| [application-logging-samples-2026-11-01.txt](evidence/application-logging-samples-2026-11-01.txt) | TXT / Original | События и наблюдаемые значения | [Отчёт](application-logging.md) | `82c2d22b6fea98dfdc486909c9ba8435dd733bd08ac25786e447f89896f24264` |
+| [application-tracing-dlq-2026-11-01.json](evidence/application-tracing-dlq-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](application-tracing.md) | `4ade8c63d9d55776835020d814881657edc6bca1270d6f535bcf30b033e7b389` |
+| [application-tracing-resources-2026-11-01.json](evidence/application-tracing-resources-2026-11-01.json) | JSON / Original | Ресурсы и перезапуски | [Отчёт](application-tracing.md) | `6bd8c22fc332d7e51feabfec667db88ddc016b2078eb4a05f69a9197c6d7e0a0` |
+| [collector-outage-2026-11-01.json](evidence/collector-outage-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](collector-outage.md) | `87a0a3ea878c9b7d39975fb882e63ad773612459477d740c0fd7915b4070c1f7` |
+| [collector-recovery-trace-2026-11-01.json](evidence/collector-recovery-trace-2026-11-01.json) | JSON / Original | Связи spans | [Отчёт](collector-outage.md) | `a4b3cdfb0273a5e02470bb66f4bbb29650cb711f68a44bb2d6e315abd9abdfa3` |
+| [dlq-alert-2026-11-01.json](evidence/dlq-alert-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](dlq-alert.md) | `064f85648b872bbbafa56b9d5f346d9b67d79e607d6fd110ff0d6feb493c1e17` |
+| [final-dlq-correlation-2026-11-01.json](evidence/final-dlq-correlation-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](dlq-alert.md) | `ade27b58d42f6a20366123fdb772ae48d0b940d43aa44f083d224302867cf684` |
+| [final-dlq-trace-2026-11-01.json](evidence/final-dlq-trace-2026-11-01.json) | JSON / Original | Связи spans | [Отчёт](dlq-alert.md) | `1a93aaebe054b804043e80c258722f68ee9a304fb7124e90b382a58f003de00d` |
+| [milestone8-final-checks-2026-11-01.json](evidence/milestone8-final-checks-2026-11-01.json) | JSON / Sanitized | События и наблюдаемые значения | [Отчёт](grafana-dashboards.md) | `ff0625c25f585f3fc62432ce71a4f5384203537568de575c3f5b165ffa6da9dc` |
+| [postgres-unavailable-alert-2026-11-01.json](evidence/postgres-unavailable-alert-2026-11-01.json) | JSON / Sanitized | События и наблюдаемые значения | [Отчёт](postgres-unavailable-alert.md) | `b5cc962d1391d4ec0a2c9251ddfe13a0fa2a1ec035f036aa14faddb54fb9ed2a` |
+| [worker-crash-counter-2026-11-01.json](evidence/worker-crash-counter-2026-11-01.json) | JSON / Original | duplicates 2→3, effects=1, lag=0 | [Отчёт](worker-crash-observability.md) | `5079eaa006d1272b395a12ab2601cd82fea98f46a9730aaf46e11e9830c3d793` |
+| [worker-crash-partial-2026-11-01.json](evidence/worker-crash-partial-2026-11-01.json) | JSON / Original | Частичный результат и отказ наблюдателя | [Отчёт](worker-crash-observability.md) | `02afb568b4e8f55f29ebc832c563bbd55f7a2181cf08937a5b5060131ef3a8a4` |
+| [worker-crash-recovery-2026-11-01.json](evidence/worker-crash-recovery-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](worker-crash-observability.md) | `04fe9c63018104b690913757c7b125064d8619b4e0bf11eb5559d4630eaa71dd` |
+| [worker-crash-trace-2026-11-01.json](evidence/worker-crash-trace-2026-11-01.json) | JSON / Original | Связи spans | [Отчёт](worker-crash-observability.md) | `f83453221af21048b8afed9f048454c9346ae37aec641007acd03e5c1138b8e1` |
+| [worker-lag-alerts-2026-11-01.json](evidence/worker-lag-alerts-2026-11-01.json) | JSON / Original | События и наблюдаемые значения | [Отчёт](worker-lag-alerts.md) | `0a1154abf33a24664fff13cf2473f6a24a7452d40d842d62bab5bfe94d3b2c5c` |
+
+
+Milestone 8 завершён в границах локального стенда; [итоговая приёмка и ограничения](grafana-dashboards.md#итоговая-приёмка-milestone-8), [архив заключительных проверок](evidence/milestone8-final-checks-2026-11-01.json) (Sanitized).
 
 ## Milestone 8 — наблюдаемость
 

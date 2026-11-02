@@ -1,4 +1,6 @@
-> Historical result from the private development history. Original identifiers are preserved; this is not a rerun of the public snapshot. Reviewed screenshots are included; raw captures remain private. See [provenance](../provenance.md). Local paths, where present, were redacted.
+> Historical result from the private development history. Original identifiers are preserved; this is not a rerun of the public snapshot. Reviewed screenshots and selected archived evidence are included; attachment dumps remain private. See [provenance](../provenance.md) and the [evidence index](README.md#первичные-доказательства-milestone-8). Local paths, where present, were redacted.
+
+Первичные данные: [application-logging-events-2026-11-01.json](evidence/application-logging-events-2026-11-01.json), [application-logging-resources-2026-11-01.json](evidence/application-logging-resources-2026-11-01.json), [application-logging-samples-2026-11-01.txt](evidence/application-logging-samples-2026-11-01.txt). Классификация и SHA-256 — в [индексе](README.md#первичные-доказательства-milestone-8).
 
 # Централизованные журналы API, publisher и worker
 

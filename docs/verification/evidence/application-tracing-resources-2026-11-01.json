@@ -1,0 +1,1681 @@
+{
+  "source_attachment": "8281a2fb-ca84-4154-8bd9-17ed20eca636",
+  "source_sha256": "b635f530c7bbbce03ace33326431e4677220ab9dddb938d08b7ee407e98b0a41",
+  "scope": "owner kubectl get/top observations; no UID, runtime imageID or env snapshot in source",
+  "samples": [
+    {
+      "sample": 0,
+      "observed_at": "2026-11-01T11:34:10.8517422Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 3
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 4
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 227
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 1,
+      "observed_at": "2026-11-01T11:34:41.1989304Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 3
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 4
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 10,
+          "memory_mi": 227
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 2,
+      "observed_at": "2026-11-01T11:35:11.5142544Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 3
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 4
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 229
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 3,
+      "observed_at": "2026-11-01T11:35:41.8154565Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 4
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 11,
+          "memory_mi": 230
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 4,
+      "observed_at": "2026-11-01T11:36:12.1459513Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 9,
+          "memory_mi": 230
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 5,
+      "observed_at": "2026-11-01T11:36:42.5171330Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 10,
+          "memory_mi": 230
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 40
+        }
+      }
+    },
+    {
+      "sample": 6,
+      "observed_at": "2026-11-01T11:37:12.8829091Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 28,
+          "memory_mi": 247
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 47
+        }
+      }
+    },
+    {
+      "sample": 7,
+      "observed_at": "2026-11-01T11:37:43.2020439Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 287
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 47
+        }
+      }
+    },
+    {
+      "sample": 8,
+      "observed_at": "2026-11-01T11:38:13.5315877Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 2,
+          "memory_mi": 4
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 15,
+          "memory_mi": 301
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 49
+        }
+      }
+    },
+    {
+      "sample": 9,
+      "observed_at": "2026-11-01T11:38:43.8764065Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 4
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 22,
+          "memory_mi": 392
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 51
+        }
+      }
+    },
+    {
+      "sample": 10,
+      "observed_at": "2026-11-01T11:39:14.2056809Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 13,
+          "memory_mi": 405
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 52
+        }
+      }
+    },
+    {
+      "sample": 11,
+      "observed_at": "2026-11-01T11:39:44.5681816Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 13,
+          "memory_mi": 414
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 52
+        }
+      }
+    },
+    {
+      "sample": 12,
+      "observed_at": "2026-11-01T11:40:14.8821321Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 10,
+          "memory_mi": 415
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 52
+        }
+      }
+    },
+    {
+      "sample": 13,
+      "observed_at": "2026-11-01T11:40:45.2046495Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 12,
+          "memory_mi": 431
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 52
+        }
+      }
+    },
+    {
+      "sample": 14,
+      "observed_at": "2026-11-01T11:41:15.5208965Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 12,
+          "memory_mi": 455
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 15,
+      "observed_at": "2026-11-01T11:41:45.8440599Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 14,
+          "memory_mi": 466
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 16,
+      "observed_at": "2026-11-01T11:42:16.1605177Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 11,
+          "memory_mi": 466
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 42
+        }
+      }
+    },
+    {
+      "sample": 17,
+      "observed_at": "2026-11-01T11:42:46.4715645Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 12,
+          "memory_mi": 466
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 43
+        }
+      }
+    },
+    {
+      "sample": 18,
+      "observed_at": "2026-11-01T11:43:16.7931069Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 10,
+          "memory_mi": 500
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 43
+        }
+      }
+    },
+    {
+      "sample": 19,
+      "observed_at": "2026-11-01T11:43:47.1188735Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 15,
+          "memory_mi": 513
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 43
+        }
+      }
+    },
+    {
+      "sample": 20,
+      "observed_at": "2026-11-01T11:44:17.4499635Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 11,
+          "memory_mi": 514
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 21,
+      "observed_at": "2026-11-01T11:44:47.7599835Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 11,
+          "memory_mi": 514
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 22,
+      "observed_at": "2026-11-01T11:45:18.0723182Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 514
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 23,
+      "observed_at": "2026-11-01T11:45:48.4018890Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 14,
+          "memory_mi": 567
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 24,
+      "observed_at": "2026-11-01T11:46:18.7245762Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 12,
+          "memory_mi": 567
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 25,
+      "observed_at": "2026-11-01T11:46:49.0643650Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 9,
+          "memory_mi": 567
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 20
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 41
+        }
+      }
+    },
+    {
+      "sample": 26,
+      "observed_at": "2026-11-01T11:47:19.3982808Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 567
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 42
+        }
+      }
+    },
+    {
+      "sample": 27,
+      "observed_at": "2026-11-01T11:47:49.7425529Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 10,
+          "memory_mi": 367
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 42
+        }
+      }
+    },
+    {
+      "sample": 28,
+      "observed_at": "2026-11-01T11:48:20.0994160Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 367
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 42
+        }
+      }
+    },
+    {
+      "sample": 29,
+      "observed_at": "2026-11-01T11:48:50.4374302Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 367
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 3,
+          "memory_mi": 42
+        }
+      }
+    },
+    {
+      "sample": 30,
+      "observed_at": "2026-11-01T11:49:20.7767704Z",
+      "pods": {
+        "lab-api-88c698dfc-lmhq9": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "api",
+          "cpu_m": 1,
+          "memory_mi": 5
+        },
+        "lab-publisher-5cd4699d79-d98s6": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "publisher",
+          "cpu_m": 2,
+          "memory_mi": 5
+        },
+        "lab-worker-866ddc4dd7-kx25f": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "worker",
+          "cpu_m": 1,
+          "memory_mi": 6
+        },
+        "lab-monitoring-grafana-54c74987bf-bpn6h": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "grafana",
+          "cpu_m": 8,
+          "memory_mi": 367
+        },
+        "lab-otel-collector-659f97ff44-mcvpk": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "opentelemetry-collector",
+          "cpu_m": 1,
+          "memory_mi": 19
+        },
+        "lab-tempo-0": {
+          "ready": "1/1",
+          "status": "Running",
+          "restarts": 0,
+          "container": "tempo",
+          "cpu_m": 4,
+          "memory_mi": 42
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,2982 @@
+{
+  "source": ".local-observability/logging-resources-20261101T132637Z",
+  "samples": [
+    {
+      "sample": 0,
+      "at": "2026-11-01T13:26:37.3877520Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "at": "2026-11-01T13:27:07.9475058Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "at": "2026-11-01T13:27:38.4090238Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "at": "2026-11-01T13:28:08.7888307Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "at": "2026-11-01T13:28:39.2730160Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 5,
+      "at": "2026-11-01T13:29:09.7572063Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 6,
+      "at": "2026-11-01T13:29:40.1889141Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 7,
+      "at": "2026-11-01T13:30:10.6356503Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 8,
+      "at": "2026-11-01T13:30:41.0767676Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 9,
+      "at": "2026-11-01T13:31:11.5169383Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 10,
+      "at": "2026-11-01T13:31:41.9864872Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 11,
+      "at": "2026-11-01T13:32:12.4126669Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 12,
+      "at": "2026-11-01T13:32:42.8469452Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 13,
+      "at": "2026-11-01T13:33:13.2751667Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 14,
+      "at": "2026-11-01T13:33:43.7204402Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 15,
+      "at": "2026-11-01T13:34:14.1865024Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 16,
+      "at": "2026-11-01T13:34:44.6604139Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 17,
+      "at": "2026-11-01T13:35:15.1437441Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 18,
+      "at": "2026-11-01T13:35:45.6188086Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 19,
+      "at": "2026-11-01T13:36:16.0718396Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 20,
+      "at": "2026-11-01T13:36:46.5256555Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 21,
+      "at": "2026-11-01T13:37:16.9936996Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 22,
+      "at": "2026-11-01T13:37:47.4536035Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 23,
+      "at": "2026-11-01T13:38:17.9183923Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 24,
+      "at": "2026-11-01T13:38:48.4036263Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 25,
+      "at": "2026-11-01T13:39:18.8308491Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 26,
+      "at": "2026-11-01T13:39:49.2769840Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 27,
+      "at": "2026-11-01T13:40:19.7533894Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 28,
+      "at": "2026-11-01T13:40:50.2158941Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 29,
+      "at": "2026-11-01T13:41:20.6522630Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample": 30,
+      "at": "2026-11-01T13:41:51.1168492Z",
+      "pods": [
+        {
+          "name": "lab-alloy-8549c9c8c6-w2rc9",
+          "uid": "3ab9e25f-155c-453e-a0b4-c32dee6e61d7",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "alloy",
+              "image": "docker.io/grafana/alloy:v1.21.3",
+              "image_id": "docker.io/grafana/alloy@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "alloy",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "128Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-loki-0",
+          "uid": "d7758b4b-cea5-436d-a308-fdb6c002ccb0",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "loki",
+              "image": "docker.io/grafana/loki:3.7.9",
+              "image_id": "docker.io/grafana/loki@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "loki",
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "lab-monitoring-grafana-76494dd7bc-sb6v2",
+          "uid": "0b81e833-6bd7-411f-a54a-e80f77c4582d",
+          "phase": "Running",
+          "ready": "True",
+          "containers": [
+            {
+              "name": "grafana",
+              "image": "docker.io/grafana/grafana:13.2.4-distroless",
+              "image_id": "docker.io/grafana/grafana@sha256:ae3d3add290adbe6a88412229f5d76fd7bb82743050881698642d3d62f277e35",
+              "restarts": 0,
+              "ready": true
+            }
+          ],
+          "resources": [
+            {
+              "name": "grafana",
+              "resources": {
+                "limits": {
+                  "cpu": "300m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "768Mi"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "source_sha256": "cf9cae6a3cb02edb034140b91e687efd895c7a482687fc2c26338e45b128f489"
+}

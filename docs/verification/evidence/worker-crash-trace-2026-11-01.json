@@ -1,0 +1,567 @@
+{
+  "batches": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "lab.revision",
+            "value": {
+              "stringValue": "0b77cd84de5e"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "0.1.0"
+            }
+          },
+          {
+            "key": "k8s.pod.name",
+            "value": {
+              "stringValue": "lab-api-88c698dfc-t8qsw"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "lab-api"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "lab"
+          },
+          "spans": [
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "l+BinlVMLi0=",
+              "name": "POST /jobs",
+              "kind": "SPAN_KIND_SERVER",
+              "startTimeUnixNano": "1793554560531471367",
+              "endTimeUnixNano": "1793554560542846127",
+              "attributes": [
+                {
+                  "key": "job.id",
+                  "value": {
+                    "stringValue": "ab2f1350-82de-4306-ba78-bc8af4918760"
+                  }
+                },
+                {
+                  "key": "lab.job.created",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "http.request.method",
+                  "value": {
+                    "stringValue": "POST"
+                  }
+                },
+                {
+                  "key": "http.response.status_code",
+                  "value": {
+                    "intValue": "202"
+                  }
+                },
+                {
+                  "key": "http.route",
+                  "value": {
+                    "stringValue": "/jobs"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "WsWFVwb7G38=",
+              "parentSpanId": "l+BinlVMLi0=",
+              "name": "jobs.validate",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1793554560532261234",
+              "endTimeUnixNano": "1793554560532721671",
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "CxPdnnPWLdM=",
+              "parentSpanId": "l+BinlVMLi0=",
+              "name": "jobs.enqueue.transaction",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793554560532848548",
+              "endTimeUnixNano": "1793554560542260826",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "lab.revision",
+            "value": {
+              "stringValue": "0b77cd84de5e"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "0.1.0"
+            }
+          },
+          {
+            "key": "k8s.pod.name",
+            "value": {
+              "stringValue": "lab-publisher-5cd4699d79-bf642"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "lab-publisher"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "lab"
+          },
+          "spans": [
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "RQjvq6iCrh8=",
+              "parentSpanId": "CxPdnnPWLdM=",
+              "name": "outbox.publish_attempt",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1793554560848861766",
+              "endTimeUnixNano": "1793554560867794888",
+              "attributes": [
+                {
+                  "key": "job.id",
+                  "value": {
+                    "stringValue": "ab2f1350-82de-4306-ba78-bc8af4918760"
+                  }
+                },
+                {
+                  "key": "messaging.message.id",
+                  "value": {
+                    "stringValue": "9a3bdb1c-0df3-45fc-9f1a-0938139878b7"
+                  }
+                },
+                {
+                  "key": "lab.attempt",
+                  "value": {
+                    "intValue": "1"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "timeUnixNano": "1793554560863644364",
+                  "name": "broker_ack",
+                  "attributes": [
+                    {
+                      "key": "messaging.kafka.offset",
+                      "value": {
+                        "intValue": "16"
+                      }
+                    },
+                    {
+                      "key": "messaging.destination.partition.id",
+                      "value": {
+                        "intValue": "0"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "jAF5mZ1ou2E=",
+              "parentSpanId": "RQjvq6iCrh8=",
+              "name": "outbox.claim",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793554560848861766",
+              "endTimeUnixNano": "1793554560851809877",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "HwZb/Gn2vFs=",
+              "parentSpanId": "RQjvq6iCrh8=",
+              "name": "lab.jobs.v1 publish",
+              "kind": "SPAN_KIND_PRODUCER",
+              "startTimeUnixNano": "1793554560853245851",
+              "endTimeUnixNano": "1793554560863502945",
+              "attributes": [
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                },
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "lab.jobs.v1"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "EXlF6hR9nOM=",
+              "parentSpanId": "RQjvq6iCrh8=",
+              "name": "outbox.mark_published.transaction",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793554560863715008",
+              "endTimeUnixNano": "1793554560867741365",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "lab.revision",
+            "value": {
+              "stringValue": "0b77cd84de5e"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "0.1.0"
+            }
+          },
+          {
+            "key": "k8s.pod.name",
+            "value": {
+              "stringValue": "lab-worker-6bffccdb66-clrhl"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "lab-worker"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "lab"
+          },
+          "spans": [
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "+W59cdPbXbo=",
+              "parentSpanId": "xL8Mt4kshbQ=",
+              "name": "jobs.start.transaction",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793554598249124550",
+              "endTimeUnixNano": "1793554598254353040",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "xaKoUnpuQRw=",
+              "parentSpanId": "xL8Mt4kshbQ=",
+              "name": "worker.retry_state",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793554598254446266",
+              "endTimeUnixNano": "1793554598260138392",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "lab.revision",
+            "value": {
+              "stringValue": "0b77cd84de5e"
+            }
+          },
+          {
+            "key": "service.version",
+            "value": {
+              "stringValue": "0.1.0"
+            }
+          },
+          {
+            "key": "k8s.pod.name",
+            "value": {
+              "stringValue": "lab-worker-866ddc4dd7-jpc2n"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "lab-worker"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "lab"
+          },
+          "spans": [
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "u9HT9PNOKME=",
+              "parentSpanId": "HwZb/Gn2vFs=",
+              "name": "lab.jobs.v1 process",
+              "kind": "SPAN_KIND_CONSUMER",
+              "startTimeUnixNano": "1793555092214794317",
+              "endTimeUnixNano": "1793555092223285979",
+              "attributes": [
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                },
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "lab.jobs.v1"
+                  }
+                },
+                {
+                  "key": "messaging.consumer.group.name",
+                  "value": {
+                    "stringValue": "lab-workers"
+                  }
+                },
+                {
+                  "key": "messaging.kafka.offset",
+                  "value": {
+                    "intValue": "16"
+                  }
+                },
+                {
+                  "key": "messaging.destination.partition.id",
+                  "value": {
+                    "intValue": "0"
+                  }
+                },
+                {
+                  "key": "job.id",
+                  "value": {
+                    "stringValue": "ab2f1350-82de-4306-ba78-bc8af4918760"
+                  }
+                },
+                {
+                  "key": "messaging.message.id",
+                  "value": {
+                    "stringValue": "9a3bdb1c-0df3-45fc-9f1a-0938139878b7"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "timeUnixNano": "1793555092219176090",
+                  "name": "duplicate_observed"
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "lX6EF7V1Rlw=",
+              "parentSpanId": "u9HT9PNOKME=",
+              "name": "jobs.start.transaction",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793555092214884513",
+              "endTimeUnixNano": "1793555092219154578",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "RCoNAKHxP/w=",
+              "parentSpanId": "u9HT9PNOKME=",
+              "name": "lab-workers commit",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793555092219216012",
+              "endTimeUnixNano": "1793555092223239636",
+              "attributes": [
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "KfMDyhsV0Jk=",
+              "parentSpanId": "CxPdnnPWLdM=",
+              "name": "lab.jobs.v1 process",
+              "kind": "SPAN_KIND_CONSUMER",
+              "startTimeUnixNano": "1793555092223321531",
+              "endTimeUnixNano": "1793555092227421794",
+              "attributes": [
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                },
+                {
+                  "key": "messaging.destination.name",
+                  "value": {
+                    "stringValue": "lab.jobs.v1"
+                  }
+                },
+                {
+                  "key": "messaging.consumer.group.name",
+                  "value": {
+                    "stringValue": "lab-workers"
+                  }
+                },
+                {
+                  "key": "messaging.kafka.offset",
+                  "value": {
+                    "intValue": "17"
+                  }
+                },
+                {
+                  "key": "messaging.destination.partition.id",
+                  "value": {
+                    "intValue": "0"
+                  }
+                },
+                {
+                  "key": "job.id",
+                  "value": {
+                    "stringValue": "ab2f1350-82de-4306-ba78-bc8af4918760"
+                  }
+                },
+                {
+                  "key": "messaging.message.id",
+                  "value": {
+                    "stringValue": "9a3bdb1c-0df3-45fc-9f1a-0938139878b7"
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "timeUnixNano": "1793555092226418549",
+                  "name": "duplicate_observed"
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "+8SCT0hEoco=",
+              "parentSpanId": "KfMDyhsV0Jk=",
+              "name": "jobs.start.transaction",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793555092223370484",
+              "endTimeUnixNano": "1793555092226398968",
+              "attributes": [
+                {
+                  "key": "db.system.name",
+                  "value": {
+                    "stringValue": "postgresql"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "/+9lJ5caM1sCdpR/qlYy9w==",
+              "spanId": "lMopFBV9gMQ=",
+              "parentSpanId": "KfMDyhsV0Jk=",
+              "name": "lab-workers commit",
+              "kind": "SPAN_KIND_CLIENT",
+              "startTimeUnixNano": "1793555092226455652",
+              "endTimeUnixNano": "1793555092227387522",
+              "attributes": [
+                {
+                  "key": "messaging.system",
+                  "value": {
+                    "stringValue": "kafka"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

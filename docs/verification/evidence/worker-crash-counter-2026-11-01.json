@@ -1,0 +1,23 @@
+{
+  "scope": "Additional replay after crash recovery; counter delta on the same worker instance, not a replacement for source-record redelivery proof",
+  "source_attachment": "4569132d-fd01-484e-ab13-fec061e827b6",
+  "job_id": "ab2f1350-82de-4306-ba78-bc8af4918760",
+  "event_id": "9a3bdb1c-0df3-45fc-9f1a-0938139878b7",
+  "pod": "lab-worker-866ddc4dd7-jpc2n",
+  "instance": "10.244.0.78:8082",
+  "metric": "lab_worker_jobs_duplicates_total",
+  "samples": [
+    {"timestamp": 1793555567.256, "value": "2", "evidence_directory": ".local-observability/20261101T175247.195834000Z-query"},
+    {"timestamp": 1793555618.125, "value": "3", "evidence_directory": ".local-observability/20261101T175338.061850800Z-query"}
+  ],
+  "replay": {"observed_at": "2026-11-01T17:52:50.562271201Z", "topic": "lab.jobs.v1", "partition": 0, "offset": 18},
+  "worker_status": {"ready": "1/1", "status": "Running", "restarts": 0},
+  "sql": {"status": "succeeded", "effects": 1, "outbox_rows": 1, "completed_at": "2026-11-01T17:36:46.263381Z", "duration_ms": 8000, "outbox_partition": 0, "outbox_offset": 16},
+  "group": {"observed_at": "2026-11-01T17:53:48.77755213Z", "state": "Stable", "members": 1},
+  "offsets": [
+    {"partition": 0, "committed_offset": 19, "log_end_offset": 19, "lag": 0},
+    {"partition": 1, "committed_offset": 14, "log_end_offset": 14, "lag": 0},
+    {"partition": 2, "committed_offset": 18, "log_end_offset": 18, "lag": 0}
+  ],
+  "cleanup": "Diagnostic Pods retained by replay/group-status; deletion not evidenced in this output"
+}

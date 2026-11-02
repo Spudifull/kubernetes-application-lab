@@ -1,0 +1,1344 @@
+{
+  "source_attachment": "0965d72f-a6df-4e31-b608-a82e7e493d5d",
+  "scope": "Final DLQ correlation and dashboard loading; not new alert-cycle proof",
+  "events": [
+    {
+      "event": "monitoring_release",
+      "name": "lab-monitoring",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:20.8262501Z",
+      "revision": 11,
+      "status": "deployed"
+    },
+    {
+      "event": "monitoring_release",
+      "name": "lab-observability",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:20.9533302Z",
+      "revision": 13,
+      "status": "deployed"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-alloy",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.29:12345/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.209:9308/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-jmx",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-kafka",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.211:9404/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-loki",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.31:3100/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-postgres-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.210:9187/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-publisher",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.59:8081/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-worker",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T19:13:22.7891729Z",
+      "scrape_url": "http://10.244.0.78:8082/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-api",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.65:8080/metrics",
+      "service": "lab-api"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.176:9093/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.176:8080/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "apiserver",
+      "last_error": "",
+      "namespace": "default",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "https://172.19.0.2:6443/metrics",
+      "service": "kubernetes"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.3:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.4:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-grafana",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.89:3000/metrics",
+      "service": "lab-monitoring-grafana"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kube-state-metrics",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.174:8080/metrics",
+      "service": "lab-monitoring-kube-state-metrics"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/cadvisor",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/probes",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-operator",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "https://10.244.0.173:10250/metrics",
+      "service": "lab-monitoring-operator"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7896883Z",
+      "scrape_url": "http://10.244.0.178:9090/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7902132Z",
+      "scrape_url": "http://10.244.0.178:8080/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-otel-collector",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7902132Z",
+      "scrape_url": "http://10.244.0.85:8888/metrics",
+      "service": "lab-otel-collector"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-tempo",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T19:13:22.7902132Z",
+      "scrape_url": "http://10.244.0.235:3200/metrics",
+      "service": "lab-tempo"
+    },
+    {
+      "event": "job_enqueue_response",
+      "idempotency_key": "outbox-1793560664562930400",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "observed_at": "2026-11-01T19:17:44.5807468Z",
+      "request": 0,
+      "status": 202,
+      "trace_id": "a84deaad476bd43742eddace9198a2cc"
+    },
+    {
+      "event": "worker_fault_configured",
+      "failures_before_success": 3,
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "observed_at": "2026-11-01T19:17:48.441297573Z"
+    },
+    {
+      "event": "job_status",
+      "job": {
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "job_type": "lab_effect",
+        "status": "failed",
+        "created_at": "2026-11-01T19:17:44.577453Z",
+        "completed_at": "2026-11-01T19:18:14.490817Z",
+        "error_code": "retry_exhausted"
+      },
+      "observed_at": "2026-11-01T19:19:01.6574543Z"
+    },
+    {
+      "envelope": {
+        "version": 1,
+        "source_topic": "lab.jobs.v1",
+        "source_partition": 1,
+        "source_offset": 14,
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+        "reason": "retry_exhausted",
+        "failures": 3,
+        "value_bytes": 228,
+        "value_sha256": "c253b6bf2608be844ea2099899d7b944bff432a8fd27f9af42fa4326e12290d3",
+        "key_sha256": "275c2a35b90cb84adf4c195eefa8da3ee54ad62e58dfc9c8b33c0d7fe0d1d9dd"
+      },
+      "event": "worker_dlq_read",
+      "observed_at": "2026-11-01T19:19:05.286600671Z",
+      "offset": 1,
+      "partition": 2,
+      "topic": "lab.jobs.dlq.v1"
+    },
+    {
+      "event": "worker_group_state",
+      "group": "lab-workers",
+      "members": 1,
+      "observed_at": "2026-11-01T19:19:11.060882737Z",
+      "protocol": "cooperative-sticky",
+      "state": "Stable"
+    },
+    {
+      "assignment": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "assignment_pending": false,
+      "client_host": "/10.244.0.93",
+      "client_id": "lab-worker-866ddc4dd7-jsnhc",
+      "event": "worker_group_member",
+      "group": "lab-workers",
+      "group_state": "Stable",
+      "member_id": "lab-worker-866ddc4dd7-jsnhc-55b447ab-66d4-4b13-a877-3d8483dd1f76",
+      "observed_at": "2026-11-01T19:19:11.060919979Z"
+    },
+    {
+      "committed_offset": 21,
+      "event": "worker_group_offset",
+      "group": "lab-workers",
+      "lag": 0,
+      "log_end_offset": 21,
+      "observed_at": "2026-11-01T19:19:11.062417625Z",
+      "partition": 0,
+      "topic": "lab.jobs.v1"
+    },
+    {
+      "committed_offset": 15,
+      "event": "worker_group_offset",
+      "group": "lab-workers",
+      "lag": 0,
+      "log_end_offset": 15,
+      "observed_at": "2026-11-01T19:19:11.062460018Z",
+      "partition": 1,
+      "topic": "lab.jobs.v1"
+    },
+    {
+      "committed_offset": 19,
+      "event": "worker_group_offset",
+      "group": "lab-workers",
+      "lag": 0,
+      "log_end_offset": 19,
+      "observed_at": "2026-11-01T19:19:11.062465208Z",
+      "partition": 2,
+      "topic": "lab.jobs.v1"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:44.580113459Z",
+        "event": "job_accepted",
+        "service": "lab-api",
+        "pod": "lab-api-88c698dfc-t8qsw",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "deb5a2f32d170214",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": ""
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:45.016355501Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-5cd4699d79-bf642",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "42b2781da7231bd5",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:45.024316538Z",
+        "event": "outbox_broker_ack",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-5cd4699d79-bf642",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "42b2781da7231bd5",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:45.027357576Z",
+        "event": "outbox_published",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-5cd4699d79-bf642",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "42b2781da7231bd5",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:56.343296298Z",
+        "event": "worker_received",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "a9734433592abe88",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:56.348424806Z",
+        "event": "worker_work_started",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "a9734433592abe88",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:17:57.351414837Z",
+        "event": "worker_retry_scheduled",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "a9734433592abe88",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:02.381438766Z",
+        "event": "worker_received",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "ba97dc7344364830",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:02.384413233Z",
+        "event": "worker_work_started",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "ba97dc7344364830",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:03.387144485Z",
+        "event": "worker_retry_scheduled",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "ba97dc7344364830",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7970855Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:08.415931911Z",
+        "event": "worker_received",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "6a241ad3ea7cec51",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7976033Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:08.418954195Z",
+        "event": "worker_work_started",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "6a241ad3ea7cec51",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7976033Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:09.423817321Z",
+        "event": "worker_retry_scheduled",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "6a241ad3ea7cec51",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7976033Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T19:18:14.452377426Z",
+        "event": "worker_received",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-jsnhc",
+        "trace_id": "a84deaad476bd43742eddace9198a2cc",
+        "span_id": "f829e6d8ceff87a5",
+        "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+        "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850"
+      },
+      "observed_at": "2026-11-01T19:19:44.7976033Z"
+    },
+    {
+      "check": "logging-query",
+      "event": "logging_query_completed",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "observed_at": "2026-11-01T19:19:44.7976033Z",
+      "rows": 14,
+      "scope": "returned application logs only; not exactly-once log delivery or database verification"
+    },
+    {
+      "event": "application_trace_inspected",
+      "evidence": ".local-observability\\20261101T191945.523175900Z-application-trace-inspect",
+      "missing_parent_span_ids": [],
+      "observed_at": "2026-11-01T19:19:45.6285924Z",
+      "scope": "stored identities only; missing spans are not reconstructed; no successful SQL/offset chain assertion",
+      "stored_spans": 29,
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "worker_attempts": 4
+    }
+  ],
+  "metrics": [
+    {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_worker_jobs_retried_total",
+              "container": "worker",
+              "endpoint": "health",
+              "instance": "10.244.0.93:8082",
+              "job": "lab-worker",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-worker-866ddc4dd7-jsnhc"
+            },
+            "value": [
+              1793560753.147,
+              "3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_worker_jobs_dlq_total",
+              "container": "worker",
+              "endpoint": "health",
+              "instance": "10.244.0.93:8082",
+              "job": "lab-worker",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-worker-866ddc4dd7-jsnhc"
+            },
+            "value": [
+              1793560753.969,
+              "1"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "sql_rows": [
+    "82f1d106-e921-4780-a468-603021eaf782 | failed    |                       3 |             3 | 2026-11-01 19:18:13.420337+00 | 2026-11-01 19:18:14.490817+00 | retry_exhausted |       0",
+    "lab.jobs.v1  |                1 |            14 | 82f1d106-e921-4780-a468-603021eaf782 | retry_exhausted | 2026-11-01 19:18:14.491232+00 |             2 |          1",
+    "82f1d106-e921-4780-a468-603021eaf782 | outbox-1793560664562930400    | failed    | 2026-11-01 19:18:14.490817+00 |                                               | 0c4f3deb-80d0-40da-961c-f22db5077850 | 00-a84deaad476bd43742eddace9198a2cc-8e066596d438035b-01 |        1 | 2026-11-01 19:17:45.025286+00 | 2026-11-01 19:17:44.578019+00 |             |            |               1 |           14 |           1 |       0"
+  ],
+  "worker_logs": [
+    {
+      "time": "2026-11-01T19:17:53.262242327Z",
+      "level": "INFO",
+      "msg": "worker_started",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "version": "0.1.0",
+      "revision": "0b77cd84de5e",
+      "build_date": "2026-11-01T01:28:19.860065200+03:00",
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_started"
+    },
+    {
+      "time": "2026-11-01T19:17:56.333432266Z",
+      "level": "INFO",
+      "msg": "worker_partitions_assigned",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_assigned"
+    },
+    {
+      "time": "2026-11-01T19:17:56.343296298Z",
+      "level": "INFO",
+      "msg": "worker_received",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "a9734433592abe88",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_received"
+    },
+    {
+      "time": "2026-11-01T19:17:56.348424806Z",
+      "level": "INFO",
+      "msg": "worker_work_started",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "a9734433592abe88",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_work_started"
+    },
+    {
+      "time": "2026-11-01T19:17:57.351414837Z",
+      "level": "INFO",
+      "msg": "worker_retry_scheduled",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "a9734433592abe88",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "failure_number": 1,
+      "max_failures": 3,
+      "service": "lab-worker",
+      "event": "worker_retry_scheduled"
+    },
+    {
+      "time": "2026-11-01T19:17:57.351502643Z",
+      "level": "INFO",
+      "msg": "worker_partitions_revoked",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_revoked"
+    },
+    {
+      "time": "2026-11-01T19:17:57.353309992Z",
+      "level": "WARN",
+      "msg": "worker_session_retry",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "reason": "processing_or_transport_failed",
+      "retry_delay": 2000000000,
+      "service": "lab-worker",
+      "event": "worker_session_retry"
+    },
+    {
+      "time": "2026-11-01T19:18:02.374062279Z",
+      "level": "INFO",
+      "msg": "worker_partitions_assigned",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_assigned"
+    },
+    {
+      "time": "2026-11-01T19:18:02.381438766Z",
+      "level": "INFO",
+      "msg": "worker_received",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "ba97dc7344364830",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_received"
+    },
+    {
+      "time": "2026-11-01T19:18:02.384413233Z",
+      "level": "INFO",
+      "msg": "worker_work_started",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "ba97dc7344364830",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_work_started"
+    },
+    {
+      "time": "2026-11-01T19:18:03.387144485Z",
+      "level": "INFO",
+      "msg": "worker_retry_scheduled",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "ba97dc7344364830",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "failure_number": 2,
+      "max_failures": 3,
+      "service": "lab-worker",
+      "event": "worker_retry_scheduled"
+    },
+    {
+      "time": "2026-11-01T19:18:03.38722597Z",
+      "level": "INFO",
+      "msg": "worker_partitions_revoked",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_revoked"
+    },
+    {
+      "time": "2026-11-01T19:18:03.389097429Z",
+      "level": "WARN",
+      "msg": "worker_session_retry",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "reason": "processing_or_transport_failed",
+      "retry_delay": 2000000000,
+      "service": "lab-worker",
+      "event": "worker_session_retry"
+    },
+    {
+      "time": "2026-11-01T19:18:08.409356089Z",
+      "level": "INFO",
+      "msg": "worker_partitions_assigned",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_assigned"
+    },
+    {
+      "time": "2026-11-01T19:18:08.415931911Z",
+      "level": "INFO",
+      "msg": "worker_received",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "6a241ad3ea7cec51",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_received"
+    },
+    {
+      "time": "2026-11-01T19:18:08.418954195Z",
+      "level": "INFO",
+      "msg": "worker_work_started",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "6a241ad3ea7cec51",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_work_started"
+    },
+    {
+      "time": "2026-11-01T19:18:09.423817321Z",
+      "level": "INFO",
+      "msg": "worker_retry_scheduled",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "6a241ad3ea7cec51",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "failure_number": 3,
+      "max_failures": 3,
+      "service": "lab-worker",
+      "event": "worker_retry_scheduled"
+    },
+    {
+      "time": "2026-11-01T19:18:09.423902027Z",
+      "level": "INFO",
+      "msg": "worker_partitions_revoked",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_revoked"
+    },
+    {
+      "time": "2026-11-01T19:18:09.425852768Z",
+      "level": "WARN",
+      "msg": "worker_session_retry",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "reason": "processing_or_transport_failed",
+      "retry_delay": 2000000000,
+      "service": "lab-worker",
+      "event": "worker_session_retry"
+    },
+    {
+      "time": "2026-11-01T19:18:14.4457611Z",
+      "level": "INFO",
+      "msg": "worker_partitions_assigned",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "group": "lab-workers",
+      "partitions": {
+        "lab.jobs.v1": [
+          0,
+          1,
+          2
+        ]
+      },
+      "service": "lab-worker",
+      "event": "worker_partitions_assigned"
+    },
+    {
+      "time": "2026-11-01T19:18:14.452377426Z",
+      "level": "INFO",
+      "msg": "worker_received",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "f829e6d8ceff87a5",
+      "job_id": "82f1d106-e921-4780-a468-603021eaf782",
+      "event_id": "0c4f3deb-80d0-40da-961c-f22db5077850",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "service": "lab-worker",
+      "event": "worker_received"
+    },
+    {
+      "time": "2026-11-01T19:18:14.488976257Z",
+      "level": "INFO",
+      "msg": "worker_dlq_broker_ack",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "f829e6d8ceff87a5",
+      "source": "lab.jobs.v1/1/14",
+      "dlq_partition": 2,
+      "dlq_offset": 1,
+      "service": "lab-worker",
+      "event": "worker_dlq_broker_ack"
+    },
+    {
+      "time": "2026-11-01T19:18:14.492673226Z",
+      "level": "INFO",
+      "msg": "worker_dlq_recorded",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "f829e6d8ceff87a5",
+      "source": "lab.jobs.v1/1/14",
+      "reason": "retry_exhausted",
+      "receipt_already_present": false,
+      "service": "lab-worker",
+      "event": "worker_dlq_recorded"
+    },
+    {
+      "time": "2026-11-01T19:18:14.493853714Z",
+      "level": "INFO",
+      "msg": "worker_offset_committed",
+      "pod": "lab-worker-866ddc4dd7-jsnhc",
+      "trace_id": "a84deaad476bd43742eddace9198a2cc",
+      "span_id": "f829e6d8ceff87a5",
+      "topic": "lab.jobs.v1",
+      "partition": 1,
+      "offset": 14,
+      "group": "lab-workers",
+      "committed_offset": 15,
+      "service": "lab-worker",
+      "event": "worker_offset_committed"
+    }
+  ],
+  "terminal_chain": [
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "aa46c5ff025f7505",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "lab.jobs.dlq.v1 publish",
+      "startTimeUnixNano": "1793560694461467273",
+      "endTimeUnixNano": "1793560694488966337",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "d2f0a4288f696b59",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "worker.dlq_mark.transaction",
+      "startTimeUnixNano": "1793560694489049182",
+      "endTimeUnixNano": "1793560694492647815",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "3cee362272c063a8",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "lab-workers commit",
+      "startTimeUnixNano": "1793560694492708619",
+      "endTimeUnixNano": "1793560694493817772",
+      "service": "lab-worker",
+      "status": {}
+    }
+  ],
+  "spans": [
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "deb5a2f32d170214",
+      "parentSpanId": "",
+      "name": "POST /jobs",
+      "startTimeUnixNano": "1793560664576274831",
+      "endTimeUnixNano": "1793560664580174164",
+      "service": "lab-api",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "23c8504b23fefcc7",
+      "parentSpanId": "deb5a2f32d170214",
+      "name": "jobs.validate",
+      "startTimeUnixNano": "1793560664576293652",
+      "endTimeUnixNano": "1793560664576358726",
+      "service": "lab-api",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "8e066596d438035b",
+      "parentSpanId": "deb5a2f32d170214",
+      "name": "jobs.enqueue.transaction",
+      "startTimeUnixNano": "1793560664576365997",
+      "endTimeUnixNano": "1793560664580084057",
+      "service": "lab-api",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "42b2781da7231bd5",
+      "parentSpanId": "8e066596d438035b",
+      "name": "outbox.publish_attempt",
+      "startTimeUnixNano": "1793560665014390376",
+      "endTimeUnixNano": "1793560665027389219",
+      "service": "lab-publisher",
+      "events": [
+        {
+          "name": "broker_ack"
+        }
+      ],
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "482a724e1b9813f2",
+      "parentSpanId": "42b2781da7231bd5",
+      "name": "outbox.claim",
+      "startTimeUnixNano": "1793560665014390376",
+      "endTimeUnixNano": "1793560665016299197",
+      "service": "lab-publisher",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "253c7f81517bd053",
+      "parentSpanId": "42b2781da7231bd5",
+      "name": "lab.jobs.v1 publish",
+      "startTimeUnixNano": "1793560665016385093",
+      "endTimeUnixNano": "1793560665024284246",
+      "service": "lab-publisher",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "26848c2fb2a91a97",
+      "parentSpanId": "42b2781da7231bd5",
+      "name": "outbox.mark_published.transaction",
+      "startTimeUnixNano": "1793560665024358181",
+      "endTimeUnixNano": "1793560665027332655",
+      "service": "lab-publisher",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "a9734433592abe88",
+      "parentSpanId": "253c7f81517bd053",
+      "name": "lab.jobs.v1 process",
+      "startTimeUnixNano": "1793560676343148918",
+      "endTimeUnixNano": "1793560677351455609",
+      "service": "lab-worker",
+      "events": [
+        {
+          "name": "retry_scheduled"
+        }
+      ],
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "6442655b848029c1",
+      "parentSpanId": "a9734433592abe88",
+      "name": "jobs.start.transaction",
+      "startTimeUnixNano": "1793560676343401395",
+      "endTimeUnixNano": "1793560676347141907",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "bcd43f927bcf6ce6",
+      "parentSpanId": "a9734433592abe88",
+      "name": "worker.retry_state",
+      "startTimeUnixNano": "1793560676347339364",
+      "endTimeUnixNano": "1793560676348418216",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "69f5459f5a65d9bc",
+      "parentSpanId": "a9734433592abe88",
+      "name": "worker.work",
+      "startTimeUnixNano": "1793560676348460709",
+      "endTimeUnixNano": "1793560677348833811",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "c8137943f049de83",
+      "parentSpanId": "a9734433592abe88",
+      "name": "worker.record_failure",
+      "startTimeUnixNano": "1793560677349049236",
+      "endTimeUnixNano": "1793560677351388345",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "ba97dc7344364830",
+      "parentSpanId": "253c7f81517bd053",
+      "name": "lab.jobs.v1 process",
+      "startTimeUnixNano": "1793560682381401034",
+      "endTimeUnixNano": "1793560683387180758",
+      "service": "lab-worker",
+      "events": [
+        {
+          "name": "retry_scheduled"
+        }
+      ],
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "960b92e192448c6b",
+      "parentSpanId": "ba97dc7344364830",
+      "name": "jobs.start.transaction",
+      "startTimeUnixNano": "1793560682381469048",
+      "endTimeUnixNano": "1793560682383983009",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "1af83f7e21468c3c",
+      "parentSpanId": "ba97dc7344364830",
+      "name": "worker.retry_state",
+      "startTimeUnixNano": "1793560682384009671",
+      "endTimeUnixNano": "1793560682384402782",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "7e2c3ca3974448d4",
+      "parentSpanId": "ba97dc7344364830",
+      "name": "worker.work",
+      "startTimeUnixNano": "1793560682384471817",
+      "endTimeUnixNano": "1793560683385576767",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "299f6c639641af44",
+      "parentSpanId": "ba97dc7344364830",
+      "name": "worker.record_failure",
+      "startTimeUnixNano": "1793560683385634810",
+      "endTimeUnixNano": "1793560683387118103",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "6a241ad3ea7cec51",
+      "parentSpanId": "253c7f81517bd053",
+      "name": "lab.jobs.v1 process",
+      "startTimeUnixNano": "1793560688415894539",
+      "endTimeUnixNano": "1793560689423858684",
+      "service": "lab-worker",
+      "events": [
+        {
+          "name": "retry_scheduled"
+        }
+      ],
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "083258a25ff4b252",
+      "parentSpanId": "6a241ad3ea7cec51",
+      "name": "jobs.start.transaction",
+      "startTimeUnixNano": "1793560688415961063",
+      "endTimeUnixNano": "1793560688418573324",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "bcd1814b99c981cb",
+      "parentSpanId": "6a241ad3ea7cec51",
+      "name": "worker.retry_state",
+      "startTimeUnixNano": "1793560688418605846",
+      "endTimeUnixNano": "1793560688418947264",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "31a902b20b3bc1ff",
+      "parentSpanId": "6a241ad3ea7cec51",
+      "name": "worker.work",
+      "startTimeUnixNano": "1793560688418985927",
+      "endTimeUnixNano": "1793560689419800506",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "a712e91cd91523d4",
+      "parentSpanId": "6a241ad3ea7cec51",
+      "name": "worker.record_failure",
+      "startTimeUnixNano": "1793560689419821248",
+      "endTimeUnixNano": "1793560689423785119",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "f829e6d8ceff87a5",
+      "parentSpanId": "253c7f81517bd053",
+      "name": "lab.jobs.v1 process",
+      "startTimeUnixNano": "1793560694452340864",
+      "endTimeUnixNano": "1793560694493886386",
+      "service": "lab-worker",
+      "events": [
+        {
+          "name": "dead_letter"
+        }
+      ],
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "be6c9c805827f5b6",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "jobs.start.transaction",
+      "startTimeUnixNano": "1793560694452405218",
+      "endTimeUnixNano": "1793560694457434001",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "950f2b0291494e27",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "worker.retry_state",
+      "startTimeUnixNano": "1793560694457460063",
+      "endTimeUnixNano": "1793560694457760053",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "b09983058f9460a6",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "worker.dlq_prepare",
+      "startTimeUnixNano": "1793560694457788615",
+      "endTimeUnixNano": "1793560694461462043",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "aa46c5ff025f7505",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "lab.jobs.dlq.v1 publish",
+      "startTimeUnixNano": "1793560694461467273",
+      "endTimeUnixNano": "1793560694488966337",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "d2f0a4288f696b59",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "worker.dlq_mark.transaction",
+      "startTimeUnixNano": "1793560694489049182",
+      "endTimeUnixNano": "1793560694492647815",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "a84deaad476bd43742eddace9198a2cc",
+      "spanId": "3cee362272c063a8",
+      "parentSpanId": "f829e6d8ceff87a5",
+      "name": "lab-workers commit",
+      "startTimeUnixNano": "1793560694492708619",
+      "endTimeUnixNano": "1793560694493817772",
+      "service": "lab-worker",
+      "status": {}
+    }
+  ],
+  "owner_checks": {
+    "labctl_race": "ok 1.203s",
+    "labctl_vet": "no reported error",
+    "observability_helm_lint": "both profiles passed",
+    "monitoring_revision": 11,
+    "observability_revision": 13
+  },
+  "historic_warnings": [
+    "47s         Warning   FailedToUpdateEndpointSlices   service/lab-monitoring-grafana                 Error updating Endpoint Slices for Service kubernetes-application-lab-observability/lab-monitoring-grafana: failed to update lab-monitoring-grafana-lbwpt EndpointSlice for Service kubernetes-application-lab-observability/lab-monitoring-grafana: Unauthorized",
+    "47s         Warning   FailedToUpdateEndpoint         endpoints/lab-monitoring-grafana               Failed to update endpoint kubernetes-application-lab-observability/lab-monitoring-grafana: Unauthorized"
+  ]
+}

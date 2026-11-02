@@ -1,0 +1,2465 @@
+{
+  "scope": "OutboxBacklogGrowing owner-run cycle on 05264fa; selected poll fields, not all telemetry",
+  "sources": [
+    {
+      "attachment": "c9d1cbd2-7f1f-4a3e-9917-3e70e1e1404c",
+      "sha256": "efd3c09724c02de664bdac447446ea85afd394de58b1d3373115a89a89400f09"
+    },
+    {
+      "attachment": "488ce1cb-8640-4812-8b04-81f5abf4040f",
+      "sha256": "8e9782d009c4fce88c0cf84d171d0597eba622bc9e752e9caee7b3f24e685609"
+    },
+    {
+      "attachment": "c22814bc-df9d-48e2-842b-e415a2773343",
+      "sha256": "25f73a3bd272c26329ffb406671d690ee1ec150a5ce79cc087faa4b4d4eca2fc"
+    },
+    {
+      "attachment": "6da4edeb-3fe7-41f7-9e1e-e2e5ee44ce1d",
+      "sha256": "21df341a7273446a067c541cdbb056eb519b44d2fbba8022f193e162a31eb1c0"
+    }
+  ],
+  "proof": {
+    "Since": "2026-11-01T15:10:52.2776478Z",
+    "ReceiverStarted": "2026-11-01T15:07:33.792549256Z",
+    "Evicted": 0,
+    "Pending": true,
+    "Firing": true,
+    "Manager": true,
+    "Fingerprint": "3ee7a538bf162672",
+    "StartsAt": "2026-11-01T15:13:39.146Z",
+    "FiringReceivedAt": "2026-11-01T15:14:09.391669669Z"
+  },
+  "polls": [
+    {
+      "file_prefix": "baseline",
+      "observed_at": "2026-11-01T15:10:52.0921334Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:10:39.142707647Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545852.15,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-000",
+      "observed_at": "2026-11-01T15:10:57.344758Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:10:39.142707647Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545857.401,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-001",
+      "observed_at": "2026-11-01T15:11:02.3424182Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:10:39.142707647Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545862.401,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-002",
+      "observed_at": "2026-11-01T15:11:07.3462452Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:10:39.142707647Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545867.409,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-003",
+      "observed_at": "2026-11-01T15:11:12.3435596Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:09.140317856Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545872.403,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-004",
+      "observed_at": "2026-11-01T15:11:17.3458469Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:09.140317856Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545877.416,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-005",
+      "observed_at": "2026-11-01T15:11:22.3408751Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:09.140317856Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545882.397,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-006",
+      "observed_at": "2026-11-01T15:11:27.3453145Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:09.140317856Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545887.406,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-007",
+      "observed_at": "2026-11-01T15:11:32.3416717Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:09.140317856Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545892.399,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-008",
+      "observed_at": "2026-11-01T15:11:37.3435217Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:09.140317856Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545897.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-009",
+      "observed_at": "2026-11-01T15:11:42.3431076Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:39.139323503Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545902.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-010",
+      "observed_at": "2026-11-01T15:11:47.3449823Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:39.139323503Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545907.405,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-011",
+      "observed_at": "2026-11-01T15:11:52.3386951Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:39.139323503Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545912.395,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-012",
+      "observed_at": "2026-11-01T15:11:57.3418204Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:39.139323503Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545917.4,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-013",
+      "observed_at": "2026-11-01T15:12:02.3411516Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:39.139323503Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545922.4,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-014",
+      "observed_at": "2026-11-01T15:12:07.3424961Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:11:39.139323503Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545927.407,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-015",
+      "observed_at": "2026-11-01T15:12:12.3407689Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:09.138225425Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545932.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-016",
+      "observed_at": "2026-11-01T15:12:17.3438355Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:09.138225425Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545937.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-017",
+      "observed_at": "2026-11-01T15:12:22.3426385Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:09.138225425Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545942.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-018",
+      "observed_at": "2026-11-01T15:12:27.3457655Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:09.138225425Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545947.406,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-019",
+      "observed_at": "2026-11-01T15:12:32.3433079Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:09.138225425Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545952.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-020",
+      "observed_at": "2026-11-01T15:12:37.3394709Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:09.138225425Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545957.4,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-021",
+      "observed_at": "2026-11-01T15:12:42.3422078Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:39.135915843Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545962.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-022",
+      "observed_at": "2026-11-01T15:12:47.3432544Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:39.135915843Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545967.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-023",
+      "observed_at": "2026-11-01T15:12:52.3436057Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:39.135915843Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545972.406,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-024",
+      "observed_at": "2026-11-01T15:12:57.3421241Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:39.135915843Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545977.399,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-025",
+      "observed_at": "2026-11-01T15:13:02.3421836Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:39.135915843Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545982.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-026",
+      "observed_at": "2026-11-01T15:13:07.3435828Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:12:39.135915843Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793545987.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-027",
+      "observed_at": "2026-11-01T15:13:12.3458626Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:09.134908176Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793545992.404,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-028",
+      "observed_at": "2026-11-01T15:13:17.3411152Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:09.134908176Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793545997.4,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-029",
+      "observed_at": "2026-11-01T15:13:22.3437913Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:09.134908176Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546002.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-030",
+      "observed_at": "2026-11-01T15:13:27.3436599Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:09.134908176Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546007.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-031",
+      "observed_at": "2026-11-01T15:13:32.3402763Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:09.134908176Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546012.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-032",
+      "observed_at": "2026-11-01T15:13:37.3450807Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:09.134908176Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546017.407,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-033",
+      "observed_at": "2026-11-01T15:13:42.3408664Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:39.133131043Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546022.396,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-034",
+      "observed_at": "2026-11-01T15:13:47.3410773Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:39.133131043Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546027.4,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-035",
+      "observed_at": "2026-11-01T15:13:52.3422339Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:39.133131043Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546032.398,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-036",
+      "observed_at": "2026-11-01T15:13:57.3414807Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:39.133131043Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546037.401,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-037",
+      "observed_at": "2026-11-01T15:14:02.3412108Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:39.133131043Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546042.397,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-038",
+      "observed_at": "2026-11-01T15:14:07.3423431Z",
+      "rule_state": "pending",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:13:39.133131043Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546047.401,
+          "1"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": []
+      }
+    },
+    {
+      "file_prefix": "poll-039",
+      "observed_at": "2026-11-01T15:14:12.3429541Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:09.131636451Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546052.402,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-040",
+      "observed_at": "2026-11-01T15:14:17.3448611Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:09.131636451Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546057.405,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-041",
+      "observed_at": "2026-11-01T15:14:22.3428585Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:09.131636451Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546062.4,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-042",
+      "observed_at": "2026-11-01T15:14:27.3413546Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:09.131636451Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546067.401,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-043",
+      "observed_at": "2026-11-01T15:14:32.339429Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:09.131636451Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546072.397,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-044",
+      "observed_at": "2026-11-01T15:14:37.3468554Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:09.131636451Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546077.41,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-045",
+      "observed_at": "2026-11-01T15:14:42.3493451Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:39.130173467Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546082.422,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-046",
+      "observed_at": "2026-11-01T15:14:47.3377915Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:39.130173467Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546087.398,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-047",
+      "observed_at": "2026-11-01T15:14:52.3410846Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:39.130173467Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546092.409,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-048",
+      "observed_at": "2026-11-01T15:14:57.3433964Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:39.130173467Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546097.401,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-049",
+      "observed_at": "2026-11-01T15:15:02.3459666Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:39.130173467Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546102.404,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-050",
+      "observed_at": "2026-11-01T15:15:07.3437777Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:14:39.130173467Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546107.403,
+          "1"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-051",
+      "observed_at": "2026-11-01T15:15:12.3400777Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:09.129354753Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546112.397,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-052",
+      "observed_at": "2026-11-01T15:15:17.343901Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:09.129354753Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546117.404,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-053",
+      "observed_at": "2026-11-01T15:15:22.341412Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:09.129354753Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546122.4,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-054",
+      "observed_at": "2026-11-01T15:15:27.3437252Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:09.129354753Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546127.4,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-055",
+      "observed_at": "2026-11-01T15:15:32.3406545Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:09.129354753Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546132.399,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-056",
+      "observed_at": "2026-11-01T15:15:35.6528701Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:09.129354753Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546137.401,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:17:39.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:14:09.157Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-057",
+      "observed_at": "2026-11-01T15:15:40.654525Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:39.127384079Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546142.403,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:19:09.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:15:39.129Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-058",
+      "observed_at": "2026-11-01T15:15:45.6560432Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:39.127384079Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546145.716,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:19:09.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:15:39.129Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-059",
+      "observed_at": "2026-11-01T15:15:50.6576593Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:39.127384079Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546150.723,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:19:09.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:15:39.129Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-060",
+      "observed_at": "2026-11-01T15:15:55.6646133Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:39.127384079Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546155.735,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:19:09.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:15:39.129Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-061",
+      "observed_at": "2026-11-01T15:16:00.6563129Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:39.127384079Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546160.713,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:19:09.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:15:39.129Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-062",
+      "observed_at": "2026-11-01T15:16:05.6582522Z",
+      "rule_state": "firing",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:15:39.127384079Z",
+      "active_at": "2026-11-01T15:12:39.146839937Z",
+      "fresh_outbox_values": [
+        [
+          1793546165.721,
+          "0"
+        ]
+      ],
+      "alertmanager": [
+        {
+          "annotations": {
+            "description": "Inspect publisher SQL sampler, Kafka bootstrap, TLS and delivery errors. Restore publisher; confirm fresh pending=0 and job completion. Missing/stale SQL samples are not an empty queue.",
+            "runbook_url": "https://github.com/Spudifull/kubernets_application_deploytment_lab/blob/dev/docs/engineering/alerting-lab.md",
+            "summary": "Fresh outbox backlog exceeds the laboratory threshold"
+          },
+          "endsAt": "2026-11-01T15:19:09.146Z",
+          "fingerprint": "3ee7a538bf162672",
+          "receivers": [
+            {
+              "name": "lab-webhook"
+            }
+          ],
+          "startsAt": "2026-11-01T15:13:39.146Z",
+          "status": {
+            "inhibitedBy": [],
+            "mutedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-01T15:15:39.129Z",
+          "generatorURL": "http://lab-monitoring-prometheus.kubernetes-application-lab-observability:9090/graph?g0.expr=%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+10%29+or+%28%28max%28%28lab_outbox_pending_events%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+0%29+and+%28max%28%28lab_outbox_oldest_pending_age_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+and+on+%28instance%29+%28lab_outbox_stats_up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29+and+on+%28instance%29+%28%28time%28%29+-+lab_outbox_stats_last_success_timestamp_seconds%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D%29+%3C+30%29+and+on+%28instance%29+%28up%7Bjob%3D%22lab-publisher%22%2Cnamespace%3D%22kubernetes-application-lab%22%7D+%3D%3D+1%29%29%29+%3E+60%29%29&g0.tab=1",
+          "labels": {
+            "alertname": "OutboxBacklogGrowing",
+            "component": "publisher",
+            "lab_alerting": "true",
+            "namespace": "kubernetes-application-lab",
+            "prometheus": "kubernetes-application-lab-observability/lab-monitoring-prometheus",
+            "severity": "warning"
+          }
+        }
+      ],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    },
+    {
+      "file_prefix": "poll-063",
+      "observed_at": "2026-11-01T15:16:10.6616731Z",
+      "rule_state": "inactive",
+      "rule_health": "ok",
+      "last_evaluation": "2026-11-01T15:16:07.437943445Z",
+      "active_at": null,
+      "fresh_outbox_values": [
+        [
+          1793546170.723,
+          "0"
+        ]
+      ],
+      "alertmanager": [],
+      "receiver": {
+        "started_at": "2026-11-01T15:07:33.792549256Z",
+        "evicted": 0,
+        "notifications": [
+          {
+            "received_at": "2026-11-01T15:14:09.391669669Z",
+            "status": "firing",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "0001-01-01T00:00:00Z",
+            "fingerprint": "3ee7a538bf162672"
+          },
+          {
+            "received_at": "2026-11-01T15:16:07.47609237Z",
+            "status": "resolved",
+            "labels": {
+              "alertname": "OutboxBacklogGrowing",
+              "component": "publisher",
+              "namespace": "kubernetes-application-lab",
+              "severity": "warning"
+            },
+            "starts_at": "2026-11-01T15:13:39.146Z",
+            "ends_at": "2026-11-01T15:15:39.146Z",
+            "fingerprint": "3ee7a538bf162672"
+          }
+        ]
+      }
+    }
+  ]
+}

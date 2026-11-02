@@ -1,0 +1,2361 @@
+{
+  "source_sha256": "0b2d5eba863be31e3432da555d8519cbc853c7ec064308eb983dc6e156d18080",
+  "attachment": "4d1f754a-0079-4b04-b401-d510076cd60d",
+  "events": [
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:11:10.959684911Z",
+        "event": "job_accepted",
+        "service": "lab-api",
+        "pod": "lab-api-88c698dfc-lmhq9",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "9e0cfb346313439b",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": ""
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:02.655502365Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-5cd4699d79-zf8tx",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "e3e55f1cc3247e5d",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:02.689266959Z",
+        "event": "outbox_broker_ack",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-5cd4699d79-zf8tx",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "e3e55f1cc3247e5d",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:02.693315965Z",
+        "event": "outbox_published",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-5cd4699d79-zf8tx",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "e3e55f1cc3247e5d",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:11:11.221462515Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "c2260cfec569b541",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:11:31.221586471Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "c2260cfec569b541",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:11:32.228855034Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "06245c6d20b62b4c",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:11:52.228615979Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "06245c6d20b62b4c",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:11:54.236889835Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "8745a294e4caa28b",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:12:14.237486579Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "8745a294e4caa28b",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:12:18.246185422Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "31f9c95645e825ba",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.3280449Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:12:38.247095395Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "31f9c95645e825ba",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:12:46.261936006Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "f8b410ee2986fb98",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:13:06.260890025Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "f8b410ee2986fb98",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:13:22.285847459Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "679d2a458bd63f00",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:13:42.287115032Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "679d2a458bd63f00",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:14:12.324205292Z",
+        "event": "outbox_claimed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "3d509c91da26bbc1",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:14:32.3237207Z",
+        "event": "outbox_publish_failed",
+        "service": "lab-publisher",
+        "pod": "lab-publisher-74f7b66bbb-2rxz8",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "3d509c91da26bbc1",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:02.696565494Z",
+        "event": "worker_received",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-nr2kw",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "311c227acec7f1ee",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:02.704497064Z",
+        "event": "worker_work_started",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-nr2kw",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "311c227acec7f1ee",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:03.710278857Z",
+        "event": "worker_effect_committed",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-nr2kw",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "311c227acec7f1ee",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "event": "logging_observation",
+      "log": {
+        "time": "2026-11-01T15:15:03.742790903Z",
+        "event": "worker_offset_committed",
+        "service": "lab-worker",
+        "pod": "lab-worker-866ddc4dd7-nr2kw",
+        "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+        "span_id": "311c227acec7f1ee",
+        "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+        "event_id": "40b8345d-dd69-4bb4-8314-5ab4f4ddb467"
+      },
+      "observed_at": "2026-11-01T15:24:41.328565Z"
+    },
+    {
+      "check": "logging-verify",
+      "event": "logging_query_completed",
+      "job_id": "1aad010f-6a29-4fba-87b0-a1d5c9157f17",
+      "observed_at": "2026-11-01T15:24:41.328565Z",
+      "rows": 22,
+      "scope": "returned application logs only; not exactly-once log delivery or database verification"
+    },
+    {
+      "event": "application_trace_chain",
+      "evidence": ".local-observability\\20261101T152442.140091600Z-application-trace-read",
+      "observed_at": "2026-11-01T15:24:42.4544786Z",
+      "scope": "stored span identities, parent chain and SQL-before-offset interval; verify final job and effects separately",
+      "trace_id": "91ce141c66d01071aa604967c8c17ec8",
+      "verified_spans": 7
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-alloy",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3638501Z",
+      "scrape_url": "http://10.244.0.29:12345/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3643632Z",
+      "scrape_url": "http://10.244.0.209:9308/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-jmx",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-kafka",
+      "observed_at": "2026-11-01T15:24:43.3643632Z",
+      "scrape_url": "http://10.244.0.211:9404/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-loki",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3643632Z",
+      "scrape_url": "http://10.244.0.31:3100/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-postgres-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.210:9187/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-publisher",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.48:8081/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-worker",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.38:8082/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-api",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.25:8080/metrics",
+      "service": "lab-api"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.176:9093/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.176:8080/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "apiserver",
+      "last_error": "",
+      "namespace": "default",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "https://172.19.0.2:6443/metrics",
+      "service": "kubernetes"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:43.3648839Z",
+      "scrape_url": "http://10.244.0.4:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.3:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-grafana",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.33:3000/metrics",
+      "service": "lab-monitoring-grafana"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kube-state-metrics",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.174:8080/metrics",
+      "service": "lab-monitoring-kube-state-metrics"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/cadvisor",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/probes",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-operator",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "https://10.244.0.173:10250/metrics",
+      "service": "lab-monitoring-operator"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.178:9090/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.178:8080/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-otel-collector",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.241:8888/metrics",
+      "service": "lab-otel-collector"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-tempo",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:43.3654055Z",
+      "scrape_url": "http://10.244.0.235:3200/metrics",
+      "service": "lab-tempo"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-alloy",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2596191Z",
+      "scrape_url": "http://10.244.0.29:12345/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2602638Z",
+      "scrape_url": "http://10.244.0.209:9308/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-jmx",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-kafka",
+      "observed_at": "2026-11-01T15:24:44.2602638Z",
+      "scrape_url": "http://10.244.0.211:9404/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-loki",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2608077Z",
+      "scrape_url": "http://10.244.0.31:3100/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-postgres-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2608077Z",
+      "scrape_url": "http://10.244.0.210:9187/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-publisher",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:44.2608077Z",
+      "scrape_url": "http://10.244.0.48:8081/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-worker",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:44.2608077Z",
+      "scrape_url": "http://10.244.0.38:8082/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-api",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:44.2608077Z",
+      "scrape_url": "http://10.244.0.25:8080/metrics",
+      "service": "lab-api"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "http://10.244.0.176:9093/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "http://10.244.0.176:8080/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "apiserver",
+      "last_error": "",
+      "namespace": "default",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "https://172.19.0.2:6443/metrics",
+      "service": "kubernetes"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "http://10.244.0.3:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "http://10.244.0.4:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-grafana",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "http://10.244.0.33:3000/metrics",
+      "service": "lab-monitoring-grafana"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kube-state-metrics",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "http://10.244.0.174:8080/metrics",
+      "service": "lab-monitoring-kube-state-metrics"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:44.2613378Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/cadvisor",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/probes",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-operator",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "https://10.244.0.173:10250/metrics",
+      "service": "lab-monitoring-operator"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "http://10.244.0.178:9090/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "http://10.244.0.178:8080/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-otel-collector",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "http://10.244.0.241:8888/metrics",
+      "service": "lab-otel-collector"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-tempo",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:44.2618644Z",
+      "scrape_url": "http://10.244.0.235:3200/metrics",
+      "service": "lab-tempo"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-alloy",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6881614Z",
+      "scrape_url": "http://10.244.0.29:12345/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.209:9308/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-kafka-jmx",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-kafka",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.211:9404/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubernetes-application-lab-observability/lab-loki",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.31:3100/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-postgres-exporter",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.210:9187/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-publisher",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.48:8081/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-worker",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.38:8082/metrics",
+      "service": ""
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-api",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.25:8080/metrics",
+      "service": "lab-api"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.176:9093/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-alertmanager",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.176:8080/metrics",
+      "service": "lab-monitoring-alertmanager"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "apiserver",
+      "last_error": "",
+      "namespace": "default",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "https://172.19.0.2:6443/metrics",
+      "service": "kubernetes"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.3:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "coredns",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.4:9153/metrics",
+      "service": "lab-monitoring-coredns"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-grafana",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.33:3000/metrics",
+      "service": "lab-monitoring-grafana"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kube-state-metrics",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.174:8080/metrics",
+      "service": "lab-monitoring-kube-state-metrics"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/cadvisor",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "kubelet",
+      "last_error": "",
+      "namespace": "kube-system",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "https://172.19.0.2:10250/metrics/probes",
+      "service": "lab-monitoring-kubelet"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-operator",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "https://10.244.0.173:10250/metrics",
+      "service": "lab-monitoring-operator"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.178:9090/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-monitoring-prometheus",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.178:8080/metrics",
+      "service": "lab-monitoring-prometheus"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-otel-collector",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.241:8888/metrics",
+      "service": "lab-otel-collector"
+    },
+    {
+      "event": "prometheus_target",
+      "health": "up",
+      "job": "lab-tempo",
+      "last_error": "",
+      "namespace": "kubernetes-application-lab-observability",
+      "observed_at": "2026-11-01T15:24:45.6886704Z",
+      "scrape_url": "http://10.244.0.235:3200/metrics",
+      "service": "lab-tempo"
+    }
+  ],
+  "queries": [
+    {
+      "command": "application-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1793546684.341,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "application-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_publisher_outbox_published_total",
+              "container": "publisher",
+              "endpoint": "health",
+              "instance": "10.244.0.48:8081",
+              "job": "lab-publisher",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-publisher-5cd4699d79-zf8tx"
+            },
+            "value": [
+              1793546684.424,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "application-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_worker_jobs_processed_total",
+              "container": "worker",
+              "endpoint": "health",
+              "instance": "10.244.0.38:8082",
+              "job": "lab-worker",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-worker-866ddc4dd7-nr2kw"
+            },
+            "value": [
+              1793546684.497,
+              "2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "application-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_outbox_pending_events",
+              "container": "publisher",
+              "endpoint": "health",
+              "instance": "10.244.0.48:8081",
+              "job": "lab-publisher",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-publisher-5cd4699d79-zf8tx"
+            },
+            "value": [
+              1793546684.582,
+              "0"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "application-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_outbox_stats_up",
+              "container": "publisher",
+              "endpoint": "health",
+              "instance": "10.244.0.48:8081",
+              "job": "lab-publisher",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-publisher-5cd4699d79-zf8tx"
+            },
+            "value": [
+              1793546684.66,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "application-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "container": "publisher",
+              "endpoint": "health",
+              "instance": "10.244.0.48:8081",
+              "job": "lab-publisher",
+              "namespace": "kubernetes-application-lab",
+              "pod": "lab-publisher-5cd4699d79-zf8tx"
+            },
+            "value": [
+              1793546684.747,
+              "10.781295537948608"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1793546685.752,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "database",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "locks",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "replication",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "replication_slot",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "roles",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "stat_bgwriter",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "stat_database",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "stat_progress_vacuum",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "stat_user_tables",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "statio_user_tables",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_scrape_collector_success",
+              "collector": "wal",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546685.829,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1793546685.898,
+              "5"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "pg_settings_max_connections",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432"
+            },
+            "value": [
+              1793546685.968,
+              "100"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "pg_stat_database_xact_commit",
+              "container": "exporter",
+              "datid": "16384",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm"
+            },
+            "value": [
+              1793546686.049,
+              "366018"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "pg_stat_activity_count",
+              "container": "exporter",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432",
+              "state": "active"
+            },
+            "value": [
+              1793546686.13,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_stat_activity_count",
+              "container": "exporter",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432",
+              "state": "disabled"
+            },
+            "value": [
+              1793546686.13,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_stat_activity_count",
+              "container": "exporter",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432",
+              "state": "fastpath function call"
+            },
+            "value": [
+              1793546686.13,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_stat_activity_count",
+              "container": "exporter",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432",
+              "state": "idle in transaction"
+            },
+            "value": [
+              1793546686.13,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_stat_activity_count",
+              "container": "exporter",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432",
+              "state": "idle in transaction (aborted)"
+            },
+            "value": [
+              1793546686.13,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "pg_stat_activity_count",
+              "backend_type": "client backend",
+              "container": "exporter",
+              "datname": "lab",
+              "endpoint": "metrics",
+              "instance": "10.244.0.210:9187",
+              "job": "lab-postgres-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-postgres-exporter-6945ddf78c-z7xtm",
+              "server": "lab-postgres.kubernetes-application-lab.svc.cluster.local:5432",
+              "state": "idle",
+              "usename": "lab",
+              "wait_event": "ClientRead",
+              "wait_event_type": "Client"
+            },
+            "value": [
+              1793546686.13,
+              "3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "kafka_consumergroup_lag",
+              "consumergroup": "lab-workers",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.209:9308",
+              "job": "lab-kafka-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "partition": "0",
+              "pod": "lab-kafka-exporter-5f9b4dff46-d8j2g",
+              "topic": "lab.jobs.v1"
+            },
+            "value": [
+              1793546686.2,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "kafka_consumergroup_lag",
+              "consumergroup": "lab-workers",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.209:9308",
+              "job": "lab-kafka-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "partition": "1",
+              "pod": "lab-kafka-exporter-5f9b4dff46-d8j2g",
+              "topic": "lab.jobs.v1"
+            },
+            "value": [
+              1793546686.2,
+              "0"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "kafka_consumergroup_lag",
+              "consumergroup": "lab-workers",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.209:9308",
+              "job": "lab-kafka-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "partition": "2",
+              "pod": "lab-kafka-exporter-5f9b4dff46-d8j2g",
+              "topic": "lab.jobs.v1"
+            },
+            "value": [
+              1793546686.2,
+              "0"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "kafka_consumergroup_members",
+              "consumergroup": "lab-workers",
+              "container": "exporter",
+              "endpoint": "metrics",
+              "instance": "10.244.0.209:9308",
+              "job": "lab-kafka-exporter",
+              "namespace": "kubernetes-application-lab-observability",
+              "pod": "lab-kafka-exporter-5f9b4dff46-d8j2g"
+            },
+            "value": [
+              1793546686.271,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "command": "dependency-metrics-verify",
+      "status": "success",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "AllocateProducerIds",
+              "version": "0"
+            },
+            "value": [
+              1793546686.344,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ApiVersions",
+              "version": "3"
+            },
+            "value": [
+              1793546686.344,
+              "1133"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ApiVersions",
+              "version": "4"
+            },
+            "value": [
+              1793546686.344,
+              "3842"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ApiVersions",
+              "version": "5"
+            },
+            "value": [
+              1793546686.344,
+              "80"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "BrokerHeartbeat",
+              "version": "1"
+            },
+            "value": [
+              1793546686.344,
+              "16927"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "BrokerRegistration",
+              "version": "4"
+            },
+            "value": [
+              1793546686.344,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ControllerRegistration",
+              "version": "0"
+            },
+            "value": [
+              1793546686.344,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeAcls",
+              "version": "3"
+            },
+            "value": [
+              1793546686.344,
+              "2258"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeClientQuotas",
+              "version": "1"
+            },
+            "value": [
+              1793546686.344,
+              "2554"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeCluster",
+              "version": "2"
+            },
+            "value": [
+              1793546686.344,
+              "1115"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeConfigs",
+              "version": "4"
+            },
+            "value": [
+              1793546686.344,
+              "523"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeGroups",
+              "version": "0"
+            },
+            "value": [
+              1793546686.344,
+              "1128"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeGroups",
+              "version": "5"
+            },
+            "value": [
+              1793546686.344,
+              "20"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeTopicPartitions",
+              "version": "0"
+            },
+            "value": [
+              1793546686.344,
+              "228"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "DescribeUserScramCredentials",
+              "version": "0"
+            },
+            "value": [
+              1793546686.344,
+              "2258"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Fetch",
+              "version": "18"
+            },
+            "value": [
+              1793546686.344,
+              "6672"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "FetchConsumer",
+              "version": "18"
+            },
+            "value": [
+              1793546686.344,
+              "6672"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "FindCoordinator",
+              "version": "6"
+            },
+            "value": [
+              1793546686.344,
+              "40"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Heartbeat",
+              "version": "4"
+            },
+            "value": [
+              1793546686.344,
+              "11087"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "InitProducerId",
+              "version": "5"
+            },
+            "value": [
+              1793546686.344,
+              "9"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "JoinGroup",
+              "version": "9"
+            },
+            "value": [
+              1793546686.344,
+              "60"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "LeaveGroup",
+              "version": "5"
+            },
+            "value": [
+              1793546686.344,
+              "19"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ListGroups",
+              "version": "0"
+            },
+            "value": [
+              1793546686.344,
+              "1128"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ListOffsets",
+              "version": "5"
+            },
+            "value": [
+              1793546686.344,
+              "10152"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "ListOffsets",
+              "version": "9"
+            },
+            "value": [
+              1793546686.344,
+              "20"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Metadata",
+              "version": "10"
+            },
+            "value": [
+              1793546686.344,
+              "3385"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Metadata",
+              "version": "12"
+            },
+            "value": [
+              1793546686.344,
+              "61"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Metadata",
+              "version": "13"
+            },
+            "value": [
+              1793546686.344,
+              "17586"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "OffsetCommit",
+              "version": "10"
+            },
+            "value": [
+              1793546686.344,
+              "12"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "OffsetCommit",
+              "version": "9"
+            },
+            "value": [
+              1793546686.344,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "OffsetFetch",
+              "version": "10"
+            },
+            "value": [
+              1793546686.344,
+              "25"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "OffsetFetch",
+              "version": "4"
+            },
+            "value": [
+              1793546686.344,
+              "1128"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "OffsetFetch",
+              "version": "9"
+            },
+            "value": [
+              1793546686.344,
+              "20"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "OffsetForLeaderEpoch",
+              "version": "4"
+            },
+            "value": [
+              1793546686.344,
+              "25"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Produce",
+              "version": "11"
+            },
+            "value": [
+              1793546686.344,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "Produce",
+              "version": "13"
+            },
+            "value": [
+              1793546686.344,
+              "14"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "SyncGroup",
+              "version": "5"
+            },
+            "value": [
+              1793546686.344,
+              "40"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab_kafka_broker_requests_total",
+              "container": "kafka",
+              "endpoint": "tcp-prometheus",
+              "instance": "10.244.0.211:9404",
+              "job": "lab-kafka-jmx",
+              "namespace": "kubernetes-application-lab-kafka",
+              "pod": "lab-kafka-dual-role-0",
+              "request": "CreateAcls",
+              "version": "3"
+            },
+            "value": [
+              1793546686.344,
+              "2"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "verified_chain": [
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "44d110b94307e301",
+      "parentSpanId": "311c227acec7f1ee",
+      "name": "jobs.complete.transaction",
+      "startTimeUnixNano": "1793546103705624260",
+      "endTimeUnixNano": "1793546103710236304",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "311c227acec7f1ee",
+      "parentSpanId": "181aa0e62ea0abd5",
+      "name": "lab.jobs.v1 process",
+      "startTimeUnixNano": "1793546102694403028",
+      "endTimeUnixNano": "1793546103742828436",
+      "service": "lab-worker",
+      "status": {}
+    },
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "181aa0e62ea0abd5",
+      "parentSpanId": "e3e55f1cc3247e5d",
+      "name": "lab.jobs.v1 publish",
+      "startTimeUnixNano": "1793546102655534987",
+      "endTimeUnixNano": "1793546102689203814",
+      "service": "lab-publisher",
+      "status": {}
+    },
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "e3e55f1cc3247e5d",
+      "parentSpanId": "ed59e53d5e566f9a",
+      "name": "outbox.publish_attempt",
+      "startTimeUnixNano": "1793546102652390220",
+      "endTimeUnixNano": "1793546102693351147",
+      "service": "lab-publisher",
+      "status": {}
+    },
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "ed59e53d5e566f9a",
+      "parentSpanId": "9e0cfb346313439b",
+      "name": "jobs.enqueue.transaction",
+      "startTimeUnixNano": "1793545870947262021",
+      "endTimeUnixNano": "1793545870959421562",
+      "service": "lab-api",
+      "status": {}
+    },
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "9e0cfb346313439b",
+      "parentSpanId": "",
+      "name": "POST /jobs",
+      "startTimeUnixNano": "1793545870944700832",
+      "endTimeUnixNano": "1793545870960378962",
+      "service": "lab-api",
+      "status": {}
+    },
+    {
+      "traceId": "91ce141c66d01071aa604967c8c17ec8",
+      "spanId": "d2ab0bfba8520b90",
+      "parentSpanId": "311c227acec7f1ee",
+      "name": "lab-workers commit",
+      "startTimeUnixNano": "1793546103710319460",
+      "endTimeUnixNano": "1793546103742777962",
+      "service": "lab-worker",
+      "status": {}
+    }
+  ]
+}

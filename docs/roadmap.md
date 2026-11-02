@@ -87,7 +87,9 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 - трассировка пути API → очередь/БД → worker;
 - оповещения только для состояний с определённым действием оператора.
 
-## Later: CI/CD и GitOps
+## Current: Milestone 9 — CI/CD и GitOps
+
+Очистка документации и восстановление 22 исторических evidence выполнены локально. Быстрый workflow `.github/workflows/ci.yml` подготовлен: Go, Helm, evidence и actionlint. Локальные проверки описаны в [отчёте](verification/evidence-restoration-ci.md). Реальный запуск GitHub Actions ещё не выполнен; workflow имеет статус Prepared. Следующий шаг — разрешённые владельцем commit/push и приёмка первого run. Контейнерная поставка и GitOps остаются незавершёнными.
 
 - тесты;
 - сборка образа;
@@ -119,7 +121,7 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 
 ## Blocked
 
-- Миграция в отдельный репозиторий разрешена владельцем; исходная история остаётся приватной. Происхождение снимка описано в [provenance](provenance.md), порядок поставки — в [publication](publication.md). Изменение visibility на Public требует отдельного решения.
+- Миграция в отдельный репозиторий разрешена владельцем; исходная история остаётся приватной. Происхождение снимка описано в [provenance](provenance.md). Изменение visibility на Public требует отдельного решения.
 - До появления конкретной потребности не выбираются облачный провайдер, CNI для самостоятельно управляемого кластера, система внешних секретов и долговременное хранилище метрик, логов и трасс.
 
 Milestone 8 завершён: [crash/redelivery](verification/worker-crash-observability.md), [отказ настоящего Collector](verification/collector-outage.md), обновлённые панели и новая DLQ-корреляция подтверждены. [Итоговая приёмка](verification/grafana-dashboards.md#итоговая-приёмка-milestone-8): полный Go race/vet, профильные Helm-проверки, 23/23 выбранных targets UP в трёх проверках, smoke, pending/lag=0, сохранный PVC, suspended CronJob и исправный KEDA в fixed-worker режиме; диагностические worker Pod удалены. Остаточные ограничения и исторические рестарты Strimzi сохранены в отчётах. Обязательной незавершённой работы по Milestone 8 нет.

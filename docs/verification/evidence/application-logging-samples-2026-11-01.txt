@@ -1,0 +1,372 @@
+sample=0 observed_at=2026-11-01T13:26:37.3877520Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          22m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          22m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          21m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     7m           38Mi            
+lab-loki-0                                loki      13m          63Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   19m          501Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=1 observed_at=2026-11-01T13:27:07.9475058Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          23m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          23m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          21m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     4m           38Mi            
+lab-loki-0                                loki      10m          64Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   20m          502Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=2 observed_at=2026-11-01T13:27:38.4090238Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          23m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          23m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          22m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          63Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   23m          503Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=3 observed_at=2026-11-01T13:28:08.7888307Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          24m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          24m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          22m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          63Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   24m          503Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=4 observed_at=2026-11-01T13:28:39.2730160Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          24m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          24m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          23m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     6m           38Mi            
+lab-loki-0                                loki      11m          60Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   20m          502Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=5 observed_at=2026-11-01T13:29:09.7572063Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          25m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          25m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          23m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          60Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   21m          502Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=6 observed_at=2026-11-01T13:29:40.1889141Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          25m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          25m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          24m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      14m          60Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   16m          502Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=7 observed_at=2026-11-01T13:30:10.6356503Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          26m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          26m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          24m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          60Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   21m          503Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=8 observed_at=2026-11-01T13:30:41.0767676Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          26m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          26m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          25m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          61Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   19m          504Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=9 observed_at=2026-11-01T13:31:11.5169383Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          27m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          27m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          25m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          61Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   27m          504Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=10 observed_at=2026-11-01T13:31:41.9864872Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          27m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          27m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          26m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          61Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   21m          504Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=11 observed_at=2026-11-01T13:32:12.4126669Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          28m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          28m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          26m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          61Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   15m          504Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=12 observed_at=2026-11-01T13:32:42.8469452Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          28m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          28m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          27m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   23m          508Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=13 observed_at=2026-11-01T13:33:13.2751667Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          29m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          29m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          27m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   23m          508Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=14 observed_at=2026-11-01T13:33:43.7204402Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          29m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          29m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          28m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   17m          508Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=15 observed_at=2026-11-01T13:34:14.1865024Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          30m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          30m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          28m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   16m          508Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=16 observed_at=2026-11-01T13:34:44.6604139Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          30m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          30m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          29m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     6m           38Mi            
+lab-loki-0                                loki      11m          63Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   18m          519Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=17 observed_at=2026-11-01T13:35:15.1437441Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          31m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          31m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          29m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      12m          69Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   15m          519Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=18 observed_at=2026-11-01T13:35:45.6188086Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          31m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          31m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          30m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     4m           38Mi            
+lab-loki-0                                loki      11m          64Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   16m          519Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=19 observed_at=2026-11-01T13:36:16.0718396Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          32m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          32m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          30m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          65Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   26m          369Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=20 observed_at=2026-11-01T13:36:46.5256555Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          33m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          33m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          31m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     7m           38Mi            
+lab-loki-0                                loki      11m          65Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   17m          369Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=21 observed_at=2026-11-01T13:37:16.9936996Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          33m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          33m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          32m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      11m          66Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   18m          369Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=22 observed_at=2026-11-01T13:37:47.4536035Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          34m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          34m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          32m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      12m          59Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   16m          369Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=23 observed_at=2026-11-01T13:38:17.9183923Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          34m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          34m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          33m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           38Mi            
+lab-loki-0                                loki      10m          59Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   22m          236Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=24 observed_at=2026-11-01T13:38:48.4036263Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          35m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          35m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          33m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     7m           39Mi            
+lab-loki-0                                loki      11m          59Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   16m          236Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=25 observed_at=2026-11-01T13:39:18.8308491Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          35m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          35m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          34m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           39Mi            
+lab-loki-0                                loki      11m          59Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   16m          236Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=26 observed_at=2026-11-01T13:39:49.2769840Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          36m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          36m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          34m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           39Mi            
+lab-loki-0                                loki      10m          59Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   15m          236Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=27 observed_at=2026-11-01T13:40:19.7533894Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          36m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          36m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          35m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     5m           39Mi            
+lab-loki-0                                loki      10m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   21m          227Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=28 observed_at=2026-11-01T13:40:50.2158941Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          37m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          37m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          35m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     6m           39Mi            
+lab-loki-0                                loki      11m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   17m          227Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=29 observed_at=2026-11-01T13:41:20.6522630Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          37m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          37m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          36m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     4m           39Mi            
+lab-loki-0                                loki      11m          62Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   17m          227Mi           
+top_pods_exit=0
+pod_snapshot_exit=0
+sample=30 observed_at=2026-11-01T13:41:51.1168492Z
+NAME                                      READY   STATUS    RESTARTS   AGE   IP            NODE                                       NOMINATED NODE   READINESS GATES
+lab-alloy-8549c9c8c6-w2rc9                1/1     Running   0          38m   10.244.0.29   kubernetes-application-lab-control-plane   <none>           <none>
+lab-loki-0                                1/1     Running   0          38m   10.244.0.31   kubernetes-application-lab-control-plane   <none>           <none>
+lab-monitoring-grafana-76494dd7bc-sb6v2   1/1     Running   0          36m   10.244.0.33   kubernetes-application-lab-control-plane   <none>           <none>
+get_pods_exit=0
+POD                                       NAME      CPU(cores)   MEMORY(bytes)   
+lab-alloy-8549c9c8c6-w2rc9                alloy     4m           39Mi            
+lab-loki-0                                loki      11m          63Mi            
+lab-monitoring-grafana-76494dd7bc-sb6v2   grafana   17m          227Mi           
+top_pods_exit=0
+pod_snapshot_exit=0

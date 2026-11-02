@@ -1,0 +1,13 @@
+title = "Kubernetes Application Lab"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Reviewed historical image revision and SHA-256 of diagnostic keys, never credentials"
+regexTarget = "line"
+regexes = [
+  '''kubernetes-application-lab-api:868bde3dee34a73f07230ac15ed558645ff4d0fcea72ddd542940f97bd98abb1''',
+  '''key_sha256": "275c2a35b90cb84adf4c195eefa8da3ee54ad62e58dfc9c8b33c0d7fe0d1d9dd''',
+  '''key_sha256": "f68bca172bbf4cb16597e7ac16de1bcef6ccd19bbc104c7d64bf5a6d037a0540''',
+]
