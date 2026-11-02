@@ -89,7 +89,7 @@ KEDA 2.21.0 имеет [Passed](verification/keda.md): рост 1→2→3 по l
 
 ## Current: Milestone 9 — CI/CD и GitOps
 
-Очистка документации и восстановление 22 исторических evidence выполнены локально. Быстрый workflow `.github/workflows/ci.yml` подготовлен: Go, Helm, evidence и actionlint. Локальные проверки описаны в [отчёте](verification/evidence-restoration-ci.md). Реальный запуск GitHub Actions ещё не выполнен; workflow имеет статус Prepared. Следующий шаг — разрешённые владельцем commit/push и приёмка первого run. Контейнерная поставка и GitOps остаются незавершёнными.
+Очистка документации и восстановление 22 исторических evidence выполнены. Быстрый workflow `.github/workflows/ci.yml` прошёл в GitHub Actions на `5bd57b0`: Go, Helm, evidence и actionlint. Проверки, run ID и исходные отказы описаны в [отчёте](verification/evidence-restoration-ci.md). Следующий шаг — контейнерная сборка и проверки безопасности. Контейнерная поставка и GitOps остаются незавершёнными.
 
 - тесты;
 - сборка образа;

@@ -1,6 +1,6 @@
 # Контракт CI/CD и GitOps
 
-Состояние: Target. Быстрый CI подготовлен; [проверки и ограничения](../verification/evidence-restoration-ci.md).
+Состояние: Target для полной цепочки поставки. Быстрый CI прошёл в GitHub Actions; [проверки и ограничения](../verification/evidence-restoration-ci.md).
 
 Обычные PR получают только `contents: read`. Workflow не использует `pull_request_target`, secrets, registry login или доступ к Kubernetes. Быстрые Go/Helm/evidence checks отделены от будущих container/kind и publishing workflows. Actions закрепляются полными SHA; tools — версиями. Ошибка проверки должна останавливать соответствующий job.
 

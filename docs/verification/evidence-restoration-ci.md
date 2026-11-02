@@ -2,7 +2,7 @@
 
 ## Изменённые файлы
 
-Полный перечень рабочего изменения (`M` — изменён, `D` — удалён, `??` — добавлен, ещё не закоммичен):
+Первичный перечень рабочего изменения до commit (`M` — изменён, `D` — удалён, `??` — добавлен). При приёмке дополнительно добавлен `.gitattributes`; исправления CI и документации затрагивают уже перечисленные файлы:
 
 ```text
 M AGENTS.md
@@ -90,9 +90,13 @@ git diff --check
 
 Go test/race/vet/build прошли вне sandbox. Первоначальные test/race внутри sandbox были неуспешны из-за запрета локальных HTTP sockets и rename временного архива; эти ошибки не скрываются и не считаются дефектом проверяемого Kubernetes-сценария.
 
-Helm 4.3.0: lint и template прошли для 21 сочетания chart/profile, включая специальные namespace и image tag alerting. В CI закреплён Helm 3.17.3; его исполнение в Linux runner ещё предстоит. `scripts/ci-helm.sh` повторяет эту матрицу без обращения к кластеру. Существующие Go-тесты контрактов Helm входят в полный test.
+Helm 4.3.0: lint и template прошли локально для 21 сочетания chart/profile, включая специальные namespace и image tag alerting. В CI Helm 3.17.3 выполнил ту же матрицу через `scripts/ci-helm.sh`, с явной Kubernetes 1.34.0 для формирования YAML и без обращения к кластеру. Существующие Go-тесты контрактов Helm входят в полный test.
 
-## GitHub Actions: приёмка выполняется
+## GitHub Actions: Passed для быстрого CI
+
+[Успешный run 41389729014](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41389729014), Git SHA `5bd57b0c47dfbcf4ac3c2629b8c66b3ba2d10a67`, 2 ноября 2026 года. Все jobs завершены success: Go `125098242849`, evidence `125098242897`, Helm `125098242652`. Go job выполнил formatting, test, race, vet и build; evidence job — исторические assertions, Markdown links, полный Gitleaks scan и actionlint с ShellCheck. Helm job выполнил lint/render всей матрицы.
+
+Runner: GitHub-hosted ubuntu-24.04, Ubuntu 24.04.5 LTS, image `20261025.353.1`, runner `2.338.2`. Go 1.26.0, Helm 3.17.3. Contents read подтверждён журналом. Эта приёмка относится к указанному SHA; последующее обновление отчёта не является повторной проверкой другого SHA.
 
 ### Первый фактический запуск
 
@@ -106,6 +110,6 @@ Evidence job `125096357382` первого run также обнаружил н�
 
 Создан `.github/workflows/ci.yml`: PR/push main и ручной запуск, read-only contents, отключение сохранения checkout credentials, SHA-pinned actions, timeout и concurrency. Jobs: Go test/race/vet/build/formatting; evidence/links/secret scan/actionlint; Helm lint/render. YAML проверен actionlint 1.7.7 локально.
 
-Workflow run ID, runner execution, run URL и новый Git SHA отсутствуют: commit/push требуют явного разрешения владельца. CI не имеет статуса Passed. Контейнерная сборка, security scan зависимостей/образов, GHCR digest, kind smoke/negative scenario, Argo CD, sync, drift/self-heal и recovery в этом изменении ещё не выполнены. Kubernetes version, Argo CD version и Pod imageID для Milestone 9 отсутствуют. Исторические кластеры и PVC не затрагивались.
+Контейнерная сборка, security scan зависимостей/образов, GHCR digest, kind smoke/negative scenario, Argo CD, sync, drift/self-heal и recovery в этом изменении ещё не выполнены. Runtime Kubernetes version, Argo CD version и Pod imageID для Milestone 9 отсутствуют. Исторические кластеры и PVC не затрагивались. Заголовки всех новых коммитов написаны на русском языке.
 
-Итерация 0 выполнена; итерация 1 проверена локально с указанными ограничениями семантического покрытия; итерация 2 Prepared до первого GitHub run. Итерации 3–8 остаются незавершёнными. Milestone 9 не Done. Следующее действие — разрешённые владельцем commit/push и первый фактический run CI, затем контейнерная итерация.
+Итерация 0 выполнена; итерация 1 проверена локально и в CI с указанными ограничениями семантического покрытия; итерация 2 Passed на `5bd57b0` после сохранённых выше отказов и исправлений. Итерации 3–8 остаются незавершёнными. Milestone 9 не Done. Следующее действие — контейнерная итерация.

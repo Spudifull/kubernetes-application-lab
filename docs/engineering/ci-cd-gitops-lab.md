@@ -1,6 +1,6 @@
 # Проверка CI/CD и GitOps
 
-Текущее выполнение ограничено [подготовкой быстрого CI](../verification/evidence-restoration-ci.md). Архитектурные границы — в [контракте](../design/ci-cd-gitops.md).
+Текущее выполнение ограничено [проверенным быстрым CI](../verification/evidence-restoration-ci.md). Архитектурные границы — в [контракте](../design/ci-cd-gitops.md).
 
 Перед отправкой изменений выполнить Go test/race/vet/build, evidence tests, actionlint и `bash scripts/ci-helm.sh`. Последняя команда использует только локальное формирование YAML и не меняет кластер. Для Windows доступны эквивалентные `helm lint` / `helm template`; установленные версии фиксируются в отчёте.
 
