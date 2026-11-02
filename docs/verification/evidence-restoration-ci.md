@@ -1,65 +1,16 @@
 # Восстановление evidence и подготовка CI
 
-## Изменённые файлы
+## Зафиксированные изменения
 
-Первичный перечень рабочего изменения до commit (`M` — изменён, `D` — удалён, `??` — добавлен). При приёмке дополнительно добавлен `.gitattributes`; исправления CI и документации затрагивают уже перечисленные файлы:
+Дата проверки: 2 ноября 2026 года. Исходный HEAD до восстановления: `3175c49618f4d811d73aedbe8ea28a34c7cc902a`. Первичные локальные проверки выполнялись на рабочем дереве с изменениями; затем результат закоммичен и отправлен в `main`:
 
-```text
-M AGENTS.md
-M CONTRIBUTING.md
-D MANIFEST.md
-M README.md
-D docs/engineering/contributing-rules.md
-M docs/process/documentation-governance.md
-M docs/provenance.md
-D docs/publication.md
-M docs/roadmap.md
-M docs/skills.md
-M docs/verification/README.md
-M docs/verification/alerting.md
-M docs/verification/api-unavailable-alert.md
-M docs/verification/application-logging.md
-M docs/verification/application-tracing.md
-M docs/verification/collector-outage.md
-M docs/verification/dlq-alert.md
-M docs/verification/grafana-dashboards.md
-M docs/verification/postgres-unavailable-alert.md
-M docs/verification/worker-crash-observability.md
-M docs/verification/worker-lag-alerts.md
-?? .github/workflows/ci.yml
-?? .gitleaks.toml
-?? .gitleaksignore
-?? cmd/labctl/evidence_test.go
-?? docs/design/ci-cd-gitops.md
-?? docs/engineering/ci-cd-gitops-lab.md
-?? docs/verification/evidence-restoration-ci.md
-?? docs/verification/evidence/alerting-outbox-cycle-2026-11-01.json
-?? docs/verification/evidence/alerting-publisher-recovery-2026-11-01.json
-?? docs/verification/evidence/alerting-publisher-trace-2026-11-01.json
-?? docs/verification/evidence/api-unavailable-partial-2026-11-01.json
-?? docs/verification/evidence/api-unavailable-recovery-2026-11-01.json
-?? docs/verification/evidence/application-logging-events-2026-11-01.json
-?? docs/verification/evidence/application-logging-resources-2026-11-01.json
-?? docs/verification/evidence/application-logging-samples-2026-11-01.txt
-?? docs/verification/evidence/application-tracing-dlq-2026-11-01.json
-?? docs/verification/evidence/application-tracing-resources-2026-11-01.json
-?? docs/verification/evidence/collector-outage-2026-11-01.json
-?? docs/verification/evidence/collector-recovery-trace-2026-11-01.json
-?? docs/verification/evidence/dlq-alert-2026-11-01.json
-?? docs/verification/evidence/final-dlq-correlation-2026-11-01.json
-?? docs/verification/evidence/final-dlq-trace-2026-11-01.json
-?? docs/verification/evidence/milestone8-final-checks-2026-11-01.json
-?? docs/verification/evidence/postgres-unavailable-alert-2026-11-01.json
-?? docs/verification/evidence/worker-crash-counter-2026-11-01.json
-?? docs/verification/evidence/worker-crash-partial-2026-11-01.json
-?? docs/verification/evidence/worker-crash-recovery-2026-11-01.json
-?? docs/verification/evidence/worker-crash-trace-2026-11-01.json
-?? docs/verification/evidence/worker-lag-alerts-2026-11-01.json
-?? scripts/ci-helm.sh
-```
+- `dff4e4b` — «Восстановлены доказательства и подготовлен CI»: документация, 22 архива, проверки, workflow и `.gitattributes`.
+- `4567493` — «Исправлена версия Kubernetes в проверках Helm».
+- `a791112` — «Сохранены исходные окончания строк доказательств».
+- `5bd57b0` — «Исправлена проверка форматирования в CI»; успешный run описан ниже.
+- `d76c71f` — «Зафиксирован успешный запуск CI».
 
-
-Дата: 2 ноября 2026 года. Исходный HEAD: `3175c49618f4d811d73aedbe8ea28a34c7cc902a`; проверки выполнялись на рабочем дереве с изменениями, нового commit нет.
+Удалены `MANIFEST.md`, `docs/publication.md`, `docs/engineering/contributing-rules.md`; инженерные правила перенесены в `CONTRIBUTING.md`. Состав архивов, решения об очистке и SHA-256 перечислены в [индексе](README.md#первичные-доказательства-milestone-8). Полный состав каждого изменения хранится в Git.
 
 ## Восстановление: локальная проверка пройдена
 
