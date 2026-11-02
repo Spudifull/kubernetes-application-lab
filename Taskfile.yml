@@ -21,6 +21,11 @@ vars:
   BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
 
 tasks:
+  gitops-observe-stable:
+    desc: Observe the stable namespace of the separate GitOps cluster without deployment changes.
+    cmds:
+      - pwsh -NoProfile -File scripts/gitops-observe.ps1 -Environment lab-stable -OutputPath .cache/gitops/observations/stable.json -RequireHealthy
+
   release-check:
     desc: Verify archived dev proof and unchanged API inputs; does not access a Kubernetes cluster.
     cmds:
