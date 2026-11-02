@@ -10,6 +10,8 @@
 
 GHCR publication и runtime GitOps остаются незавершёнными. Profiles и Argo CD Applications в `gitops/` имеют статус Prepared: digest/tag пусты. Не применять их к действующим кластерам. Для первого GitOps sync потребуется отдельный кластер и одобренный опубликованный digest. Dev проверяется перед stable; переносить только тот же digest, сохраняя source и promotion SHA. Release gate ещё не включён в required checks.
 
+После отдельного разрешения владельца включить repository variable `ENABLE_GHCR_PUBLISH=true`. Последующий соответствующий push в dev запускает `publish.yml`, ожидающий успешные CI для того же SHA. Workflow не собирает новый образ: загружает `checked-api`, проверяет identity, публикует его и сохраняет `promotion-candidate/candidate.json`. До разрешения переменную не устанавливать. Перед GitOps pull отдельно подтвердить доступ к package; токены и kubeconfig не вносить в Git. По окончании публикации дождаться registry digest; локальный image ID не подменяет его.
+
 ## Защита main
 
 Проверка 2 ноября 2026 года: репозиторий Public. GitHub API обеих веток `dev` и `main` подтвердил обязательный PR, checks `go`, `evidence`, `helm` от GitHub Actions (app ID 15368), strict=true, применение к администраторам, запрет force push и удаления. Обязательных чужих approvals нет: владелец может работать один. PR №1 закрыт с merged=true, merge SHA `b34fe8b19da5cfa67e0b16745586a3b2d18f1568`; CI подтверждён на PR и push в dev.

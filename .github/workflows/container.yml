@@ -117,6 +117,10 @@ jobs:
           sha256sum -c helm-v3.17.3-linux-amd64.tar.gz.sha256sum
           tar -xzf helm-v3.17.3-linux-amd64.tar.gz
           sudo install linux-amd64/helm /usr/local/bin/helm
+          curl -fsSLo kubectl https://dl.k8s.io/release/v1.35.9/bin/linux/amd64/kubectl
+          curl -fsSLo kubectl.sha256 https://dl.k8s.io/release/v1.35.9/bin/linux/amd64/kubectl.sha256
+          printf '%s  kubectl\n' "$(cat kubectl.sha256)" | sha256sum -c -
+          sudo install kubectl /usr/local/bin/kubectl
       - name: Service smoke, negative case and recovery
         env:
           IMAGE: lab-ci-api:${{ github.sha }}

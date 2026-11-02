@@ -1,6 +1,6 @@
 # Go dependencies
 
-Sources are not vendored. Versions are pinned by go.mod/go.sum. Upstream license files were inspected from downloaded module sources; root MIT does not replace their terms. Preserve required notices when redistributing binaries or images.
+Sources are not vendored. Versions are pinned by go.mod/go.sum. License/notice filenames below are catalogued from downloaded module sources for the complete module graph, including test dependencies; not every module is linked into the API. Root MIT does not replace upstream terms. Preserve required notices when redistributing binaries or images.
 
 | Module | Version | License/notice files |
 |---|---|---|

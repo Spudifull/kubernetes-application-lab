@@ -18,13 +18,21 @@ Buildx Docker driver, Docker Engine 29.8.2, linux/amd64. Первый build API 
 
 ## Подготовленные проверки
 
+### Первая приёмка PR №2
+
+[Быстрый CI 41393459228](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41393459228) и [Container/kind 41393459288](https://github.com/Spudifull/kubernetes-application-lab/actions/runs/41393459288) завершились успешно на PR head `17a36d5d3731f35992e9a81299983f0ec3fb0c69`, проверенном merge SHA `a47764d5b08f8d78bb897fbde0375b21099216c6`. Image manifest `sha256:197bf4784439491a4f9046013e619fc5193aaa2874effc102572b64ef18b3a8e`, config ID `sha256:f7cb610beb1b01235115f49df3ffa8aa9685cb65c95c3e6f48df8c9a6ce87329`. Build arguments REVISION=merge SHA, VERSION=dev, BUILD_DATE=2026-11-02T08:20:33+03:00. Это проверенный CI archive, ещё не GHCR artifact.
+
+Container job `125109654155` выполнил dependency scan, Buildx, identity assertion и Trivy; kind job `125110207832` загрузил именно checked-api archive, подтвердил Service readiness/version, обнаружил ошибку selector и восстановил Service. Кластер `lab-ci-41393459288-1` удалён собственным cleanup. Отдельные artifacts `container-evidence`, `kind-evidence`, `checked-api` доступны в run с ограниченным сроком хранения; это не бессрочный публичный архив.
+
+Первый kind run использовал Kubernetes 1.34, но обнаружено предупреждение о встроенном kubectl 1.37 на runner. После этого installer явно закреплён на kubectl 1.35.9 с checksum verification; исправленная версия требует повторного run. Подготовлен выключенный `publish.yml`, ожидающий отдельного разрешения владельца. GHCR публикация ещё не выполнялась.
+
 `container.yml`: path classification, govulncheck, Buildx API, проверка non-root/OCI revision, Trivy HIGH/CRITICAL с exit-code=1, передача Docker archive отдельному kind job. Публикации GHCR и registry secrets нет. Отчёты и build metadata сохраняются как CI artifacts. На PR проверяется merge revision из `github.sha`, а не произвольно объявленная source revision.
 
 `ci-kind.sh`: исключительно собственный временный кластер `lab-ci-*`, отдельный kubeconfig; Helm stateless API; client Pod → Service DNS → readyz/version; намеренно неверный Service selector; обнаружение HTTP-отказа; восстановление selector и HTTP. Диагностика до cleanup собственного кластера. Время отказа ограничено; отрицательный сценарий не меняет чужие ресурсы. Полный Kubernetes/PostgreSQL/Kafka стек не нужен.
 
 ## Prepared и ещё не проверенные свойства
 
-Container/kind workflows до фактического запуска имеют статус Prepared. Helm digest support проверяется отдельно от локальных tag/Never profiles. GitOps values и Applications подготовлены с пустыми digest/tag: они намеренно не допускают deployment без реального артефакта. AppProject ограничивает source/destination и виды ресурсов.
+Первый Container/kind run Passed в указанном выше объёме; последующие изменения требуют своего run. Helm digest support проверяется отдельно от локальных tag/Never profiles. GitOps values и Applications подготовлены с пустыми digest/tag: они намеренно не допускают deployment без реального артефакта. AppProject ограничивает source/destination и виды ресурсов.
 
 GHCR digest отсутствует. Argo CD не установлен; его версия и runtime статусы не зафиксированы. Development/stable deployment, Pod imageID, Release PR, source/promotion SHA, продвижение без пересборки, drift/self-heal и failed rollout/recovery не Passed. Release gate остаётся Target и не включён в защиту. Основной и сетевой кластеры только перечислены read-only, их ресурсы/PVC/topics/offsets не менялись.
 
