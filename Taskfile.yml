@@ -21,6 +21,11 @@ vars:
   BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
 
 tasks:
+  gitops-observe-dev:
+    desc: Observe only the separate local GitOps cluster; never the main laboratory context.
+    cmds:
+      - pwsh -NoProfile -File scripts/gitops-observe.ps1 -Environment lab-dev -OutputPath .cache/gitops/observations/dev.json -RequireHealthy
+
   ci-container:
     desc: Build the stateless API locally; no publication or cluster changes.
     cmds:

@@ -12,6 +12,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   revisionHistoryLimit: 3
+  progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds }}
   {{- with .Values.strategy }}
   strategy:
     type: RollingUpdate
@@ -24,6 +25,10 @@ spec:
       {{- include "lab-api.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "lab-api.labels" . | nindent 8 }}
     spec:

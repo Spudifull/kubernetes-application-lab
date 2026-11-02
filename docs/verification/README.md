@@ -3,6 +3,7 @@
 # Проверки и лабораторные сценарии
 
 - [Ветки, контейнерная проверка и окружения Milestone 9](branching-container.md) — текущие проверки и границы Prepared/runtime.
+- [GHCR и development GitOps](gitops-development.md) — registry identity и первая manual Argo CD sync с фактическим Pod imageID.
 
 ## Первичные доказательства Milestone 8
 
