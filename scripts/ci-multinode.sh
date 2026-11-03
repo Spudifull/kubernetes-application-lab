@@ -54,6 +54,9 @@ jq -n --argjson cpu "$(nproc)" --argjson memoryKiB "$(awk '/MemTotal/ {print $2}
 kind create cluster --name "$cluster" --config "$config" \
   --image kindest/node:v1.34.0@sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a --wait 0s
 if [[ "$group" == network ]]; then
+  k get --raw /apis/admissionregistration.k8s.io/v1beta1 | jq -e '
+    [.resources[].kind] | contains(["MutatingAdmissionPolicy", "MutatingAdmissionPolicyBinding"])
+  ' > "$out/calico-admission-api.json"
   k create -f https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/v3_projectcalico_org-v1beta1.yaml
   k create -f https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/calico.yaml
   k -n kube-system rollout status daemonset/calico-node --timeout=360s
