@@ -6,7 +6,7 @@ jq -e --arg group "$group" '
   .group == $group and (.sha | test("^[0-9a-f]{40}$")) and
   (.cluster | startswith("lab-mn-")) and .namespace == "multinode" and
   (.kind | contains("v0.33.0")) and
-  (.run == "" or ((.run | test("^[0-9]+$")) and (.url | endswith("/actions/runs/" + .run))))
+  (.run == "" or (.run as $run | ($run | test("^[0-9]+$")) and (.url | endswith("/actions/runs/" + $run))))
 ' "$out/run.json"
 jq -e '.serverVersion.gitVersion == "v1.34.0"' "$out/kubernetes.json"
 jq -e '.cpu > 0 and .memoryKiB > 0' "$out/runner.json"
