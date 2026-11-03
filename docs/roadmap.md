@@ -110,6 +110,13 @@ Release gate стал required main после первого успешного
 
 Финальный PR №10 подтвердил Buildx/govulncheck/Trivy для API, publisher и worker, настоящий failed rollout/recovery в kind, Ready EndpointSlice и диагностические логи. Команды отдельного GitOps-стенда проверены для render/preflight/status/sync/smoke и повторного install; отказ cleanup проверен без удаления стенда. Protected main хранит принятую identity независимо от retention Actions artifact. [Приёмка и границы](verification/milestone9-completion.md). Fresh bootstrap/cleanup, full-stack regression и сетевая изоляция не входят в подтверждённый объём.
 
+## Milestone 10 — многонодовый Kubernetes
+
+10A Prepared. Следующий рубеж — реальный прогон групп в GitHub Actions и фиксация
+результатов в [verification](verification/multi-node-kubernetes.md).
+10B Prepared. [Процедура Hyper-V и kubeadm](engineering/kubeadm-hyperv-lab.md)
+готовится отдельно от приёмки 10A.
+
 ## Later: Terraform и kubeadm
 
 Предварительная завершающая итерация CI/CD выполнена: [security gate, OpenTelemetry 1.45.0, новый immutable image и runtime promotion](verification/security-release.md) подтверждены для source `3483731`, promotion `6cf5e00`. Последующий выбор Terraform/kubeadm остаётся отдельной задачей.
