@@ -58,7 +58,7 @@ if [[ "$group" == network ]]; then
     [.resources[].kind] | contains(["MutatingAdmissionPolicy", "MutatingAdmissionPolicyBinding"])
   ' > "$out/calico-admission-api.json"
   k create -f https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/v3_projectcalico_org-v1beta1.yaml
-  k create -f https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/calico.yaml
+  k -n kube-system create -f https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/calico.yaml
   k -n kube-system rollout status daemonset/calico-node --timeout=360s
 fi
 k wait --for=condition=Ready node --all --timeout=180s
