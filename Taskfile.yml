@@ -21,6 +21,16 @@ vars:
   BUILD_DATE: '{{now | date "2006-01-02T15:04:05.000000000Z07:00"}}'
 
 tasks:
+  multinode:
+    desc: Run one isolated multi-node experiment on Linux with a locally built API image.
+    requires:
+      vars: [IMAGE]
+    env:
+      IMAGE: '{{.IMAGE}}'
+      REVISION: '{{.REVISION}}'
+      GROUP: '{{.GROUP | default "bootstrap"}}'
+    cmds:
+      - bash scripts/ci-multinode.sh
   gitops-preflight:
     cmds: ['pwsh -NoProfile -File scripts/gitops-lab.ps1 -Action preflight']
   gitops-render:
