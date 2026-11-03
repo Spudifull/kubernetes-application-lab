@@ -1,0 +1,71 @@
+name: Multi-node Kubernetes
+
+on:
+  workflow_dispatch:
+    inputs:
+      group:
+        type: choice
+        options: [all, bootstrap, scheduler, maintenance, outage, network]
+        default: all
+  pull_request:
+    branches: [dev]
+    paths:
+      - '.github/workflows/multinode.yml'
+      - 'cluster/multi-node/**'
+      - 'scripts/ci-multinode*.sh'
+      - 'helm/lab-api/**'
+      - 'docker/**'
+      - 'cmd/api/**'
+      - 'internal/**'
+      - 'go.mod'
+      - 'go.sum'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: multinode-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  experiment:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        group: ${{ fromJSON((inputs.group == '' || inputs.group == 'all') && '["bootstrap","scheduler","maintenance","outage","network"]' || format('["{0}"]', inputs.group)) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install tools
+        run: |
+          curl -fsSLO https://kind.sigs.k8s.io/dl/v0.33.0/kind-linux-amd64
+          curl -fsSLO https://kind.sigs.k8s.io/dl/v0.33.0/kind-linux-amd64.sha256sum
+          sha256sum -c kind-linux-amd64.sha256sum
+          sudo install kind-linux-amd64 /usr/local/bin/kind
+          curl -fsSLO https://get.helm.sh/helm-v3.17.3-linux-amd64.tar.gz
+          curl -fsSLO https://get.helm.sh/helm-v3.17.3-linux-amd64.tar.gz.sha256sum
+          sha256sum -c helm-v3.17.3-linux-amd64.tar.gz.sha256sum
+          tar -xzf helm-v3.17.3-linux-amd64.tar.gz
+          sudo install linux-amd64/helm /usr/local/bin/helm
+          curl -fsSLo kubectl https://dl.k8s.io/release/v1.35.9/bin/linux/amd64/kubectl
+          curl -fsSLo kubectl.sha256 https://dl.k8s.io/release/v1.35.9/bin/linux/amd64/kubectl.sha256
+          printf '%s  kubectl\n' "$(cat kubectl.sha256)" | sha256sum -c -
+          sudo install kubectl /usr/local/bin/kubectl
+      - name: Build API
+        run: docker build -f docker/api.Dockerfile --build-arg "REVISION=$GITHUB_SHA" -t "lab-multinode-api:$GITHUB_SHA" .
+      - name: Run experiments
+        env:
+          GROUP: ${{ matrix.group }}
+          IMAGE: lab-multinode-api:${{ github.sha }}
+          REVISION: ${{ github.sha }}
+        run: bash scripts/ci-multinode.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: multinode-${{ matrix.group }}-evidence
+          path: .cache/multinode/evidence/
+          retention-days: 14
