@@ -1,0 +1,220 @@
+- name: Prepare Linux nodes
+  hosts: all
+  become: true
+  gather_facts: true
+  pre_tasks:
+    - name: Validate the isolated inventory and exact package versions
+      ansible.builtin.assert:
+        that:
+          - groups['all'] | length == 3
+          - groups['control_plane'] | length == 1
+          - groups['workers'] | length == 2
+          - inventory_hostname is match('^kal10b-[a-z0-9]{4,16}-(cp|w1|w2)$')
+          - ansible_facts.hostname == inventory_hostname
+          - ansible_facts.distribution == 'Ubuntu'
+          - ansible_facts.distribution_version == '24.04'
+          - ansible_facts.architecture == 'x86_64'
+          - kubernetes_package_version is defined
+          - containerd_package_version is defined
+          - containerd_package_version is match('^1[.]7[.][0-9]+')
+          - kubernetes_package_version is match('^1[.]34[.][0-9]+-1[.]1$')
+          - kubernetes_version == 'v' + kubernetes_package_version.split('-')[0]
+          - node_ip in ['10.77.10.11', '10.77.10.12', '10.77.10.13']
+          - node_ip in ansible_facts.all_ipv4_addresses
+    - name: Wait for initial cloud configuration
+      ansible.builtin.command: cloud-init status --wait
+      changed_when: false
+  tasks:
+    - name: Load networking modules
+      ansible.builtin.command: "modprobe {{ item }}"
+      loop: [overlay, br_netfilter]
+      changed_when: false
+    - name: Persist modules
+      ansible.builtin.copy:
+        dest: /etc/modules-load.d/kal10b.conf
+        content: "overlay\nbr_netfilter\n"
+        mode: '0644'
+    - name: Disable active swap
+      ansible.builtin.command: swapoff -a
+      when: ansible_facts.swaptotal_mb | int > 0
+      changed_when: true
+    - name: Disable swap mounts
+      ansible.builtin.replace:
+        path: /etc/fstab
+        regexp: '^(?!#)(.*\s+swap\s+.*)$'
+        replace: '# kal10b disabled swap \1'
+    - name: Persist Kubernetes networking parameters
+      ansible.builtin.copy:
+        dest: /etc/sysctl.d/99-kal10b.conf
+        content: |
+          net.ipv4.ip_forward=1
+          net.bridge.bridge-nf-call-iptables=1
+          net.bridge.bridge-nf-call-ip6tables=1
+        mode: '0644'
+      notify: Reload sysctl
+    - name: Install OS dependencies and exact containerd
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - gpg
+          - "containerd={{ containerd_package_version }}"
+        update_cache: true
+        state: present
+    - name: Create runtime directory
+      ansible.builtin.file:
+        path: /etc/containerd
+        state: directory
+        mode: '0755'
+    - name: Configure containerd CRI with systemd cgroups
+      ansible.builtin.copy:
+        dest: /etc/containerd/config.toml
+        mode: '0644'
+        content: |
+          version = 2
+          [plugins."io.containerd.grpc.v1.cri"]
+            sandbox_image = "registry.k8s.io/pause:3.10"
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+            runtime_type = "io.containerd.runc.v2"
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+            SystemdCgroup = true
+      notify: Restart containerd
+    - name: Create package keyring directory
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+    - name: Download Kubernetes repository signing key
+      ansible.builtin.get_url:
+        url: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor }}/deb/Release.key"
+        dest: /etc/apt/keyrings/kubernetes.asc
+        mode: '0644'
+    - name: Configure Kubernetes package source
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/kubernetes.list
+        mode: '0644'
+        content: "deb [signed-by=/etc/apt/keyrings/kubernetes.asc] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_minor }}/deb/ /\n"
+    - name: Install exact Kubernetes versions
+      ansible.builtin.apt:
+        name:
+          - "kubelet={{ kubernetes_package_version }}"
+          - "kubeadm={{ kubernetes_package_version }}"
+          - "kubectl={{ kubernetes_package_version }}"
+        update_cache: true
+        state: present
+    - name: Hold installed versions
+      ansible.builtin.dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop: [kubelet, kubeadm, kubectl, containerd]
+    - name: Pin kubelet to the private cluster network
+      ansible.builtin.copy:
+        dest: /etc/default/kubelet
+        mode: '0644'
+        content: "KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}\n"
+      notify: Restart kubelet
+    - name: Apply pending kernel and runtime configuration
+      ansible.builtin.meta: flush_handlers
+    - name: Enable runtime and kubelet services
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop: [containerd, kubelet]
+  handlers:
+    - name: Reload sysctl
+      ansible.builtin.command: sysctl --system
+      changed_when: true
+    - name: Restart containerd
+      ansible.builtin.systemd_service:
+        name: containerd
+        state: restarted
+    - name: Restart kubelet
+      ansible.builtin.systemd_service:
+        name: kubelet
+        state: restarted
+
+- name: Initialize a single control plane
+  hosts: control_plane
+  become: true
+  tasks:
+    - name: Write kubeadm configuration
+      ansible.builtin.copy:
+        dest: /etc/kubernetes-kal10b.yaml
+        mode: '0600'
+        content: |
+          apiVersion: kubeadm.k8s.io/v1beta4
+          kind: InitConfiguration
+          localAPIEndpoint:
+            advertiseAddress: "{{ control_plane_ip }}"
+            bindPort: 6443
+          nodeRegistration:
+            criSocket: unix:///run/containerd/containerd.sock
+          ---
+          apiVersion: kubeadm.k8s.io/v1beta4
+          kind: ClusterConfiguration
+          kubernetesVersion: "{{ kubernetes_version }}"
+          networking:
+            podSubnet: "{{ pod_cidr }}"
+            serviceSubnet: "{{ service_cidr }}"
+          apiServer:
+            extraArgs:
+              - name: feature-gates
+                value: MutatingAdmissionPolicy=true
+              - name: runtime-config
+                value: admissionregistration.k8s.io/v1beta1=true
+    - name: Initialize kubeadm once
+      ansible.builtin.command: kubeadm init --config /etc/kubernetes-kal10b.yaml
+      args:
+        creates: /etc/kubernetes/admin.conf
+    - name: Fetch pinned Calico manifests
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/{{ item }}"
+        dest: "/root/{{ item }}"
+        mode: '0600'
+      loop: [v3_projectcalico_org-v1beta1.yaml, calico.yaml]
+    - name: Apply Calico
+      ansible.builtin.command:
+        argv: [kubectl, --kubeconfig=/etc/kubernetes/admin.conf, apply, --server-side, -f, "/root/{{ item }}"]
+      register: calico_apply
+      changed_when: "'created' in calico_apply.stdout or 'configured' in calico_apply.stdout"
+      loop: [v3_projectcalico_org-v1beta1.yaml, calico.yaml]
+    - name: Generate short lived worker join command
+      ansible.builtin.command: kubeadm token create --ttl 15m --print-join-command
+      register: worker_join
+      no_log: true
+      changed_when: false
+    - name: Select the private interface for Calico node addresses
+      ansible.builtin.command: kubectl --kubeconfig=/etc/kubernetes/admin.conf -n kube-system set env daemonset/calico-node IP_AUTODETECTION_METHOD=interface=cluster0
+      register: calico_interface
+      changed_when: "'updated' in calico_interface.stdout"
+
+- name: Join worker nodes
+  hosts: workers
+  become: true
+  serial: 1
+  tasks:
+    - name: Join this worker once
+      ansible.builtin.command: "{{ hostvars[groups['control_plane'][0]].worker_join.stdout }} --cri-socket unix:///run/containerd/containerd.sock"
+      args:
+        creates: /etc/kubernetes/kubelet.conf
+      no_log: true
+
+- name: Verify Kubernetes readiness
+  hosts: control_plane
+  become: true
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+  tasks:
+    - name: Wait for all three registered nodes
+      ansible.builtin.command: kubectl get nodes -o json
+      register: node_state
+      changed_when: false
+      until: (node_state.stdout | from_json).items | length == 3
+      retries: 30
+      delay: 5
+    - name: Wait for Node Ready
+      ansible.builtin.command: kubectl wait --for=condition=Ready nodes --all --timeout=300s
+      changed_when: false
+    - name: Wait for CoreDNS
+      ansible.builtin.command: kubectl -n kube-system rollout status deployment/coredns --timeout=180s
+      changed_when: false
