@@ -1,50 +1,93 @@
 # Оповещения лабораторного стенда
 
-## Состояние и владение
+**Состояние: `Current`.** Установлены шесть прикладных правил Prometheus, маршрутизация через Alertmanager и внутренний приёмник уведомлений. Для каждого правила выполнен отдельный цикл проверки: срабатывание, получение уведомления, восстановление контролируемого состояния и закрытие оповещения.
 
-**Current:** шесть правил, внутренний receiver, маршрутизация Alertmanager и команды наблюдения установлены. [Первый цикл OutboxBacklogGrowing имеет Passed в ограниченном объёме](../verification/alerting.md): Pending/Firing, активный fingerprint, firing/resolved receipts, свежий pending=0, SQL effect=1 и lag=0. Promtool fixtures и Go/race/vet выполнены владельцем. Семь ошибок публикации и успешное продолжение одного задания подтверждены Loki/Tempo: 22 строки, 41 span; итоговые targets/метрики/smoke прошли. Циклы KafkaConsumerLagHigh и WorkerProcessingStalled также [прошли проверку](../verification/worker-lag-alerts.md). [DLQMessagesDetected также прошёл полный цикл](../verification/dlq-alert.md): retry counter 0→3, DLQ counter 0→1, failed/effects=0, SQL-квитанция и прочитанная DLQ-запись. [APIUnavailable подтверждён](../verification/api-unavailable-alert.md), включая matching Resolved и восстановление HTTP/scrape отдельным status после тайм-аута наблюдателя. [PostgreSQLUnavailable подтверждён](../verification/postgres-unavailable-alert.md): полный цикл, восстановление HTTP/SQL и сохранность контрольной записи/PVC. Таким образом, выполнены runtime-циклы всех шести правил в границах отдельных опытов. Длительная устойчивость receiver ещё не подтверждена. Метрики, журналы и трассировки действуют в своих прежних границах.
+Документ определяет условия правил, маршрут уведомлений, порядок интерпретации и ограничения доказательств. Инструкция по воспроизведению приведена в [сценариях оповещений](../engineering/alerting-lab.md), а общий состав платформы — в [архитектуре наблюдаемости](observability-architecture.md).
 
-Новый release `lab-alerting` владеет одним Deployment/Service/ServiceAccount/NetworkPolicy и PrometheusRule. Он не дублирует monitoring stack. Канонические правила — `helm/lab-alerting/files/rules.json`: этот JSON используется и Helm, и promtool fixtures, отдельная нормативная YAML-копия отсутствует. Выбирающий label `release=lab-monitoring` совпадает с действующим Prometheus rule selector. Интервал группы 30s; новые labels только namespace, component, severity и фиксированный lab_alerting. Job/event/trace ID в alert labels не добавляются.
+## Состав и проверенные результаты
 
-## Условия и действия
+Правила хранятся в одном каноническом файле `helm/lab-alerting/files/rules.json`. Его используют Helm и тестовые сценарии `promtool`; отдельной нормативной копии правил в YAML нет. Релиз `lab-alerting` создаёт `PrometheusRule`, `Deployment`, `Service`, `ServiceAccount` и `NetworkPolicy` приёмника. Стек Prometheus и Alertmanager остаётся в релизе `lab-monitoring`.
 
-Все шесть правил имеют severity=warning. Пороги выбраны для нескольких управляемых заданий в kind; это лабораторные значения, не production SLO. Семантика `for` и Pending/Firing определяется [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
+`PrometheusRule` выбирается по `release=lab-monitoring`. Правила группируются с интервалом `30s`. Для прикладных оповещений используются фиксированные метки `namespace`, `component`, `severity` и `lab_alerting`; идентификаторы заявок, событий и трассировок не входят в набор меток оповещения.
 
-| Правило | Условие и for | Действие оператора и восстановление |
+| Правило | Проверенный сценарий | Отчёт |
 |---|---|---|
-| APIUnavailable | Нет observed available replica lab-api либо отсутствует ряд; 1m | Различить отсутствие Kubernetes telemetry и недоступность Deployment; проверить probes, Service и фактический HTTP. UP metrics сам по себе не доказывает HTTP-доступность |
-| OutboxBacklogGrowing | Свежий pending >10 либо pending>0 и oldest age>60s; 1m | Проверить SQL sampler, bootstrap/TLS/ошибки publisher; восстановить публикацию, подтвердить свежий pending=0 и завершение job. Название обозначает превышение порога, математический тренд роста не вычисляется |
-| KafkaConsumerLagHigh | Суммарный lag>0, все три partition имеют неотрицательный lag и exporter UP; 1m | Проверить группу/offsets и consumer. После восстановления committed=end. Отрицательный/неполный lag — unknown, не достоверный ноль |
-| WorkerProcessingStalled | Известный положительный lag и отсутствие available worker либо отсутствие наблюдаемого processed progress за 2m при worker target UP; for 2m | Проверить worker/SQL/retries/DLQ/commit. Process counter — сигнал попытки, не доказательство SQL-эффекта |
-| DLQMessagesDetected | Increase durable receipt process counter за 5m >0; for 30s | Проверить SQL-квитанцию и bounded DLQ read, без автоматического replay. Resolved означает выход increment из окна, не исправление failed job |
-| PostgreSQLUnavailable | pg_up<1/ряд отсутствует либо exporter up<1/ряд отсутствует; 1m | Различить exporter/credentials/scrape и реальное подключение PostgreSQL. Восстановить свежий pg_up=1 и exporter UP |
+| `OutboxBacklogGrowing` | Приостановка публикации, `Pending → Firing`, уведомление и восстановление; SQL-эффект сохранён, очередь опустела | [Отказ publisher и очередь outbox](../verification/alerting.md) |
+| `KafkaConsumerLagHigh` | Появление подтверждённого lag, срабатывание и восстановление после обработки записей | [Kafka lag и worker](../verification/worker-lag-alerts.md) |
+| `WorkerProcessingStalled` | Отсутствие продвижения при положительном lag и последующее восстановление | [Kafka lag и worker](../verification/worker-lag-alerts.md) |
+| `DLQMessagesDetected` | Три управляемые ошибки, переход в DLQ, SQL-квитанция и полный цикл уведомления | [Обнаружение DLQ](../verification/dlq-alert.md) |
+| `APIUnavailable` | Временная остановка API, подтверждение отсутствия доступных реплик и восстановление HTTP | [Недоступность API](../verification/api-unavailable-alert.md) |
+| `PostgreSQLUnavailable` | Остановка экземпляра PostgreSQL, отсутствие готовности API и восстановление контрольной записи/PVC | [Недоступность PostgreSQL](../verification/postgres-unavailable-alert.md) |
 
-Outbox учитывается только при stats_up=1, возрасте последнего удачного SQL-снимка <30s и publisher target UP. При stale/missing снимке правило backlog не утверждает пустую очередь и не доказывает её восстановление; оператор отдельно смотрит sample health. Несколько publisher измеряют одну очередь, поэтому применяется max, не сумма.
+Отчёты фиксируют отдельные прогоны. Исторические SHA, значения метрик и сбои первоначальных наблюдателей остаются в соответствующих отчётах.
 
-Kafka lag фиксирован на `lab-workers`, `lab.jobs.v1`, три partition. Правило не переносится автоматически на другую топологию. Stalled не обнаруживает каждый тип зависания; пропавшая telemetry требует отдельной диагностики. Process counters могут потерять increment между действием и scrape или при рестарте; DLQ правило не заменяет SQL-квитанцию. Прежнее LabAPIMetricsUnavailable остаётся отдельным сигналом scrape и не переименовывается в доказательство недоступности HTTP.
+## Условия срабатывания
 
-## Маршрутизация и receiver
+Все шесть правил используют `severity=warning`. Пороговые значения выбраны для небольшого набора управляемых заданий в одноузловом `kind`. Смысл `for`, а также состояний `Pending` и `Firing` соответствует [механизму правил Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
 
-В `cluster/observability/monitoring-values.yaml` только alerts с `lab_alerting="true"` идут в `lab-webhook`; остальные остаются на прежнем local-null. Receiver — внутренний HTTP Service `lab-alert-receiver:8085/alerts`, без внешних адресов. `send_resolved=true`, max_alerts=20; действующие group_wait=10s/group_interval=30s/repeat_interval=1h сохраняются. Это конфигурация [webhook Alertmanager](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config), фактическую загрузку подтверждает опыт.
+| Правило | Условие | `for` | Что проверить при срабатывании |
+|---|---|---|---|
+| `APIUnavailable` | Нет доступных реплик `lab-api` либо отсутствует ряд наблюдения | `1m` | Свежесть kube-state-metrics, состояние `Deployment`, готовность Pod и фактический HTTP через Service |
+| `OutboxBacklogGrowing` | Свежий снимок: `pending > 10` либо `pending > 0` при возрасте старейшего события `> 60s` | `1m` | Доступность SQL-снимка, publisher, Kafka/TLS, число ожидающих записей и исход соответствующей заявки |
+| `KafkaConsumerLagHigh` | Суммарный `lag > 0` при известных неотрицательных значениях всех трёх partition и доступном exporter | `1m` | Состояние группы `lab-workers`, committed/end offsets, наличие работающего consumer |
+| `WorkerProcessingStalled` | Известный положительный lag и отсутствие доступного worker **или** отсутствие продвижения счётчика обработки за `2m` при доступном target worker | `2m` | Состояние worker, SQL, retries/DLQ, последний успешный offset commit |
+| `DLQMessagesDetected` | Положительный прирост счётчика сохранённых DLQ-квитанций за окно `5m` | `30s` | SQL-квитанция, причина ошибки и ограниченное чтение записи из DLQ |
+| `PostgreSQLUnavailable` | `pg_up < 1` или отсутствует ряд; аналогично для доступности exporter | `1m` | Состояние PostgreSQL, экспортера, учётных данных, подключения приложения и сохранность PVC |
 
-`cmd/alert-receiver` использует только стандартную библиотеку Go. Принимает version=4, receiver=lab-webhook, известные alertname, namespace приложения и допустимые статусы. Body ограничен 64KiB, 20 alerts; HTTP deadlines заданы. Аннотации, URLs, исходное тело и произвольные labels не сохраняются. В памяти остаются максимум 128 записей с received_at/status/fingerprint/starts_at/ends_at и четырьмя ограниченными labels. GET /notifications возвращает снимок, время старта и evicted. В stdout пишутся только диагностические поля. Неверный batch отвергается целиком; HTTP 202 означает приём в память, а не durable запись.
+Название `OutboxBacklogGrowing` обозначает превышение заданного порога; правило не вычисляет математический тренд роста очереди. Если снимок SQL неудачен или устарел, отсутствие значения **не означает**, что очередь пуста. Для оценки outbox необходимы `stats_up=1`, возраст последнего успешного снимка менее `30s` и доступный target publisher. Несколько экземпляров publisher наблюдают одну очередь: используется максимум, а не сумма.
 
-Receiver — одна реплика Recreate, CPU 10m/100m, память 16Mi/64Mi, non-root 65532, read-only root, без томов/токена/RBAC. Сборка scratch из прежней закреплённой Go base, image записывается по content identity и загружается в kind; новый registry/service приложения не вводится. NetworkPolicy разрешает вход от Alertmanager и запрещает исходящий трафик. В основном kind enforcement не доказан: receiver не имеет аутентификации и допустим только как локальный диагностический sink, не публичный endpoint. Приложение от receiver не зависит.
+Lag определяется для фиксированной группы `lab-workers`, topic `lab.jobs.v1` и трёх partition. Неизвестное, отрицательное или неполное значение lag не является нулём. При изменении количества partition или топологии группы условия нужно пересмотреть.
 
-При замене receiver память теряется, при переполнении старые записи вытесняются. Дубликаты webhook допустимы. Счётчик evicted/время старта нужны для определения границы доказательства; exactly-once уведомления, HA и долговечная доставка не заявляются.
+Счётчик успешных операций worker не является доказательством уникального SQL-эффекта: ошибки подтверждения offset и повторные доставки учитываются отдельно. Для `WorkerProcessingStalled` пропавшая телеметрия не подменяется утверждением об остановке обработки. Счётчики процесса сбрасываются при перезапуске.
 
-## Проверка и сохранение доказательств
+`DLQMessagesDetected` показывает событие записи в DLQ. Его переход в `Resolved` означает, что прирост счётчика вышел из пятиминутного окна. Автоматическое повторное воспроизведение сообщений здесь не предусмотрено.
 
-`alerting-rules-test` проверяет канонические JSON rules через promtool: fresh backlog/for, stale sample, пустая очередь, известный lag, отрицательный lag и отсутствующая partition. Если promtool отсутствует в PATH, применяется Docker fallback версии 3.15.0, совпадающей с записанной версией развёрнутого Prometheus: только каталог chart read-only, без сети и credentials, ограниченные CPU/память. Эти тесты не заменяют runtime.
+Ранее реализованное правило `LabAPIMetricsUnavailable` сохраняется отдельно. Оно только наблюдает **сбор метрик API**. Его нельзя использовать вместо `APIUnavailable`.
 
-`alerting-render/install` проверяют записанный image ID; install сохраняет YAML, выполняет capacity/ownership/server dry-run, загружает image и устанавливает только lab-alerting. Маршрутизация применяется отдельным `observability-install` существующего release. Failed ресурсы не удаляются автоматически. `alerting-status` сохраняет реальные правила Prometheus, активные alerts Alertmanager и receiver receipts; проверяет свежую успешную оценку выбранного правила. Параметр `KEY` допускает все шесть названий из таблицы; по умолчанию OutboxBacklogGrowing. Сигналы восстановления ограничены описанными сценариями, а не всеми возможными причинами срабатывания.
+## Маршрутизация через Alertmanager
 
-`alerting-watch` сначала требует inactive, известный нулевой сигнал восстановления и отсутствие активного выбранного alert, затем до 8 минут (DLQ — до 12 минут) опрашивает три API через Kubernetes proxy. Для outbox сигнал — свежий SQL-снимок pending; для двух worker alerts — сумма lag при трёх неотрицательных partition и Kafka exporter UP. Вывод содержит alertname, recovery_signal и recovery_value; null означает неизвестное значение. Нужны наблюдаемые Pending → Firing, активный fingerprint Alertmanager, новый firing receipt и более поздний resolved receipt с тем же fingerprint/startsAt, затем Prometheus inactive и известный нулевой сигнал восстановления. Уведомление другого правила не закрывает выбранный цикл. Исчезнувшие/stale метрики не принимаются за восстановление. Старые receipts не принимаются за новый опыт. Замена receiver или изменение evicted прерывает доказательство. Каждый poll сохранён; пропущенный Pending не дорисовывается. Фактическое завершение job/SQL и offsets проверяются независимо. При timeout владелец явно восстанавливает затронутый workload; автоматическая очистка не скрывает отказ.
+В `cluster/observability/monitoring-values.yaml` оповещения с `lab_alerting="true"` направляются в маршрут `lab-webhook`. Прочие правила сохраняют прежнюю маршрутизацию к `local-null`. Для webhook настроены `send_resolved: true`, `max_alerts: 20`, `group_wait: 10s`, `group_interval: 30s`, `repeat_interval: 1h`. Факт загрузки конфигурации проверяется отдельно после изменения релиза.
 
-Для восстановления publisher добавлен `tracing-publisher-restore`: штатное согласование bootstrap перед Helm сохраняется, но возвращается диагностический tracing profile. Прежняя команда восстановления сохраняет прежнюю семантику. Это позволяет исследовать ошибку одновременно в метриках, Loki и Tempo.
+Приёмник доступен только по внутреннему HTTP Service `lab-alert-receiver:8085/alerts`. Публичного адреса и внешней интеграции отправки уведомлений нет. Приложение, publisher и worker не зависят от доступности приёмника.
 
-Для DLQ сигнал восстановления — наблюдаемый increase process counter за 5m, с UP worker и без reset внутри окна. Нужен один известный instance; его замена или пропадание сигнала прерывает доказательство. Наблюдатель фиксирует signal_identity. Resolved подтверждает выход increment из окна, а не удаление DLQ или исправление failed job. [Опыт](../verification/dlq-alert.md) имеет Passed для счётчиков/SQL/Kafka и доставки уведомления; полная новая трассировка и завершающие DLQ-события Loki остаются вне этого доказательства.
+## Внутренний приёмник уведомлений
 
-Для APIUnavailable наблюдатель использует известный дефицит available replicas до одной: свежий ряд Deployment и kube-state-metrics UP обязательны. Missing telemetry даёт unknown. api-alert-stop/start временно меняют только scale существующего Helm-owned API 1→0→1; HPA/KEDA для lab-api запрещают изменение. api-alert-check независимо сохраняет /version через Service proxy и проверяет ожидаемый no-endpoints отказ либо успешную revision. Он различает отказ backend и потерю control plane. [Сценарий](../verification/api-unavailable-alert.md) имеет Passed в границах отчёта: история тайм-аута сохранена, Resolved подтверждён отдельным status.
+`cmd/alert-receiver` реализован на стандартной библиотеке Go. Он принимает webhook-объект версии `4` с ожидаемым `receiver`, разрешёнными именами правил, пространством имён приложения и допустимыми статусами.
 
-Для контролируемой остановки PostgreSQL добавлен gate: положительный дефицит при свежем StatefulSet ready=0 и kube-state-metrics UP. Нулевой дефицит принимается только при готовой реплике, свежем pg_up=1 и exporter UP. Он не выдаёт пропажу pg_up за восстановление и не предназначен для автоматического доказательства произвольного сетевого/credential отказа. Используются существующие db-failure-start/restore с сохранением PVC; отдельного lifecycle БД не добавлено. [Опыт](../verification/postgres-unavailable-alert.md) имеет Passed для остановки одной реплики и восстановления, без заявления о всех причинах PostgreSQL/exporter отказа.
+- Тело HTTP-запроса ограничено `64KiB`, один пакет — максимум `20` оповещений. Неверный пакет отвергается целиком.
+- В памяти хранятся не более `128` записей: время получения, статус, `fingerprint`, `starts_at`, `ends_at` и четыре ограниченные метки.
+- `GET /notifications` возвращает текущий снимок, время запуска приёмника и число вытесненных записей (`evicted`). Аннотации, произвольные ссылки, исходное тело webhook и секреты не сохраняются.
+- Ответ `202` означает, что уведомление принято **в оперативную память**, а не надёжно записано на диск.
+
+Приёмник работает в одной реплике со стратегией `Recreate`. Настройки ресурсов: CPU `10m/100m`, память `16Mi/64Mi`; непривилегированный UID `65532`, корневая файловая система только для чтения, без постоянного тома и токена Kubernetes API. Контейнер собирается в минимальный образ, ссылка записывается по идентичности содержимого и загружается в локальный `kind`.
+
+Сетевое правило разрешает обращения Alertmanager и запрещает исходящий трафик. Приёмник не реализует независимую аутентификацию и допустим только как внутренний диагностический компонент.
+
+При замене Pod накопленные уведомления теряются. При переполнении памяти старые записи вытесняются, а повторная доставка одного webhook возможна. Для оценки результата необходимо учитывать `started_at` и `evicted`: отсутствие записи после перезапуска нельзя трактовать как отсутствие отправки.
+
+## Проверка правил и приёмника
+
+Статическая проверка выполняется через `task alerting-rules-test` и `promtool`: сценарии проверяют свежесть SQL-снимков, `for`, пустую очередь, известный и отрицательный lag, а также отсутствие partition. При отсутствии установленного `promtool` предусмотрен ограниченный запуск закреплённого Prometheus `3.15.0` в Docker с каталогом правил в режиме только чтения, без учётных данных.
+
+Последовательность проверки:
+
+1. Проверить Kubernetes context, состояние приложения и зависимостей, чистоту исходной ревизии, ресурсы хоста, версии и наличие нужных CRD.
+2. Выполнить `alerting-render` и проверить YAML до установки. Установить только `lab-alerting`, затем отдельно обновить маршрутизацию существующего стека через `observability-install`.
+3. Выполнить `alerting-status`: сохранить текущие правила Prometheus, активные оповещения Alertmanager, содержимое диагностического приёмника и время последней успешной оценки правила.
+4. Для выбранного правила запустить `alerting-watch` из исходного состояния `inactive` и известного сигнала восстановления. Только после этого создать управляемый отказ или нагрузку.
+5. Подтвердить фактически наблюдавшиеся `Pending → Firing`, активный `fingerprint` в Alertmanager и новый `firing`-receipt.
+6. Восстановить изменённый компонент. Получить более поздний `resolved`-receipt с теми же `fingerprint` и `startsAt`, вернуть правило в `inactive`, затем независимо проверить состояние SQL/Kafka и готовность приложения.
+
+`alerting-watch` опрашивает три API до `8` минут (для DLQ — до `12`). Смена Pod приёмника, увеличение `evicted` или потеря идентичности наблюдаемого счётчика прерывает доказательство полного цикла. После тайм-аута необходимо отдельно восстановить затронутый компонент и зафиксировать фактическое состояние; автоматическая очистка не должна скрывать отказ.
+
+### Особенности отдельных проверок
+
+**Outbox.** При отказе publisher важно различать принятые SQL-заявки и доставленные события. Для восстановления нужны свежий снимок `pending=0`, успешная обработка заявки с одним эффектом и согласованные Kafka offsets. Проверенный опыт включает `Pending/Firing`, одинаковую идентичность уведомлений, журналирование и трассировки; см. [отчёт](../verification/alerting.md).
+
+**Kafka lag и остановка worker.** Восстановление подтверждается тремя известными неотрицательными значениями lag, исправным exporter, состоянием группы и фактическими offsets. См. [два отдельных цикла](../verification/worker-lag-alerts.md).
+
+**DLQ.** Для сигнала нужен прирост счётчика на известном экземпляре worker без перезапуска или потери данных внутри окна. Для самого результата отдельно проверяются SQL-квитанция и запись DLQ. Исходный [опыт](../verification/dlq-alert.md) подтвердил счётчики, SQL/Kafka и полный цикл оповещения; новая полная трассировка и терминальные строки Loki не входят в его доказанный объём.
+
+**API.** Управляемая проверка масштабирует только существующий API `1 → 0 → 1`, не подменяя отказ потерей метрик. Свежие данные kube-state-metrics обязательны; дополнительно проверяется HTTP через Service. При включённом HPA/KEDA для этого API сценарий не должен менять число реплик. Исторический исходный наблюдатель завершился по тайм-ауту, а закрытие цикла подтвердил отдельный последующий статус; см. [отчёт](../verification/api-unavailable-alert.md).
+
+**PostgreSQL.** Для отказа используется имеющийся сценарий остановки и восстановления одной реплики с сохранением PVC. Нулевая величина дефицита принимается только при готовой реплике, свежем `pg_up=1` и доступном exporter. См. [отчёт](../verification/postgres-unavailable-alert.md).
