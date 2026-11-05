@@ -1,0 +1,131 @@
+- name: Deploy and verify the existing Helm application
+  hosts: control_plane
+  become: true
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+  vars:
+    lab_repository: "{{ playbook_dir }}/../../.."
+    evidence_directory: "{{ playbook_dir }}/../../../.cache/hyperv/evidence"
+  pre_tasks:
+    - name: Require the immutable application identity and expected cluster
+      ansible.builtin.assert:
+        that:
+          - api_digest is defined
+          - api_digest is match('^sha256:[a-f0-9]{64}$')
+          - api_revision is defined
+          - api_revision is match('^[a-f0-9]{40}$')
+          - groups['all'] | length == 3
+          - inventory_hostname is match('^kal10b-[a-z0-9]{4,16}-cp$')
+    - name: Read cluster nodes
+      ansible.builtin.command: kubectl get nodes -o json
+      register: cluster_nodes
+      changed_when: false
+    - name: Verify expected node names
+      ansible.builtin.assert:
+        that:
+          - (cluster_nodes.stdout | from_json).items | map(attribute='metadata.name') | sort == groups['all'] | sort
+  tasks:
+    - name: Download Helm
+      ansible.builtin.get_url:
+        url: "https://get.helm.sh/helm-{{ helm_version }}-linux-amd64.tar.gz"
+        checksum: "sha256:https://get.helm.sh/helm-{{ helm_version }}-linux-amd64.tar.gz.sha256sum"
+        dest: /root/kal10b-helm.tar.gz
+        mode: '0600'
+    - name: Unpack Helm
+      ansible.builtin.unarchive:
+        src: /root/kal10b-helm.tar.gz
+        dest: /root
+        remote_src: true
+    - name: Install Helm binary
+      ansible.builtin.copy:
+        src: /root/linux-amd64/helm
+        remote_src: true
+        dest: /usr/local/bin/helm
+        mode: '0755'
+    - name: Copy the repository Helm chart
+      ansible.builtin.copy:
+        src: "{{ lab_repository }}/helm/lab-api"
+        dest: /root/kal10b/
+        mode: preserve
+    - name: Copy the two replica profile
+      ansible.builtin.copy:
+        src: "{{ lab_repository }}/cluster/multi-node/values-api.yaml"
+        dest: /root/kal10b/values-api.yaml
+        mode: '0600'
+    - name: Install the immutable API
+      ansible.builtin.command:
+        argv:
+          - helm
+          - upgrade
+          - --install
+          - multinode-api
+          - /root/kal10b/lab-api
+          - -f
+          - /root/kal10b/values-api.yaml
+          - --namespace=kal10b
+          - --create-namespace
+          - --set-string=image.repository=ghcr.io/spudifull/kubernetes-application-lab-api
+          - "--set-string=image.digest={{ api_digest }}"
+          - --wait
+          - --timeout=180s
+      register: helm_deploy
+      changed_when: true
+    - name: Create a bounded HTTP probe
+      ansible.builtin.command:
+        argv: [kubectl, -n, kal10b, run, kal10b-smoke, --image=curlimages/curl:8.16.0, --restart=Never, --command, --, sleep, '300']
+      register: probe_create
+      changed_when: probe_create.rc == 0
+    - name: Observe workload and HTTP then clean the probe
+      block:
+        - name: Wait for probe
+          ansible.builtin.command: kubectl -n kal10b wait --for=condition=Ready pod/kal10b-smoke --timeout=120s
+          changed_when: false
+        - name: Request version through Kubernetes Service DNS
+          ansible.builtin.command: kubectl -n kal10b exec kal10b-smoke -- curl -fsS --max-time 5 http://multinode-api.kal10b.svc/version
+          register: http_version
+          changed_when: false
+        - name: Verify API revision
+          ansible.builtin.assert:
+            that: (http_version.stdout | from_json).revision == api_revision
+        - name: Read actual workload identity
+          ansible.builtin.command: kubectl -n kal10b get pods -l app.kubernetes.io/instance=multinode-api -o json
+          register: workload
+          changed_when: false
+        - name: Verify both replicas and actual image IDs
+          ansible.builtin.assert:
+            that:
+              - (workload.stdout | from_json).items | length == 2
+              - item.status.containerStatuses[0].ready
+              - api_digest in item.status.containerStatuses[0].imageID
+              - api_digest in item.spec.containers[0].image
+          loop: "{{ (workload.stdout | from_json).items }}"
+          loop_control:
+            label: "{{ item.metadata.name }}"
+        - name: Create a private local evidence directory
+          ansible.builtin.file:
+            path: "{{ evidence_directory }}"
+            state: directory
+            mode: '0700'
+          delegate_to: localhost
+          become: false
+        - name: Save selected runtime fields
+          ansible.builtin.copy:
+            dest: "{{ evidence_directory }}/{{ inventory_hostname }}.json"
+            mode: '0600'
+            content: |
+              {
+                "expected_digest": {{ api_digest | to_json }},
+                "http": {{ http_version.stdout }},
+                "pods": [
+              {% for pod in (workload.stdout | from_json).items %}
+                  {"name": {{ pod.metadata.name | to_json }}, "uid": {{ pod.metadata.uid | to_json }}, "node": {{ pod.spec.nodeName | to_json }}, "imageID": {{ pod.status.containerStatuses[0].imageID | to_json }}}{% if not loop.last %},{% endif %}
+              {% endfor %}
+                ]
+              }
+          delegate_to: localhost
+          become: false
+      always:
+        - name: Delete only the probe created by this verification
+          ansible.builtin.command: kubectl -n kal10b delete pod kal10b-smoke --ignore-not-found --wait=true --timeout=60s
+          when: probe_create.rc == 0
+          changed_when: true

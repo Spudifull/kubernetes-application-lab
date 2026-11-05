@@ -1,0 +1,9 @@
+prefix               = "kal10b-demo1"
+storage_root         = "C:/Users/Spudifull/AppData/Local/kubernetes-application-lab"
+ssh_user             = "Spudifull"
+ssh_private_key_path = "C:/Users/Spudifull/.ssh/kal10b_hyperv"
+mode                 = "probe"
+start_vms            = false
+# For cluster use a new prefix and a separate state after the probe was destroyed.
+# installer_iso = "C:/path/to/ubuntu-autoinstall.iso"
+# seed_directory = "C:/path/to/seeds"

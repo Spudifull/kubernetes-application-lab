@@ -1,57 +1,60 @@
 # Kubernetes Application Lab
 
-Milestone 9 завершён в границах stateless лабораторной цепочки: восстановлены [22 первичных архива Milestone 8](docs/verification/README.md#первичные-доказательства-milestone-8), проверены CI, Buildx/security трёх образов и kind smoke с failed rollout/recovery. Один GHCR image продвинут из development в stable без пересборки через Release PR и release gate. В отдельном GitOps kind подтверждены Argo sync, одинаковые реальные Pod imageID и `/version`, Git rollout, drift/self-heal и recovery. [Итоговая приёмка](docs/verification/milestone9-completion.md), [runtime и границы](docs/verification/gitops-development.md), [восстановление evidence](docs/verification/evidence-restoration-ci.md).
+Kubernetes Application Lab — учебный стенд для исследования работы серверного приложения на Go в Kubernetes. Он позволяет проверять не только конфигурацию компонентов, но и их поведение при обновлениях, нагрузке, сбоях и восстановлении.
 
-A reproducible Go workload lab for Kubernetes: lifecycle, resources, networking, persistent state, reliable events, and observability. Учебный одноузловой стенд; гарантии production/HA не заявляются.
-
-Последняя [security-приёмка](docs/verification/security-release.md): блокирующий JSON findings gate, OpenTelemetry 1.45.0, реальная reusable GHCR publication source `3483731` и продвижение того же immutable digest в dev/stable без пересборки. Исторический первый выпуск сохранён отдельно.
+В проекте реализованы HTTP API, хранение заданий в PostgreSQL, обработка событий через Kafka, средства наблюдаемости и лабораторная цепочка поставки образов через CI/CD и GitOps.
 
 ## Архитектура
 
 ```mermaid
 flowchart LR
-  Client --> API[Go API]
-  API --> DB[(PostgreSQL jobs + outbox)]
-  DB --> Publisher[Go publisher]
-  Publisher --> Kafka[Apache Kafka]
-  Kafka --> Worker[Go worker]
+  Client[Клиент] --> API[Go API]
+  API --> DB[(PostgreSQL)]
+  DB --> Outbox[Сервис публикации]
+  Outbox --> Kafka[(Kafka)]
+  Kafka --> Worker[Обработчик заданий]
   Worker --> DB
-  KEDA -. consumer lag .-> Worker
-  API -. metrics .-> Prometheus
-  Publisher -. metrics .-> Prometheus
-  Worker -. metrics .-> Prometheus
-  Prometheus --> Grafana
-  Prometheus --> Alertmanager
-  API -. logs .-> Alloy
-  Alloy --> Loki
-  API -. spans .-> Collector[OpenTelemetry Collector]
-  Publisher -. spans .-> Collector
-  Worker -. spans .-> Collector
-  Collector --> Tempo
-  Loki --> Grafana
-  Tempo --> Grafana
+  KEDA -. отставание потребителей .-> Worker
 ```
 
-Хранилище состояния — PostgreSQL; Kafka передаёт события. Publisher публикует transactional outbox; worker сохраняет SQL-результат до Kafka offset commit и распознаёт дубликаты. Наблюдаемость обслуживает путь обработки; её доступность не является условием readiness приложения. KEDA — opt-in профиль, заключительные опыты выполнялись с одной фиксированной репликой.
+PostgreSQL хранит задания, записи Transactional Outbox и результаты обработки. Отдельный сервис публикует события из outbox в Kafka. Обработчик сохраняет результат в PostgreSQL до подтверждения смещения Kafka и учитывает повторную доставку событий. Такая схема позволяет исследовать сбои на границе базы данных и брокера, не предполагая, что сообщение будет доставлено ровно один раз.
 
-## Реализованные сценарии
+Наблюдаемость построена на Prometheus, Grafana, Loki, Grafana Alloy, OpenTelemetry Collector, Tempo и Alertmanager. Метрики, журналы и трассировки помогают сопоставлять события между компонентами. В стенд было заложено, что недоступность системы наблюдаемости не должна останавливать основную обработку заданий. Масштабирование обработчика через KEDA включается отдельным профилем.
 
-Milestones 1–8: Go HTTP API и контейнеры; Helm rollout/rollback и graceful shutdown; CPU/OOM/HPA; Service/DNS, NetworkPolicy, Gateway/TLS, RBAC/Pod Security; PostgreSQL StatefulSet/PVC, миграции и backup/recovery; Kafka/Strimzi, outbox, consumer groups, retries/DLQ, redelivery, CronJob/KEDA; Prometheus/Grafana, Loki/Alloy, OpenTelemetry/Tempo и проверенные циклы Alertmanager.
+Подробности: [системная архитектура](docs/architecture/system-architecture.md), [обработка событий](docs/design/kafka-event-processing.md) и [архитектура наблюдаемости](docs/design/observability-architecture.md).
 
-## Требования
+## Что реализовано и проверено
 
-Go 1.26+, Git, Docker Engine/Desktop с Linux containers, Task, kind, Helm и kubectl в пределах одного minor от сервера. Образ kind закреплён на Kubernetes 1.34; подходит kubectl 1.35. На Windows используются те же task-команды. Kafka/PostgreSQL/наблюдаемость требуют дополнительных CPU, памяти и диска; перед их установкой выполнить соответствующий preflight.
+| Область | Возможности и лабораторные сценарии |
+|---|---|
+| Жизненный цикл приложения | HTTP API, проверки готовности и работоспособности, управляемое завершение, обновление и откат через Helm. |
+| Ресурсы и безопасность Kubernetes | CPU throttling, OOMKilled, HPA, Service и DNS, NetworkPolicy, Gateway/TLS, RBAC и Pod Security. |
+| Состояние и обработка событий | PostgreSQL, миграции, резервное копирование и восстановление; Kafka, transactional outbox, повторная доставка, ограниченные попытки обработки и DLQ; CronJob и KEDA. |
+| Наблюдаемость | Метрики приложения и зависимостей, панели Grafana, централизованные журналы, сквозные трассировки и шесть проверенных правил оповещения с внутренним получателем. |
+| CI/CD и GitOps | Проверки Go и Helm, сборка и анализ образов API, publisher и worker, проверка API в `kind`, публикация проверенного образа в GHCR и развёртывание одного digest в development и stable без повторной сборки. |
 
-## Quick start: только stateless API
+Результаты отдельных экспериментов, использованные версии, диагностические данные и границы выводов приведены в [каталоге проверок](docs/verification/README.md). Завершение CI/CD и проверка нового выпуска описаны в [итоговой приёмке этапа 9](docs/verification/milestone9-completion.md) и [отчёте о проверках безопасности и выпуске образа](docs/verification/security-release.md).
 
-Клонируйте репозиторий и перейдите в его каталог:
+## Быстрый запуск
+
+Этот сценарий разворачивает **только HTTP API**. PostgreSQL, Kafka и система наблюдаемости для него не требуются.
+
+### Требования
+
+- Go **1.26.10 или новее**, Git и [Task](https://taskfile.dev/) (минимальная версия указана в `go.mod`).
+- Docker Engine или Docker Desktop с поддержкой контейнеров Linux.
+- `kind`, Helm и `kubectl`. Конфигурация стенда использует Kubernetes 1.34; версия `kubectl` должна отличаться от версии сервера не более чем на один минорный выпуск.
+
+Перед запуском убедитесь, что Docker доступен и что выделенный кластер `kind-kubernetes-application-lab` не используется для других задач. Команды проекта обращаются к заранее определённым именам кластера и ресурсов.
+
+Клонируйте репозиторий:
 
 ```sh
 git clone https://github.com/Spudifull/kubernetes-application-lab.git
 cd kubernetes-application-lab
 ```
 
-Затем выполните проверки и поднимите stateless API:
+Проверьте код, соберите образ и разверните приложение:
 
 ```sh
 go test ./...
@@ -61,54 +64,68 @@ task deploy
 task smoke
 ```
 
-Команды используют локальный кластер с фиксированным именем; перед запуском убедиться, что это ваш учебный стенд. Они не должны выполняться против чужого рабочего кластера. Автоматического cluster-down нет. Происхождение снимка описано в [provenance](docs/provenance.md). Навыки агента для запуска не нужны.
+`task smoke` запускает временный клиент внутри кластера и обращается к `/version` через DNS-имя Kubernetes Service. При успешной проверке команда завершается без ошибки и выводит сведения о версии приложения; временный Pod удаляется.
 
-## Профили и эксперименты
+Для просмотра состояния используйте `task status`. После работы можно удалить только Helm release приложения:
 
-Начать с [обзора](docs/overview.md) и [карты документации](docs/README.md). [Каталог проверок](docs/verification/README.md) содержит воспроизводимые процедуры и границы результатов. PostgreSQL, Kafka и наблюдаемость включаются отдельно через Taskfile; основные инструкции находятся в docs/engineering. Helm charts — основной источник конфигурации workloads; Taskfile — исполняемый вход команд.
+```sh
+task undeploy
+```
 
-## Наблюдаемость
+Команда `task cluster-down` удаляет **весь выделенный кластер `kind`**, включая его ресурсы и локальные данные. Выполняйте её только тогда, когда сохранение данных не требуется. Кластер не удаляется автоматически.
 
-Версионированные dashboards: Application Metrics и Dependency Metrics. HTTP rates/mean/p95, SQL outbox freshness, publisher/worker counters, Kafka lag, PostgreSQL connections. По Job/Trace ID можно перейти к Loki/Tempo. Шесть правил оповещения проверены с внутренним receiver; внешняя доставка уведомлений и долговечность receiver не гарантируются. Интерфейсы доступны через loopback port-forward, Grafana использует отдельный Secret.
+Подробная инструкция: [локальная разработка](docs/engineering/local-development.md).
 
-## Selected Verification Evidence
+## Дополнительные сценарии
 
-Исторические иллюстрации исходных экспериментов; это не повторный прогон публичного снимка. Полные процедуры и ограничения — в [каталоге проверок](docs/verification/README.md). Изображения проверены индивидуально; значения, время и статусы сохранены.
+Компоненты подключаются по отдельности. Перед установкой PostgreSQL, Kafka или системы наблюдаемости необходимо проверить доступные ресурсы и условия хранения данных.
 
-![ Метрики приложения: ошибки publisher и восстановление потока (30 октября 2026).](docs/verification/images/application-metrics-publisher-recovery-2026-10-30.png)
+| Что исследовать | С чего начать |
+|---|---|
+| PostgreSQL и постоянное хранилище | [Проверка PostgreSQL](docs/engineering/database-lab.md), `task db-preflight` |
+| Kafka, outbox и обработчик заданий | [Установка и проверка Kafka](docs/engineering/kafka-lab.md), `task kafka-preflight` |
+| Метрики, журналы и трассировки | [Система наблюдаемости](docs/engineering/observability-lab.md), `task observability-preflight` |
+| CI/CD, GHCR и Argo CD | [Проверка CI/CD и GitOps](docs/engineering/ci-cd-gitops-lab.md) |
+| Многонодовый `kind` (процедуры подготовлены) | [Сценарии этапа 10A](docs/engineering/multi-node-kubernetes-lab.md) |
+| Отдельные виртуальные машины и `kubeadm` (процедура подготовлена) | [Hyper-V и kubeadm](docs/engineering/kubeadm-hyperv-lab.md) |
 
-Метрики приложения: ошибки publisher и восстановление потока (30 октября 2026).
+Все инструкции доступны в [инженерном разделе](docs/engineering/README.md). Для GitOps используется отдельный кластер `kind` с окружениями development и stable; эти эксперименты не являются частью быстрого запуска.
 
-![ Kafka: рост lag при остановке worker и последующее восстановление (31 октября 2026).](docs/verification/images/dependency-metrics-lag-recovery-2026-10-31.png)
+## Примеры результатов
 
-Kafka: рост lag при остановке worker и последующее восстановление (31 октября 2026).
+Ниже приведены изображения из исторических лабораторных проверок, иллюстрирующие некоторые этапы экспериментов из роадмапа:
 
-![ Сквозная трасса API → publisher → worker: 3 сервиса, 13 spans (1 ноября 2026).](docs/verification/images/application-tracing-success-2026-11-01.png)
+![Ошибки публикации событий и восстановление работы сервиса публикации — 30 октября 2026 года](https://raw.githubusercontent.com/Spudifull/kubernetes-application-lab/50f80f452bf168330ed7025e7d7679ec97bfb1c0/docs/verification/images/application-metrics-publisher-recovery-2026-10-30.png)
 
-Сквозная трасса API → publisher → worker: 3 сервиса, 13 spans (1 ноября 2026).
+![Отставание потребителей Kafka после остановки обработчика и восстановление — 31 октября 2026 года](https://raw.githubusercontent.com/Spudifull/kubernetes-application-lab/50f80f452bf168330ed7025e7d7679ec97bfb1c0/docs/verification/images/dependency-metrics-lag-recovery-2026-10-31.png)
 
-![ Трасса сценария DLQ с повторными попытками worker (1 ноября 2026).](docs/verification/images/final-dlq-trace-2026-11-01.png)
+![Сквозная трассировка задания через API, сервис публикации и обработчик — 1 ноября 2026 года](https://raw.githubusercontent.com/Spudifull/kubernetes-application-lab/50f80f452bf168330ed7025e7d7679ec97bfb1c0/docs/verification/images/application-tracing-success-2026-11-01.png)
 
-Трасса сценария DLQ с повторными попытками worker (1 ноября 2026).
+![Трассировка повторных попыток обработки и передачи события в DLQ — 1 ноября 2026 года](https://raw.githubusercontent.com/Spudifull/kubernetes-application-lab/50f80f452bf168330ed7025e7d7679ec97bfb1c0/docs/verification/images/final-dlq-trace-2026-11-01.png)
 
-![ Оповещение DLQMessagesDetected: Pending → Firing (1 ноября 2026).](docs/verification/images/dlq-alert-state-2026-11-01.png)
+![Переход оповещения DLQMessagesDetected из Pending в Firing — 1 ноября 2026 года](https://raw.githubusercontent.com/Spudifull/kubernetes-application-lab/50f80f452bf168330ed7025e7d7679ec97bfb1c0/docs/verification/images/dlq-alert-state-2026-11-01.png)
 
-Оповещение DLQMessagesDetected: Pending → Firing (1 ноября 2026).
+Методика, условия и ограничения каждого опыта описаны в [каталоге проверок](docs/verification/README.md). При наличии полного репозитория эти же изображения доступны в каталоге `docs/verification/images/`.
 
-## Структура
+## Ограничения и происхождение результатов
 
-- cmd, internal — Go entrypoints и общие пакеты;
-- docker — многоэтапные Dockerfiles;
-- helm, cluster, k8s, scripts/kubernetes — конфигурация стенда и диагностические клиенты;
-- docs/design, docs/architecture — контракты и границы;
-- docs/engineering, docs/verification — инструкции и исторические результаты.
+- Проверенные эксперименты с PostgreSQL, Kafka и наблюдаемостью выполнялись в одноузловом `kind` с одним брокером Kafka. Для трёхузлового `kind` подготовлены отдельные сценарии.
+- Проверки CI/CD охватывают образы API, publisher и worker; сценарий работы и восстановления в `kind` проверяет только API. GitOps-приёмка проведена для API в двух изолированных пространствах имён отдельного кластера.
+- Результаты этапов 1–8 получены в другом репозитории до публикации данного репозитория. В публичном дереве сохранены 22 файла с первичными данными (21 JSON и 1 TXT) и 26 исторических изображений. Исходные идентификаторы коммитов взяты с того репозитория и не заменены результатами новых запусков.
 
-## Происхождение и ограничения
+Подробные сведения о переносе истории и составе опубликованных материалов: [происхождение публичного снимка](docs/provenance.md).
 
-Результаты Milestones 1–8 получены в приватной истории до публичного экспорта. Исторические SHA сохранены как идентификаторы, а не ссылки на будущие публичные коммиты. В репозитории восстановлены [22 архива evidence](docs/verification/README.md#первичные-доказательства-milestone-8): 21 JSON и 1 TXT, из них 20 Original и 2 Sanitized. Также включены 26 проверенных исторических скриншотов. Полные исходные attachment dumps и приватные оригиналы очищенных файлов остаются у владельца; репозиторий не содержит весь диагностический архив. [Политика происхождения](docs/provenance.md).
+## Документация
 
-Один kind node и один Kafka broker не обеспечивают HA. local-path PVC не переживает потерю кластера. Очереди telemetry ограничены; исторические рестарты Strimzi и ограничения замеров сохранены в отчётах. Свежий public clone требует повторной проверки по нужной процедуре.
+- [Обзор проекта](docs/overview.md) — назначение стенда, состав компонентов и границы проверок.
+- [Карта документации](docs/README.md) — переход к нужному разделу.
+- [Архитектура](docs/architecture/README.md) и [проектные контракты](docs/design/README.md) — устройство системы и гарантии компонентов.
+- [Инженерные инструкции](docs/engineering/README.md) — запуск и воспроизведение сценариев.
+- [Результаты проверок](docs/verification/README.md) — фактические наблюдения и ограничения.
+- [Архитектурные решения](docs/adr/README.md) и [процесс разработки](docs/process/README.md) — принятые решения и порядок внесения изменений.
 
-## Лицензия и вклад
+## Лицензия и участие в разработке
 
-Собственный код: [MIT](LICENSE), Copyright (c) 2026 Daniil Kalitvencev. Сторонние материалы имеют собственные условия: [acknowledgements](THIRD_PARTY_SKILLS.md), [Go dependencies](THIRD_PARTY_DEPENDENCIES.md). [CONTRIBUTING](CONTRIBUTING.md), [SECURITY](SECURITY.md).
+Исходный код проекта распространяется по [лицензии MIT](LICENSE). У сторонних материалов и зависимостей могут быть собственные условия использования: [используемые инструменты](THIRD_PARTY_SKILLS.md) и [зависимости Go](THIRD_PARTY_DEPENDENCIES.md).
+
+Правила изменений приведены в [CONTRIBUTING.md](CONTRIBUTING.md), порядок сообщения об уязвимостях — в [SECURITY.md](SECURITY.md).

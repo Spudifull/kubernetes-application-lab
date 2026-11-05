@@ -2,7 +2,28 @@
 
 Статус Prepared. Apply и destroy выполняются после отдельных разрешений.
 
+После уточнения владельца основной путь 10B использует Terraform, NoCloud
+и Ansible. Конфигурации, команды и ограничения находятся в
+[cluster/hyperv](../../cluster/hyperv/README.md), подтверждённые свойства — в
+[verification 10B](../verification/kubeadm-hyperv.md). Ручная процедура ниже
+сохраняется как инженерное описание этапов.
+
 ## Preflight
+
+Воспроизводимые команды из корня репозитория:
+
+```powershell
+pwsh -NoProfile -File scripts/hyperv-preflight.ps1
+pwsh -NoProfile -File scripts/hyperv-preflight.ps1 -Action plan -Prefix kal10b-demo1
+```
+
+Обе команды читают состояние системы и выводят JSON. Код 1 означает
+блокирующее условие либо недоступную проверку. Plan показывает имена VM,
+дисков и private switch. Инвентаризация Hyper-V требует прав управления.
+Для apply дополнительно проверяются Windows Features, firmware virtualization,
+конкретный ISO с checksum и выбранная схема доступа VM к пакетам.
+Порог RAM включает 12 ГиБ для VM и выбранный запас хоста, по умолчанию 8 ГиБ.
+Порог свободного диска 120 ГиБ включает 100 ГиБ виртуальных дисков и запас.
 
 На Windows 11 Pro прочитайте состояние Hyper-V через
 `Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All`,
@@ -12,6 +33,20 @@
 Если Hyper-V отключён, завершите preflight.
 
 ## Plan
+
+### Оценка Terraform от 2026-11-04
+
+Registry возвращает taliesins/hyperv 1.2.1 от 2024-02-11. Автор указывает
+beta-статус и удалённое исполнение PowerShell через WinRM.
+[Исходники provider](https://github.com/taliesins/terraform-provider-hyperv).
+
+Актуальный форк Bafbi/hyperv 1.5.4 опубликован 2026-03-27. Документация
+предусматривает SSH, OpenSSH Server на Windows и PowerShell как DefaultShell.
+Это кандидат для отдельного пробного lifecycle VM. Проверка повторного apply,
+refresh и destroy с этим provider пока не выполнена.
+Внедрение Terraform требует проверки схемы закреплённой
+версии, установки Terraform и согласованной настройки транспорта Windows.
+[Исходники форка](https://github.com/Bafbi/terraform-provider-hyperv).
 
 Выберите уникальный префикс, например kal10b-<id>, выделенный каталог и private
 switch <prefix>-net. Зафиксируйте имена, будущие пути VHDX и действия до apply.

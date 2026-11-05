@@ -33,6 +33,13 @@ __pycache__/
 
 # Local tool caches
 .cache/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.auto.tfvars.json
+/.local-hyperv/
 .skill-sync-work/
 .local-image-ref
 .local-gateway-certs/

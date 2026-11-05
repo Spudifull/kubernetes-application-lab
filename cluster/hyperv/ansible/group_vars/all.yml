@@ -1,0 +1,8 @@
+# Set exact APT versions from apt-cache policy in a local vars file before apply.
+# kubernetes_package_version and containerd_package_version are mandatory.
+kubernetes_minor: v1.34
+kubernetes_version: v1.34.0
+helm_version: v3.17.3
+pod_cidr: 192.168.0.0/16
+service_cidr: 10.96.0.0/12
+control_plane_ip: 10.77.10.11
