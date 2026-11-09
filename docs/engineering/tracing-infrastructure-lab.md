@@ -1,27 +1,89 @@
-# Проверка Collector и Tempo
+# Проверка передачи трассировок через Collector и Tempo
 
-Состояние [Passed в ограниченном объёме](../verification/tracing-infrastructure.md). Это первая итерация [контракта](../design/tracing-infrastructure.md): один диагностический span проверяет транспорт; реальные job traces [подготовлены отдельно](application-tracing-lab.md) и ещё не проверены. Все команды выполняет владелец. Новые прикладные образы и миграции не требуются.
+**Состояние:** `Passed` для инфраструктурного сценария с одним диагностическим span и ограниченным наблюдением ресурсов. Основание — [отчёт](../verification/tracing-infrastructure.md). Сквозная трассировка настоящих заданий **проверена отдельно**: [инструкция](application-tracing-lab.md), [результаты](../verification/application-tracing.md). Исторический инфраструктурный опыт не считается новым прогоном текущей версии приложения.
 
-## Подготовка
+## Цель и проверяемая граница
 
-В каждом PowerShell-окне выбрать `.cache/kubectl/v1.35.9` через PATH. Guard server/client skew не отключать. Сохранить HEAD/status, observability-preflight, worker-group-status, outbox-status, dependency-metrics-verify и smoke. Worker fixed=1, Cron suspended, прежние зависимости готовы, нет активного отказа.
+Проверить цепочку `OTLP/HTTP → OpenTelemetry Collector → Tempo → Grafana`, чтение **того же** span по trace ID, готовность компонентов и состояние ресурсов. Один диагностический span подтверждает работу транспорта, но не доказывает передачу контекста через PostgreSQL и Kafka, сохранение всех spans при отказе или высокую доступность.
 
-Выполнить `go test -count=1 -race ./cmd/labctl`, `go vet ./cmd/labctl`, `git diff --check`, `task tracing-render`. Просмотреть три YAML в evidence: namespace наблюдаемости, pinned images, ресурсы, selectors, отсутствие hostPort/NodePort/hostPath/privileges/token, PVC standard 1Gi, отсутствие новых CRD/кластерных RBAC. Render не проверяет конфигурацию процесса. Проверить Collector config выбранным образом с validate или фактическим стартом; Tempo — стартом с выбранным config. После исправлений повторить проверки и создать commit.
+В сценарии **не требуется** пересобирать API, publisher и worker, применять новые миграции, пересоздавать PostgreSQL/Kafka или удалять их данные. Канонический контракт — [приём и хранение трассировок](../design/tracing-infrastructure.md).
 
-## Установка
+## Предварительные условия
 
-Из чистого дерева сохранить SHA/status, повторить tracing-render и observability-preflight. `task tracing-install` проверяет namespace, ёмкость, StorageClass, CRD, ownership и server dry-run; устанавливает policies, Tempo, Collector. Ошибка сохраняет ресурсы, автоматической очистки нет. Pending PVC до назначения Pod ожидаем при WaitForFirstConsumer. Затем `task tracing-status`: проверить Ready Pod, Bound PVC, реальные resources и imageIDs, events и metrics. Helm deployed не доказывает OTLP.
+Работайте только с основным кластером `kind`, Kubernetes 1.34. В каждом PowerShell-окне проверьте доступность согласованного `kubectl` 1.35.9 из `.cache/kubectl/v1.35.9` через `PATH`; защиту от несовместимых версий клиента и сервера не отключайте.
 
-После готовности выполнить observability-render и observability-install для datasource Tempo; это может пересоздать Grafana, но не переустанавливает Collector/Tempo и приложение. Перезапустить grafana-forward, проверить сохранение Prometheus/Alertmanager datasources. Повторить grafana-status, prometheus-targets, application-metrics-verify, dependency-metrics-verify и smoke. Новые targets Collector/Tempo должны быть UP отдельно от прежних.
+До изменений зафиксируйте Git HEAD и состояние рабочего дерева. Проверьте готовность платформы наблюдаемости и зависимостей. Исходные условия: одна фиксированная реплика worker, CronJob приостановлен, нет активного управляемого отказа, очередь outbox и Kafka в ожидаемом состоянии.
 
-## Диагностический span
+Из корня репозитория выполните:
 
-В двух окнах запустить `task collector-forward` и `task tempo-forward`, держать открытыми. Максимум каждого — 12 минут. В основном окне выполнить `task tracing-probe`: один OTLP/HTTP span, запрет partial success, чтение из Tempo в пределах 40 секунд с HTTP timeout 5 секунд. Redirects/proxy отключены. У возвращённого span проверяются trace ID, span ID и имя. Locator/ответ Tempo сохраняются в `.local-observability/<UTC>-tracing-probe`.
+```sh
+git status --short
+git rev-parse HEAD
+go test -count=1 -race ./cmd/labctl
+go vet ./cmd/labctl
+git diff --check
+task observability-preflight
+task worker-group-status
+task outbox-status
+task dependency-metrics-verify
+task smoke
+task tracing-render
+```
 
-В Grafana Explore выбрать Tempo, найти trace ID из locator; проверить service.name=labctl-trace-probe и имя collector-tempo-transport-probe. Сохранить скриншот с фактическим span и datasource health, если доступен. Наличие datasource или ID в терминале не доказывает запрос через Grafana. Повторить targets/smoke, снять 15 минут CPU/memory/RESTARTS Collector/Tempo/Grafana, состояние PVC и свободное место. Максимум выборки не равен абсолютному пику.
+`tracing-render` только формирует манифесты: успех команды **не доказывает** пригодность конфигурации процессов. Проверьте сохранённые YAML для namespace наблюдаемости, закреплённых образов, ресурсов, selectors, ограничений безопасности, `PVC` `standard` 1 ГиБ и отсутствия ненужных CRD и кластерных полномочий. Конфигурацию Collector проверяйте выбранным образом (validate либо фактический запуск), конфигурацию Tempo — фактическим запуском. После исправлений повторите проверки и зафиксируйте исходники.
 
-## При ошибке и очистка
+## Установка инфраструктуры
 
-Tracing-status собирает ответы всех трёх releases и инвентарь даже при отсутствии одного release. Просмотреть events, describe/logs конкретных Pod, config и очередь; не удалять PVC при timeout/config failure. Ready/UP не заменяют найденный span. Не расширять права и не ослаблять securityContext ради запуска. Прямой port-forward не проверяет сетевой путь от приложения.
+Из зафиксированной ревизии повторите `tracing-render` и `observability-preflight`, затем выполните:
 
-После записи результатов закрыть collector-forward/tempo-forward через Ctrl+C. Не удалять stack/PVC ради очистки одного span: retention асинхронно удалит старые traces. Прежние workloads сохраняются. Возврат — отдельный явный rollback соответствующего release к сохранённой revision, без удаления PVC. Продолжение: [проверка подготовленного SDK и настоящего HTTP→worker пути](application-tracing-lab.md).
+```sh
+task tracing-install
+task tracing-status
+```
+
+Установка проверяет namespace, доступные ресурсы, StorageClass, CRD, принадлежность ресурсов и серверное формирование манифестов; далее устанавливает сетевые политики, Tempo и Collector. Ошибка не вызывает автоматического удаления объектов. `Pending` у PVC перед назначением Pod может быть ожидаемым при `WaitForFirstConsumer`; это не повод удалять том.
+
+Проверьте `Ready` Pod, `Bound` PVC, фактические `imageID`, запросы и ограничения ресурсов, события и собственные метрики компонентов. Статус Helm `deployed` **не подтверждает** прохождение трассировки.
+
+После готовности Collector и Tempo обновите конфигурацию источника Tempo в Grafana:
+
+```sh
+task observability-render
+task observability-install
+```
+
+Это может пересоздать Pod Grafana; при необходимости запустите новый `port-forward`. Проверьте прежние источники Prometheus и Alertmanager и выполните `grafana-status`, `prometheus-targets`, `application-metrics-verify`, `dependency-metrics-verify` и `smoke` через соответствующие задачи Taskfile. Новые targets Collector/Tempo должны иметь фактическое `UP`.
+
+## Диагностический span и чтение из Tempo
+
+Откройте **два отдельных окна терминала** и запустите:
+
+```sh
+task collector-forward
+```
+
+```sh
+task tempo-forward
+```
+
+Каждое перенаправление ограничено 12 минутами. В основном окне выполните:
+
+```sh
+task tracing-probe
+```
+
+Проба отправляет один span через OTLP/HTTP и пытается прочитать его из Tempo в пределах 40 секунд (HTTP timeout 5 секунд). Неполный результат приёма, redirect и proxy не принимаются. Сравните trace ID, span ID и имя возвращённого span с отправленным; локатор и ответ сохраняются в `.local-observability/<UTC>-tracing-probe`.
+
+В Grafana Explore откройте Tempo, найдите тот же trace ID и проверьте `service.name=labctl-trace-probe` и span `collector-tempo-transport-probe`. Сохраните фактический ответ и при необходимости скриншот. Простое наличие настроенного источника данных или идентификатора в терминале не подтверждает чтение через Grafana.
+
+## Наблюдение ресурсов и критерии успеха
+
+После пробы повторите проверки targets и smoke, а затем снимайте CPU, память и `RESTARTS` Collector, Tempo и Grafana в течение **15 минут**. Сохраните состояние PVC и свободное место. Максимальное значение из выборки нельзя объявлять абсолютным пиком потребления.
+
+Результат инфраструктурного сценария подтверждён, если сохранены: ревизия и среда, `Ready` и `UP` нужных компонентов, реальный span из Tempo с совпадающими идентификаторами, просмотр в Grafana, данные по PVC и ресурсам и успешная регрессия прежних проверок. Это не заменяет [сквозную проверку задания](../verification/application-tracing.md).
+
+## Ошибки, восстановление и очистка
+
+При ошибке `tracing-status` используйте вместе с событиями, `describe`, журналами Pod, конфигурацией и состоянием очереди экспорта. Не удаляйте PVC и не ослабляйте `securityContext` из-за ошибки запуска. Прямой `port-forward` не проверяет сетевой путь из Pod приложения.
+
+После сохранения результата закройте `collector-forward` и `tempo-forward` через `Ctrl+C`. Не удаляйте Collector, Tempo и PVC ради очистки одного span: retention работает асинхронно. При необходимости откат выполняйте **отдельно и явно** к известной Helm revision соответствующего release, сохраняя совместимость конфигурации экспортёра и сервера приёма.

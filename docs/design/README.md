@@ -1,11 +1,31 @@
-# Проектирование
+# Проектные контракты
 
-| Документ | Ответственность |
+Этот раздел объясняет, **как работают компоненты Kubernetes Application Lab и какие свойства должна сохранять реализация**. Схема всей системы приведена в [архитектуре](../architecture/README.md). Команды для воспроизведения находятся в [инженерных инструкциях](../engineering/README.md), а результаты экспериментов — в [отчётах](../verification/README.md).
+
+## Приложение и данные
+
+| Документ | Что в нём описано |
 |---|---|
-| [`application-runtime.md`](application-runtime.md) | поведение Go-приложения во время выполнения |
-| [`observability-architecture.md`](observability-architecture.md) | отдельная платформа метрик, ресурсный бюджет, контракт прикладных сигналов и Target telemetry Milestone 8 |
-| [`deployment-model.md`](deployment-model.md) | поставка приложения через Kubernetes и Helm |
-| [`postgresql-stateful-storage.md`](postgresql-stateful-storage.md) | отдельный release PostgreSQL, PVC, необязательный профиль API и миграции |
-| [`kafka-event-processing.md`](kafka-event-processing.md) | Target Milestone 7: подготовленная инфраструктура Kafka/TLS probe, будущие outbox и worker, границы надёжной обработки |
+| [Go-приложение](application-runtime.md) | HTTP-маршруты, готовность и завершение процесса. |
+| [PostgreSQL](postgresql-stateful-storage.md) | Постоянное хранение, миграции, доступ приложения и резервное копирование. |
+| [Kafka и задания](kafka-event-processing.md) | Приём заданий, outbox, публикация, обработка, повторная доставка, DLQ и KEDA. |
 
-Новый проектный документ создаётся только при появлении самостоятельного контракта, который неуместно хранить в существующих файлах.
+## Развёртывание
+
+| Документ | Что в нём описано |
+|---|---|
+| [Kubernetes и Helm](deployment-model.md) | Состав ресурсов, обновления, масштабирование и ограничения. |
+| [CI/CD и GitOps](ci-cd-gitops.md) | Проверка, публикация и продвижение образа между окружениями. |
+| [Многонодовый `kind`](multi-node-kubernetes.md) | Подготовленные сценарии работы с узлами; статус `Prepared`. |
+
+## Наблюдаемость
+
+| Документ | Что в нём описано |
+|---|---|
+| [Архитектура наблюдаемости](observability-architecture.md) | Общий путь метрик, журналов, трассировок и оповещений. |
+| [Журналы](application-logging.md) | Alloy, Loki и поиск событий. |
+| [Инфраструктура трассировок](tracing-infrastructure.md) | Collector, Tempo и хранение спанов. |
+| [Трассировка заданий](application-tracing.md) | Контекст от API через PostgreSQL и Kafka до worker. |
+| [Оповещения](alerting.md) | Условия правил Prometheus и обработка уведомлений. |
+
+В проектных контрактах приведены правила работы и необходимые параметры. История конкретного запуска, его SHA, снимки ресурсов и подробные команды должны оставаться в `verification/` и `engineering/`, а не дублироваться здесь.
